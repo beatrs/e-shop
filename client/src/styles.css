@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.select {
+    z-index: 5;
+}
