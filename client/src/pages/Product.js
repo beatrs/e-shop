@@ -2,10 +2,14 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 import Newsletter from "../components/Newsletter/Newsletter"
+import { addProduct } from "../redux/cartRedux"
+import { useDispatch } from "react-redux"
 
 const Container = styled.div`
 `
@@ -72,17 +76,33 @@ const CartWrapper = styled.div`
     margin-bottom: 20px;
     display: flex;
 `
+
+const CartQty = styled.div`
+    flex: 3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10px;
+`
+
 const CartCount = styled.input`
-    flex: 2;
     width: 20px;
     font-size: 18px;
     text-align: center;
     border: none;
     background-color: transparent;
     color: white;
+
+    /* remove arrow */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+
+    &:focus {
+        outline: none;
+    }
 `
 const CartButton = styled.button`
-    flex: 8;
+    flex: 7;
     border: none;
     background-color: transparent;
     color: white;
@@ -114,6 +134,36 @@ const Product = () => {
         var parts = (+price).toFixed(2).split(".")
         return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (+parts[1] ? "." + parts[1] : "")
     }
+
+    const [quantity, setQuantity] = useState(1)
+
+    const handleQty = (val) => {
+        setQuantity(prevQty => {
+            const newVal = prevQty + val
+            if (newVal >= 0 && newVal <= 10) {
+                return newVal
+            } 
+            return prevQty
+        })
+    }
+
+    const [itemVersion, setItemVersion] = useState()
+    useEffect( ()=> {
+        if (item && !itemVersion) {
+            setItemVersion(item.versions[0])
+        }
+    }, [item])
+
+    const dispatch = useDispatch()
+    const updateCart = () => {
+        console.log(itemVersion)
+        dispatch(
+            addProduct({
+                ...item, quantity, itemVersion
+            }) 
+        )
+    }
+
     return (
         <Container>
             <StickyHeader navFirst={true} />
@@ -127,16 +177,20 @@ const Product = () => {
                     <Price>₱{ formatPrice(item.price) }</Price>
                     <Filter>
                         <FilterText>Version</FilterText>
-                        <Select>
+                        <Select onChange={(e)=>setItemVersion(e.target.value)} >
                             {item.versions.map(version => (
-                                <Option>{version}</Option>
+                                <Option key={version} value={version}>{version}</Option>
                             ))}
                         </Select>
                     </Filter>
                     <Status>In stock</Status>
                     <CartWrapper>
-                        <CartCount type="number" placeholder="1" min={1} />
-                        <CartButton>Add To Cart</CartButton>
+                        <CartQty>
+                            <FontAwesomeIcon icon={faMinus} className="icon" onClick={()=>handleQty(-1)} />
+                            <CartCount type="number" placeholder="1" min={0} value={quantity} readOnly />
+                            <FontAwesomeIcon icon={faPlus} className="icon" onClick={()=>handleQty(1)} />
+                        </CartQty>
+                        <CartButton onClick={updateCart}>Add To Cart</CartButton>
                     </CartWrapper>
                     <Description>
                         {item.desc}

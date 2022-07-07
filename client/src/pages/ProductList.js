@@ -62,15 +62,12 @@ const ProductList = () => {
             [attr]: value,
         })
         if (value === '') {
+            // * reset one type of filter / 'ALL'
             setFilters(prevFilters => {
                 const filters = {...prevFilters}
                 delete filters[attr]
                 return filters
             })
-            // const { attr, ...others} = attr
-            console.log('attr:',attr)
-            console.log('filters',filters)
-            // setFilters(others)
         }
     }
 
@@ -82,12 +79,12 @@ const ProductList = () => {
     console.log(sort)
 
     const artistOptions = [
-        {value: '', label: 'Artist'},
         {value: '', label: 'ALL'},
         {value: 'kwon eun bi', label: 'Kwon Eun Bi'},
         {value: 'jo yuri', label: 'Jo Yuri'},
         {value: 'ive', label: 'IVE'},
         {value: 'kang hye won', label: 'Kang Hye Won'},
+        {value: 'yena', label: 'YENA'},
         {value: 'le sserafim', label: 'LE SSERAFIM'},
         {value: 'fromis_9', label: 'fromis_9'},
         {value: 'txt', label: 'TXT'},
@@ -104,15 +101,9 @@ const ProductList = () => {
                         <Option disabled defaultValue={true}>
                             Artist
                         </Option>
-                        <Option value="">ALL</Option>
-                        <Option value="kwon eun bi">Kwon Eun Bi</Option>
-                        <Option value="jo yuri">Jo Yuri</Option>
-                        <Option value="ive">IVE</Option>
-                        <Option value="kang hye won">Kang Hye Won</Option>
-                        <Option value="yena">YENA</Option>
-                        <Option value="le sserafim">Le Sserafim</Option>
-                        <Option value="txt">TXT</Option>
-                        <Option value="fromis_9">fromis_9</Option>
+                        {artistOptions.map((artist) => (
+                            <Option value={artist.value} key={artistOptions.indexOf(artist)}>{artist.label}</Option>
+                        ))}
                     </Select>
                     <Select name="type" onChange={handleFilters} defaultValue="Type">
                         <Option disabled defaultValue={true}>

@@ -9,6 +9,7 @@ import "./Header.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from "react-redux"
 
 const Container = styled.div`
     height: 120px;
@@ -124,6 +125,9 @@ const Header = () => {
         color: "black",
         textDecoration: "none"
     }
+
+    const cart = useSelector(state => state.cart)
+    console.log('cart items: ',cart.quantity)
     return (
         <Container>
             <Left>
@@ -144,7 +148,7 @@ const Header = () => {
                 <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem>
                 <NavItem>
                     <Link to="/cart" style={linkStyles}>
-                    <Badge badgeContent={4} color="primary">
+                    <Badge badgeContent={cart.quantity} color="primary">
                         <ShoppingCartOutlinedIcon />
                     </Badge>
                     </Link>

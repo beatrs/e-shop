@@ -27,6 +27,7 @@ const Products = ({category, filters, sort}) => {
             try {
                 const res = await axios.get(apiQuery)
                 setProducts(res.data)
+                setFilteredProducts(res.data)
             } catch (err) {
                 console.error(err)
             }
@@ -50,19 +51,38 @@ const Products = ({category, filters, sort}) => {
                 console.log(err)
             }
         } 
-        
     }, [products, filters])
     
+    useEffect(() => {
+        if (sort === 'newest') {
+            setFilteredProducts(prevProducts => 
+                [...prevProducts].sort((a,b) => a.createdAt - b.createdAt)
+            )
+        } else if (sort === 'asc') {
+            setFilteredProducts(prevProducts =>
+                [...prevProducts].sort((a,b) => a.price - b.price)
+            )
+        } else if (sort === 'desc') {
+            setFilteredProducts(prevProducts =>
+                [...prevProducts].sort((a,b) => b.price - a.price)
+            )
+        }
+    }, [sort])
+
+
     return (
         <Container>
-            {filters ? 
+            {/* {filters ? 
             filteredProducts.map(item => (
                 <Product key={item._id} item={item} />
             )) :
             products.map(item => (
                 <Product key={item._id} item={item} />
             ))
-            }
+            } */}
+            {filteredProducts.map(item => (
+                <Product key={item._id} item={item} />
+            ))}
         </Container>
     )
 }

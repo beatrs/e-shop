@@ -20,3 +20,8 @@ body {
 .select {
     z-index: 5;
 }
+
+.icon {
+    color: white;
+    cursor: pointer;
+}
