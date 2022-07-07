@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux"
 import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
+
+import FormatNumber from "../services/general"
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -135,6 +138,7 @@ const Summary = styled.div`
 `
 
 const Cart = () => {
+    const cart = useSelector(state => state.cart)
     return (
         <Container>
             <StickyHeader />
@@ -149,23 +153,25 @@ const Cart = () => {
                     <Button>Checkout now</Button>
                 </Top>
                 <CartWrapper>
-                    <Product>
-                        <ProductImage src="https://preview.redd.it/sgz9gseqi9n51.jpg?width=640&crop=smart&auto=webp&s=84dc901d9fac87a59502d83f61191912cb21f9aa" />
+                    {cart.products.map((item)=>(                    
+                    <Product key={item._id}>
+                        <ProductImage src={item.img} alt={item.imgAlt} />
                         <ProductInfo>
                             <ProductDetails>
-                                <ProductName>Vogue Korea September 2020 Issue feat. Jang Wonyoung X Kim Minju </ProductName>
-                                <ProductOptions>Version A</ProductOptions>
-                                <ProductPrice>Price ₱1,300.00</ProductPrice>
+                                <ProductName>{item.title} </ProductName>
+                                <ProductOptions>{item.itemVersion}</ProductOptions>
+                                <ProductPrice>Price ₱ {FormatNumber.formatPrice(item.price)}</ProductPrice>
                             </ProductDetails>
                             <PriceDetails>
                                 <Quantity>
                                     <QuantityLbl>Quantity</QuantityLbl>
-                                    <QuantityInput type="number" min="1" placeholder="1"/>
+                                    <QuantityInput type="number" min="1" value={item.quantity}/>
                                 </Quantity>
-                                <Subtotal>₱1,300.00</Subtotal>
+                                <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
                             </PriceDetails>
                         </ProductInfo>
                     </Product>
+                    ))}
                 </CartWrapper>
                 <Bottom>
                     <Summary>Summary</Summary>

@@ -5,6 +5,7 @@ import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import { sliderItems } from '../../data'
 
 import styled from "styled-components"
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     height: 100vh;
@@ -156,7 +157,9 @@ export default function Slider() {
                         <InfoContainer>
                             <Title>{item.title}</Title>
                             <Desc>{item.desc}</Desc>
-                            <Button>GO TO SHOP</Button>
+                            <Link to="/shop">
+                                <Button>GO TO SHOP</Button>
+                            </Link>
                         </InfoContainer>
                     </Slide>
                 ))}

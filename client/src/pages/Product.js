@@ -11,6 +11,8 @@ import Newsletter from "../components/Newsletter/Newsletter"
 import { addProduct } from "../redux/cartRedux"
 import { useDispatch } from "react-redux"
 
+import FormatNumber from "../services/general"
+
 const Container = styled.div`
 `
 
@@ -130,11 +132,6 @@ const Product = () => {
         getProduct()
     }, [itemId]) 
 
-    const formatPrice = (price) => {
-        var parts = (+price).toFixed(2).split(".")
-        return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (+parts[1] ? "." + parts[1] : "")
-    }
-
     const [quantity, setQuantity] = useState(1)
 
     const handleQty = (val) => {
@@ -174,7 +171,7 @@ const Product = () => {
                 </ImgContainer>
                 <InfoContainer>
                     <Title>{ item.title }</Title>
-                    <Price>₱{ formatPrice(item.price) }</Price>
+                    <Price>₱{ FormatNumber.formatPrice(item.price) }</Price>
                     <Filter>
                         <FilterText>Version</FilterText>
                         <Select onChange={(e)=>setItemVersion(e.target.value)} >
