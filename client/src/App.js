@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useSelector } from "react-redux"
 
 import Home from "./pages/Home"
 import Cart from './pages/Cart'
@@ -9,7 +10,7 @@ import Register from './pages/Register'
 import ScrollToTop from './components/Etc/scrollToTop'
 
 export default function App() {
-  const user = false
+  const user = useSelector((state) => state.user.currentUser)
   return (
     <BrowserRouter>
         <ScrollToTop />

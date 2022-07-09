@@ -3,9 +3,11 @@ import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
+import { Link } from "react-router-dom"
 import FormatNumber from "../services/general"
 
-const Container = styled.div``
+const Container = styled.div`
+`
 const Wrapper = styled.div`
     padding: 30px;
 `
@@ -24,8 +26,8 @@ const Links = styled.div`
     display: flex;
 `
 
-const Link = styled.span`
-cursor: pointer;
+const LinkItem = styled.span`
+    cursor: pointer;
     text-decoration: underline;
     color: #0d6a43;
     margin: 10px;
@@ -41,12 +43,19 @@ const CartWrapper = styled.div`
     padding: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
+    min-height: 200px;
+    
+`
+
+const EmptyLbl = styled.div`
+    text-align: center;
 `
 
 const Product = styled.div`
     padding: 20px;
     display: flex;
     align-items: center;
+    width: 100%;
 
     @media screen and (max-width: 768px ) {
         align-items: flex-start;
@@ -133,9 +142,32 @@ const Subtotal = styled.div``
 
 const Bottom = styled.div`
     display: flex;
+    flex-direction: column;
 `
 const Summary = styled.div`
+    display: flex;
+    justify-content: space-between;
 `
+const SummaryLbl = styled.div`
+`
+const SummaryTotal = styled.div`
+    font-size: 2em;
+    font-weight: bold;
+`
+const CheckoutBtn = styled.button`
+    cursor: pointer;
+    height: 40px;
+    padding: 10px;
+    margin-top: 10px;
+    background: coral;
+    border: none;
+    color: white;
+    font-size: 1.05em;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+`
+
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
@@ -147,14 +179,16 @@ const Cart = () => {
                 <Top>
                     <Button>Continue shopping</Button>
                     <Links>
-                        <Link>Shopping Bag(1)</Link>
-                        <Link>Wishlist(0)</Link>
+                        <LinkItem>Shopping Bag(1)</LinkItem>
+                        <LinkItem>Wishlist(0)</LinkItem>
                     </Links>
                     <Button>Checkout now</Button>
                 </Top>
                 <CartWrapper>
-                    {cart.products.map((item)=>(                    
-                    <Product key={item._id}>
+                    {
+                    cart.quantity > 0 
+                    ? cart.products.map((item)=>(                    
+                    <Product key={item._id + item.itemVersion}>
                         <ProductImage src={item.img} alt={item.imgAlt} />
                         <ProductInfo>
                             <ProductDetails>
@@ -165,16 +199,23 @@ const Cart = () => {
                             <PriceDetails>
                                 <Quantity>
                                     <QuantityLbl>Quantity</QuantityLbl>
-                                    <QuantityInput type="number" min="1" value={item.quantity}/>
+                                    <QuantityInput type="number" min="1" value={item.quantity} />
                                 </Quantity>
                                 <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
                             </PriceDetails>
                         </ProductInfo>
                     </Product>
-                    ))}
+                    ))
+                    :
+                    <EmptyLbl>Your cart is currently empty. <Link to ="/shop">Start shopping</Link></EmptyLbl>
+                    }
                 </CartWrapper>
                 <Bottom>
-                    <Summary>Summary</Summary>
+                    <Summary>
+                        <SummaryLbl>Subtotal</SummaryLbl>
+                        <SummaryTotal>₱ {FormatNumber.formatPrice(cart.total)}</SummaryTotal>
+                    </Summary>
+                    <CheckoutBtn>Checkout</CheckoutBtn>
                 </Bottom>
             </Wrapper>
             <Footer />

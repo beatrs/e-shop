@@ -3,6 +3,11 @@ import Newsletter from "../components/Newsletter/Newsletter"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
+
+import { login } from "../redux/apiCalls"
 const Container = styled.div`
 `
 const Wrapper = styled.div`
@@ -29,7 +34,6 @@ const Form = styled.form`
 
 const Input = styled.input`
     padding: 10px;
-    text-transform: capitalize;
     margin-bottom: 15px;
 `
 
@@ -40,6 +44,11 @@ const Name = styled.div`
     > Input {
         width: 49%;
     }
+`
+
+const Error = styled.span`
+    color: red;
+    text-align: center;
 `
 
 const Register = styled.span`
@@ -60,15 +69,26 @@ const Button = styled.button`
 `
 
 const Login = () => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const { isFetching, error } = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    const handleLogin = (e) => {
+        e.preventDefault()
+        login(dispatch, {username, password})
+    }
     return (
         <Container>
             <StickyHeader navFirst={true}/>
             <Wrapper>
                 <Title>Login</Title>
                 <Form>
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Button>Sign in</Button>
+                    <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}  />
+                    <Input placeholder="Password" type="password" onChange={(e)=>setPassword(e.target.value)} />
+                    <Button onClick={handleLogin}>Sign in</Button>
+                    {error &&
+                    <Error>Incorrect username/password</Error>
+                    }
                     <Register>
                         Don't have an account yet?
                         <Link> Create an account</Link>
