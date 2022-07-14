@@ -1,0 +1,35 @@
+
+
+.page {
+    display: flex;
+
+    .page--container {
+        flex: 6;
+    }
+}
+
+.item--container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+
+    .item--img {
+        margin-right: 30px;
+
+        img {
+            max-width: 360px;
+        }
+    }
+
+    .item--info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .info--artist {
+            text-transform: capitalize;
+        }
+    }
+}
+

@@ -44,10 +44,10 @@ const table = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell className="col--heading">ID</TableCell>
-                    <TableCell className="col--heading" align="right">Title</TableCell>
-                    <TableCell className="col--heading" align="right">Artist</TableCell>
-                    <TableCell className="col--heading" align="right">Description</TableCell>
+                    <TableCell className="col--heading cell">ID</TableCell>
+                    <TableCell className="col--heading cell" align="right">Title</TableCell>
+                    <TableCell className="col--heading cell" align="right">Artist</TableCell>
+                    <TableCell className="col--heading cell" align="right">Description</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -56,12 +56,12 @@ const table = () => {
                     key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                    <TableCell component="th" scope="row">
+                    <TableCell className="cell" component="th" scope="row">
                         {row.id}
                     </TableCell>
-                    <TableCell align="right">{row.title}</TableCell>
-                    <TableCell align="right">{row.artist}</TableCell>
-                    <TableCell align="right">{row.desc}</TableCell>
+                    <TableCell className="cell" align="right">{row.title}</TableCell>
+                    <TableCell className="cell" align="right">{row.artist}</TableCell>
+                    <TableCell className="cell" align="right">{row.desc}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

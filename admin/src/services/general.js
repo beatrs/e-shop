@@ -6,4 +6,17 @@ const FormatNumber = {
     }
 } 
 
-export default FormatNumber
+
+var darkMode = false
+
+const DarkMode = {
+    setDarkMode: function(val) {
+        darkMode = val
+    },
+
+    getDarkMode: function() {
+        return darkMode
+    }
+}
+
+export { FormatNumber, DarkMode }

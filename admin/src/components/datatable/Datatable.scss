@@ -1,0 +1,42 @@
+
+.datatable {
+    height: 400px;
+    width: auto;
+    margin: 30px;
+}
+
+.withImg {
+    display: flex;
+    align-items: center;
+
+    .rowImg {
+        width: 3.5em;
+        height: 100%;
+    }
+
+    .rowTxt {
+        white-space: break-spaces;
+        margin-left: 5px;
+    }
+}
+
+.rowDesc {
+    height: 100%;
+    width: 100%;
+    white-space: no-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+
+    &:hover, &:active, &:focus {
+        white-space: break-spaces;
+        overflow-y: auto;
+    }
+
+    .rowDesc--txt {
+        font-size: 0.9em;
+        padding: 2px;
+    }
+}
+

@@ -43,6 +43,10 @@
             list-style: none;
             padding: 0;
             margin: 0;
+
+            a:active {
+                text-decoration: none;
+            }
         }
 
         li {
@@ -51,15 +55,18 @@
             align-items: center;
             padding: 15px 40px 15px 22px;
             font-size: 1.25em;
+            color: white;
 
             &:hover {
                 background-color: rgba(white, 0.15);
             }
+
         }
 
         .sidebar--icon {
             margin-right: 10px;
             font-size: 0.85em;
+            
         }
     }
 
@@ -69,6 +76,8 @@
             font-size: 1.25em;
             margin: 15px 40px 15px 20px;
             cursor: pointer;
+
+            
         }
     }
 

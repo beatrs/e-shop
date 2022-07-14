@@ -1,5 +1,5 @@
 import "./Widget.scss"
-import FormatNumber from "../../services/general"
+import { FormatNumber } from "../../services/general"
 
 const Widget = ({title, icon, value, valueIcon, etcLbl, bdColor}) => {
     return (

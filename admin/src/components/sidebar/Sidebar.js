@@ -1,9 +1,32 @@
 import "./Sidebar.scss"
-import { FaHome, FaUser, FaShoppingCart, FaCog, FaLightbulb, FaRegLightbulb } from 'react-icons/fa';
-import { FiLogOut } from "react-icons/fi";
-import { useState } from "react";
+import { FaHome, FaUser, FaShoppingCart, FaCog, FaLightbulb, FaRegLightbulb } from 'react-icons/fa'
+import { FiLogOut } from "react-icons/fi"
+
+import { useContext, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { DarkModeContext } from "../../context/darkMode"
+import { useDispatch } from "react-redux"
+
+
 const Sidebar = () => {
-    const [darkMode, setDarkMode] = useState(false)
+    const { darkMode, dispatch } = useContext(DarkModeContext)
+    const [isDarkMode, setDarkMode] = useState(darkMode)
+    const forward = useDispatch()
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        setDarkMode(!isDarkMode)
+        dispatch({
+            type: "TOGGLE"
+        })
+    } 
+
+    const handleLogout = () => {
+        forward({
+            type: "RESET"
+        })
+        navigate("/login")
+    }
 
     return(
         <div className="sidebar">
@@ -14,25 +37,34 @@ const Sidebar = () => {
             <div className="center">
                 <ul>
                     <p className="title">Home</p>
-                    <li>
-                        <FaHome className="sidebar--icon" />
-                        <span>Dashboard</span>
-                    </li>
+                    <Link to="/">
+                        <li href="/">
+                            <FaHome className="sidebar--icon" />
+                            <span>Dashboard</span>
+                        </li>
+                    </Link>
+                    
                     <p className="title">Site</p>
-                    <li>
-                        <FaUser className="sidebar--icon"  />
-                        <span>Users</span>
-                    </li>
-                    <li>
-                        <FaShoppingCart className="sidebar--icon" />
-                        <span>Products</span>
-                    </li>
+                    <Link to="/users">
+                       <li>
+                            <FaUser className="sidebar--icon"  />
+                            <span>Users</span>
+                        </li> 
+                    </Link>
+                    
+                    <Link to="/products">
+                        <li>
+                            <FaShoppingCart className="sidebar--icon" />
+                            <span>Products</span>
+                        </li>
+                    </Link>
+                    
                     <p className="title">User</p>
                     <li>
                         <FaCog className="sidebar--icon" />
                         <span>Settings</span>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <FiLogOut className="sidebar--icon" />
                         <span>Logout</span>
                     </li>
@@ -41,9 +73,9 @@ const Sidebar = () => {
             <div className="bottom">
                 <div 
                     className="sidebar--icon" 
-                    onClick={() => setDarkMode(!darkMode)}
+                    onClick={handleClick}
                 >
-                    {darkMode ?
+                    {isDarkMode ?
                     <FaRegLightbulb />
                     :
                     <FaLightbulb />
