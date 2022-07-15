@@ -9,17 +9,63 @@
     form {
         display: flex;
         flex-direction: column;
-        width: 80%;
-        margin: auto;
         justify-content: center;
+        width: 85%;
+        margin: auto;
+        margin-top: 50px;
+        padding: 30px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+
+        h2 {
+            margin-bottom: 25px;
+        }
 
 
         .form--item {
             display: flex;
+            margin-bottom: 20px;
+
+            //TODO: fix width (not same with other items)
+            .item--multi {
+                flex: 2;
+                display: flex;
+                flex-direction: column;
+
+                .tags {
+                    padding: 0;
+                    margin-top: 10px !important;
+                    display: flex;
+                    list-style: none;
+
+                    li {
+                        margin-right: 10px;
+                        padding: 4px 8px;
+                        border-radius: 40px;
+                        background-color: antiquewhite;
+                        border: 1px solid rgb(188, 174, 156);
+
+                        .tag--name {
+                            margin-right: 7px;
+                        }
+
+                        .tag--close {
+                            cursor: pointer;
+                            background-color: rgb(78, 77, 77);
+                            color: rgb(255, 255, 255);
+                            border-radius: 50%;
+                            border: none;
+                        }
+                    }
+                }
+            }
 
             label {
                 flex: 1;
                 font-weight: bold;
+            }
+            input, textarea {
+                flex: 2;
             }
         }
         

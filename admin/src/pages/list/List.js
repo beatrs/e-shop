@@ -6,6 +6,7 @@ import Datatable from "../../components/datatable/Datatable"
 import { useState, useEffect } from "react"
 
 import { userRequest } from "../../reqMethods"
+import { Link } from "react-router-dom"
 
 const List = ({type}) => {
     const [users, setUsers] = useState([])
@@ -53,6 +54,9 @@ const List = ({type}) => {
             <Sidebar />
             <div className="list--container">
                 <Navbar />
+                <Link to={`/products/new/`} className="add-btn">
+                    <button >Add New</button>
+                </Link>
                 { type === 'products' ?
                 <Datatable rows={products} type="prod" />
                 :
