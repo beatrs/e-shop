@@ -7,11 +7,11 @@ const ProductSchema = new mongoose.Schema(
         artist: { type: String, required: false},
         cover: { type: String, required: true },
         coverAlt: { type: String, required: false },
-        img: { type: String, required: true },
+        img: { type: String, required: false },
         imgAlt: { type: String, required: false },
         categories: { type: Array },
         versions: { type: Array },
-        price: { type: Number, required: true },
+        price: { type: Number, required: false },
         bg: { type: String, required: false },
     },
     { timestamps: true }

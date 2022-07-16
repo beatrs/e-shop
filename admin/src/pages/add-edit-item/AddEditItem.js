@@ -1,35 +1,40 @@
 import { useEffect, useState } from "react"
 import "./AddEditItem.scss"
 import { useLocation } from "react-router-dom"
-import axios from "axios"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
+
+import { userRequest } from "../../reqMethods"
 
 const AddEditItem = ({type}) => {
     //const [item, setItem] = useState()
     const location = useLocation()
     const itemId = location.pathname.split("/")[3]
     const [item, setItem] = useState({
-        name: '',
+        title: '',
         artist: '',
         price: 0,
         desc: '',
         versions: [],
-        categories: []
+        categories: [],
+        cover: '',
+        coverAlt: ''
     })
 
     useEffect(() => {
-        console.log('i:', itemId)
         const query = `http://localhost:5000/api/products/${itemId}`
         const getItem = async () =>  {
             try {
-                const res = await axios.get(query)
+                const res = await userRequest.get(query)
                 setItem(res.data)
             } catch (err) {
                 console.error(err)
             }
         }
-        getItem()
+
+        if (itemId) {
+            getItem()
+        }
     }, [itemId])
 
     const handleFormChange = (e) => {
@@ -70,9 +75,28 @@ const AddEditItem = ({type}) => {
         }
     }
 
-    const handleSave = (e) => {
-        e.preventDefault()
+    const handleSave =  async (e) => {
+        // e.preventDefault()
         console.log(item)
+        console.log(image.file)
+        console.log(image.previewUrl)
+
+        try {
+            let url = `/products`
+            if (itemId) {
+                url += `/${itemId}`
+                const res = await userRequest.put(url, item)
+                console.log(res.data)
+            } else {
+                const res = await userRequest.post(url, item)
+                console.log(res.data)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+
+
+        //TODO: show success modal after save and then navigate to main list from there
     }
 
     const handleDelete = (e, prop, value) => {
@@ -111,6 +135,33 @@ const AddEditItem = ({type}) => {
     })
 
 
+    const [image, setImage] = useState({
+        file: '',
+        previewUrl: ''
+    })
+
+    const handleImgChange = (e) => {
+        e.preventDefault()
+
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.onloadend = () => {
+            setImage({
+                file: file,
+                previewUrl: reader.result
+            })
+            setItem(prevState => ({
+                ...prevState,
+                cover: reader.result
+            }))
+        }
+        reader.readAsDataURL(file)
+        
+    }
+
+
+
     return (
         <div className="form">
             <Sidebar />
@@ -122,11 +173,11 @@ const AddEditItem = ({type}) => {
                         <h2>{!itemId ? 'Add New item': 'Edit item'}</h2>
                         <div className="form--item">
                             <label>Product name:</label>
-                            <input type="text" name="name" value={item.title || ""} onChange={handleFormChange} />
+                            <input type="text" name="title" value={item.title || ""} onChange={handleFormChange} />
                         </div>
                         <div className="form--item">
                             <label>Description:</label>
-                            <textarea name="description" value={item.desc || ""} className="form--textarea" onChange={handleFormChange} />
+                            <textarea name="desc" value={item.desc || ""} className="form--textarea" onChange={handleFormChange} />
                         </div>
                         <div className="form--item">
                             <label>Artist:</label>
@@ -140,6 +191,7 @@ const AddEditItem = ({type}) => {
                             <label>Versions:</label>
                             <div className="item--multi">
                                 <input type="text" name="versions" onKeyPress={handleKeyPress} />
+                                <span className="help">Hit enter or comma to add tags</span>
                                 <ul className="tags">
                                     {versionTags}
                                 </ul>
@@ -149,11 +201,30 @@ const AddEditItem = ({type}) => {
                             <label>Categories:</label>
                             <div className="item--multi">
                                 <input type="text" name="categories" onKeyPress={handleKeyPress} />
+                                <span className="help">Hit enter or comma to add tags</span>
                                 <ul className="tags">
                                     {categoryTags}
                                 </ul>
                             </div>
                         </div>
+
+                        <div className="form--item">
+                            <label>Main Image:</label>
+                            <div className="input--wrapper">
+                                <div className="image--input">
+                                    <div className="image" style={{ backgroundImage: itemId? `url(${item.cover})` : `url(${image.previewUrl})` }}>
+                                        <div className="upload-btn" style={{ opacity: image.previewUrl !== '' || item.cover !== '' ? '0' : '1' }}>
+                                            <input type="file" onChange={(e)=>handleImgChange(e)} />
+                                            <button type="button">Click here to upload an image</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <input type="text" name="coverAlt" value={item.coverAlt || ""} onChange={handleFormChange}  placeholder="Image Alt Text" />
+                                </div>
+                            </div>
+                        </div>
+
+
                         
                         <button type="button" onClick={handleSave}>Save</button>
                     </form>
