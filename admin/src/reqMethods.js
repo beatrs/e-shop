@@ -13,3 +13,11 @@ export const userRequest = axios.create({
     baseURL: API_URL,
     headers: { token: `Bearer ${TOKEN}` }
 })
+
+export const adminRequest = axios.create({
+    baseURL: API_URL,
+    headers: { 
+        token: `Bearer ${TOKEN}`,
+        'Content-Type': 'multipart/form-data'
+    }
+})

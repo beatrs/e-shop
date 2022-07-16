@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react"
 import "./AddEditItem.scss"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 
-import { userRequest } from "../../reqMethods"
+import { userRequest, adminRequest } from "../../reqMethods"
+import { serialize } from 'object-to-formdata'
+
+import { createEditor } from "slate"
+// Import the Slate components and React plugin.
+import { Slate, Editable, withReact } from 'slate-react'
 
 const AddEditItem = ({type}) => {
     //const [item, setItem] = useState()
+    const navigate = useNavigate()
     const location = useLocation()
     const itemId = location.pathname.split("/")[3]
     const [item, setItem] = useState({
@@ -20,6 +26,9 @@ const AddEditItem = ({type}) => {
         cover: '',
         coverAlt: ''
     })
+
+    const editor = useState(() => withReact(createEditor()))    
+
 
     useEffect(() => {
         const query = `http://localhost:5000/api/products/${itemId}`
@@ -45,7 +54,6 @@ const AddEditItem = ({type}) => {
                 ...prevState,
                 [prop]: val
             }))
-            
         } catch (err) {
             console.error(err)
         }
@@ -68,7 +76,6 @@ const AddEditItem = ({type}) => {
                     // clear after
                     e.target.value = ""
                 }
-
             } catch (err) {
                 console.error(err)
             }
@@ -76,27 +83,32 @@ const AddEditItem = ({type}) => {
     }
 
     const handleSave =  async (e) => {
-        // e.preventDefault()
-        console.log(item)
-        console.log(image.file)
-        console.log(image.previewUrl)
+        e.preventDefault()
+        const formData = serialize(item)
 
         try {
             let url = `/products`
             if (itemId) {
+                console.log('go here')
                 url += `/${itemId}`
-                const res = await userRequest.put(url, item)
-                console.log(res.data)
+                const res = await adminRequest.put(url, formData)
+                    .then(res => {
+                        if (res.status === 200) 
+                            navigate('../', {replace: true})
+                    })
+                    .catch(err => console.log(err))
+
             } else {
-                const res = await userRequest.post(url, item)
-                console.log(res.data)
+                const res = await adminRequest.post(url, formData)
+                    .then(res => {
+                        if (res.status === 200) 
+                            navigate('../', {replace: true})
+                    })
+                    .catch(err => console.log(err))
             }
         } catch (err) {
             console.error(err)
         }
-
-
-        //TODO: show success modal after save and then navigate to main list from there
     }
 
     const handleDelete = (e, prop, value) => {
@@ -109,8 +121,7 @@ const AddEditItem = ({type}) => {
                 [prop]: prevState[prop].filter((propVal) => {
                     return propVal !== value[valueProp]
                 })
-            }))
-            
+            }))            
         } catch (err) {
             console.error(err)
         }
@@ -145,7 +156,7 @@ const AddEditItem = ({type}) => {
 
         const file = e.target.files[0]
         const reader = new FileReader()
-
+        
         reader.onloadend = () => {
             setImage({
                 file: file,
@@ -153,11 +164,10 @@ const AddEditItem = ({type}) => {
             })
             setItem(prevState => ({
                 ...prevState,
-                cover: reader.result
+                cover: file
             }))
         }
         reader.readAsDataURL(file)
-        
     }
 
 
@@ -185,7 +195,7 @@ const AddEditItem = ({type}) => {
                         </div>
                         <div className="form--item">
                             <label>Price:</label>
-                            <input type="number" name="price" value={item.price || ""} onChange={handleFormChange}  />
+                            <input type="number" name="price" value={item.price || 0} onChange={handleFormChange}  />
                         </div>
                         <div className="form--item">
                             <label>Versions:</label>
@@ -223,7 +233,6 @@ const AddEditItem = ({type}) => {
                                 </div>
                             </div>
                         </div>
-
 
                         
                         <button type="button" onClick={handleSave}>Save</button>
