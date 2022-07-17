@@ -26,6 +26,10 @@
             display: flex;
             margin-bottom: 20px;
 
+            .slate {
+                border: 1px solid gray;
+            }
+            
             .input--wrapper {
                 flex: 2;
             }

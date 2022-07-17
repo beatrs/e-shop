@@ -7,9 +7,8 @@ import Navbar from "../../components/navbar/Navbar"
 import { userRequest, adminRequest } from "../../reqMethods"
 import { serialize } from 'object-to-formdata'
 
-import { createEditor } from "slate"
-// Import the Slate components and React plugin.
-import { Slate, Editable, withReact } from 'slate-react'
+// Import the mde component
+import Editor from "../../components/editor/Editor"
 
 const AddEditItem = ({type}) => {
     //const [item, setItem] = useState()
@@ -26,10 +25,8 @@ const AddEditItem = ({type}) => {
         cover: '',
         coverAlt: ''
     })
-
-    const editor = useState(() => withReact(createEditor()))    
-
-
+ 
+    //get items
     useEffect(() => {
         const query = `http://localhost:5000/api/products/${itemId}`
         const getItem = async () =>  {
@@ -170,6 +167,12 @@ const AddEditItem = ({type}) => {
         reader.readAsDataURL(file)
     }
 
+    const updateText = (newDesc) => {
+        setItem(prevState => ({
+            ...prevState,
+            desc: newDesc
+        }))
+    }
 
 
     return (
@@ -234,7 +237,11 @@ const AddEditItem = ({type}) => {
                             </div>
                         </div>
 
-                        
+                        <Editor 
+                            currentText={item.desc || ""}
+                            updateText={updateText}
+                        />
+
                         <button type="button" onClick={handleSave}>Save</button>
                     </form>
                     }
