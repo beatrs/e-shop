@@ -1,8 +1,18 @@
 
 const DarkModeReducer = (state, action) => {
-    if (action.type === "TOGGLE") {
+    // if (action.type === "TOGGLE") {
+    //     return {
+    //         darkMode : !state.darkMode
+    //     }
+    // }
+    if (action.type === "setToDark") {
         return {
-            darkMode : !state.darkMode
+            darkMode : true
+        }
+    }
+    if (action.type === "setToLight") {
+        return {
+            darkMode : false
         }
     }
 }

@@ -2,13 +2,19 @@ import "./Navbar.scss"
 import { GoSearch } from "react-icons/go"
 import { FaGlobe, FaBell } from "react-icons/fa"
 
+import { useSelector } from "react-redux"
+
 const Navbar = () => {
+    
+    const user = useSelector((state) => state.user.currentUser)
     return(
         <div className="navbar">
             <div className="navbar--wrapper">
                 <div className="search">
                     <input type="text" placeholder="Search" />
-                    <GoSearch className="search--icon" />
+                    <div className="search--wrapper">
+                        <GoSearch className="search--icon" />
+                    </div>
                 </div>
                 <div className="items">
                     <div className="item">
@@ -20,7 +26,7 @@ const Navbar = () => {
                         <div className="badge">1</div>
                     </div>
                     <div className="item">
-                        <img src="https://i.pinimg.com/564x/ee/4e/0d/ee4e0de672b78f617552ab9b1eee64c2.jpg" alt="IVE liz" className="avatar" />
+                        <img src={user.profileImg} alt="user-avatar" className="avatar" />
                     </div>
                 </div>
             </div>

@@ -82,7 +82,8 @@ const AddEditItem = ({type}) => {
     const handleSave =  async (e) => {
         e.preventDefault()
         const formData = serialize(item)
-
+        console.log(item)
+        console.log(formData)
         try {
             let url = `/products`
             if (itemId) {
@@ -188,10 +189,10 @@ const AddEditItem = ({type}) => {
                             <label>Product name:</label>
                             <input type="text" name="title" value={item.title || ""} onChange={handleFormChange} />
                         </div>
-                        <div className="form--item">
+                        {/* <div className="form--item">
                             <label>Description:</label>
                             <textarea name="desc" value={item.desc || ""} className="form--textarea" onChange={handleFormChange} />
-                        </div>
+                        </div> */}
                         <div className="form--item">
                             <label>Artist:</label>
                             <input type="text" name="artist" value={item.artist || ""} onChange={handleFormChange} />

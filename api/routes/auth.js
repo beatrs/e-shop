@@ -4,22 +4,43 @@ const User = require("../models/User")
 const CryptoJS = require("crypto-js")
 const jwt = require("jsonwebtoken")
 
-// * REGISTER
-router.post("/register", async (req, res) => {
-    const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: CryptoJS.AES.encrypt(req.body.password, process.env.PW_KEY).toString()
-    })
+const upload = require("../utilities/multer")
+const cloudinary = require("../utilities/cloudinary")
+const upload_preset = process.env.CLOUDINARY_UPLOAD_PRESET
+const defaultOptions = {
+    folder: "/eshop-wiz/users",
+}
 
-    //res.send(newUser)
-    try {
-        const savedUser = await newUser.save()
-        const { password, ...others } = savedUser._doc
-        return res.status(201).json(others)
-    } catch(err) {
-        return res.status(500).json(err)
-    }
+const defaultImg = 'https://raw.githubusercontent.com/mozilla/fxa/9ca5c4057cde5da1e2866cb9515e88bb18e5fb2b/packages/fxa-profile-server/lib/assets/default-profile.png'
+
+// * REGISTER
+router.post("/register", upload.single('profileImg'), 
+    async (req, res) => {
+
+        if (req.file) {
+            const profile_img = await cloudinary.uploader
+                .upload(req.file.path, upload_preset, defaultOptions)
+                .catch((err)=>console.log(err))
+            req.body.profileImg = profile_img.secure_url
+        } else {
+            req.body.profileImg = defaultImg
+        }
+
+        const newUser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: CryptoJS.AES.encrypt(req.body.password, process.env.PW_KEY).toString(),
+            profileImg: req.body.profileImg
+        })
+
+        //res.send(newUser)
+        try {
+            const savedUser = await newUser.save()
+            const { password, ...others } = savedUser._doc
+            return res.status(201).json(others)
+        } catch(err) {
+            return res.status(500).json(err)
+        }
 })
 
 // * LOGIN

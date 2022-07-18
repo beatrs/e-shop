@@ -5,7 +5,7 @@ import Navbar from "../../components/navbar/Navbar"
 import Datatable from "../../components/datatable/Datatable"
 import { useState, useEffect } from "react"
 
-import { userRequest } from "../../reqMethods"
+import { adminRequest, userRequest } from "../../reqMethods"
 import { Link } from "react-router-dom"
 
 const List = ({type}) => {
@@ -54,7 +54,7 @@ const List = ({type}) => {
             <Sidebar />
             <div className="list--container">
                 <Navbar />
-                <Link to={`/products/new/`} className="add-btn">
+                <Link to={type === 'products' ? `/products/new/` : `/users/new`} className="add-btn">
                     <button >Add New</button>
                 </Link>
                 { type === 'products' ?

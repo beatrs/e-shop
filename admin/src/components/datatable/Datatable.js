@@ -3,9 +3,21 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Link } from "react-router-dom"
 
 const userColumns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'username', headerName: 'Username', width: 130 },
-  { field: 'email', headerName: 'E-mail', width: 230 },
+    { field: 'id', headerName: 'ID', width: 70,},
+    { 
+        field: 'username', headerName: 'Username', width: 150,
+        renderCell: (params)=>{
+            return (
+                <div className="withImg">
+                    <img className="rowImg profile" src={params.row.profileImg} alt="user avatar" />
+                    <Link to={`${params.row._id}`} className="product--name">
+                        <span className="rowTxt">{params.row.username}</span>
+                    </Link>
+                </div>
+            )
+        }
+    },
+    { field: 'email', headerName: 'E-mail', width: 230 },
 ]
 
 const productColumns = [
@@ -16,7 +28,9 @@ const productColumns = [
             return (
                 <div className="withImg">
                     <img className="rowImg" src={params.row.cover} alt={params.row.coverAlt} />
-                    <span className="rowTxt">{params.row.title}</span>
+                    <Link to={`${params.row._id}`} className="product--name">
+                        <span className="rowTxt">{params.row.title}</span>
+                    </Link>
                 </div>
             )
         },

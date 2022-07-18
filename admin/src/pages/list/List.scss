@@ -11,13 +11,22 @@
     .add-btn {
         margin: 30px 30px 0px 0px;
         align-self: flex-end;
-        width: 120px;
-        height: 30px;
 
         button {
             cursor: pointer;
             width: 100%;
             height: 100%;
+            background-color: #8e7dbe;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            color: white;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 299;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 1px 1px 5px 0px rgba(110, 110, 110, 0.45);
         }
 
     }

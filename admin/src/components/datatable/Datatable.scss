@@ -3,6 +3,12 @@
     height: 400px;
     width: auto;
     margin: 30px;
+    font-family: 'Hind', sans-serif;
+}
+
+.MuiDataGrid-cell {
+    border-bottom: none !important;
+    margin-bottom: 5px !important;
 }
 
 .withImg {
@@ -12,11 +18,22 @@
     .rowImg {
         width: 3.5em;
         height: 100%;
+        margin-right: 5px;
+
+        &.profile {
+            border-radius: 50%;
+        }
     }
 
     .rowTxt {
         white-space: break-spaces;
         margin-left: 5px;
+    }
+
+    .product--name {
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
     }
 }
 

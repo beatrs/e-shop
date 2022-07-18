@@ -3,9 +3,27 @@ const router = require("express").Router()
 const { verifyToken, verifyTokenAndAdmin, verifyTokenAndAuth } = require("./verifyToken")
 const User = require("../models/User")
 
+const upload = require("../utilities/multer")
+const cloudinary = require("../utilities/cloudinary")
+const upload_preset = process.env.CLOUDINARY_UPLOAD_PRESET
+const defaultOptions = {
+    folder: "/eshop-wiz/users",
+}
+
+const defaultImg = 'https://raw.githubusercontent.com/mozilla/fxa/9ca5c4057cde5da1e2866cb9515e88bb18e5fb2b/packages/fxa-profile-server/lib/assets/default-profile.png'
 
 // * UPDATE
-router.put("/:id", verifyTokenAndAuth, async (req, res) => {
+router.put("/:id", verifyTokenAndAuth, upload.single('profileImg'), async (req, res) => {
+
+    if (req.file) {
+        const profile_img = await cloudinary.uploader
+            .upload(req.file.path, upload_preset, defaultOptions)
+            .catch((err)=>console.log(err))
+        req.body.profileImg = profile_img.secure_url
+    } else {
+        req.body.profileImg = defaultImg
+    }
+    
     //encrypt new password
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PW_KEY).toString()

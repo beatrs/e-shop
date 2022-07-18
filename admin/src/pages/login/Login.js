@@ -29,6 +29,7 @@ const Login = () => {
     return(
         <div className="login">
             <div className="login--bg"></div>
+            <div className="bg-layer"></div>
             <div className="login--container">
                 <div className="left">
                     <div className="logo">
@@ -59,7 +60,7 @@ const Login = () => {
                 </div>
             </div>
             <div className="attribution">
-                <a href="https://www.pexels.com/photo/body-of-water-near-mountain-under-starry-night-5366526/">© Photo by Janik Butz from Pexels</a>
+                <a href="https://www.pexels.com/photo/magnificent-cloudy-sky-at-sunset-4534134/">© Photo by ArtHouse Studio from Pexels</a>
             </div>
         </div>
     )

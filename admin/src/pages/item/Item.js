@@ -1,10 +1,11 @@
 
 import { useEffect, useState } from "react"
-import { useLocation, Link } from "react-router-dom"
-import axios from "axios"
+import { useLocation, Link, useNavigate } from "react-router-dom"
 import "./Item.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
+import { userRequest } from "../../reqMethods"
+import { Redirect } from "../../services/general"
 
 const Item = () => {
     const [item, setItem] = useState()
@@ -15,7 +16,7 @@ const Item = () => {
         const query = `http://localhost:5000/api/products/${itemId}`
         const getItem = async () => {
             try {
-                const res = await axios.get(query)
+                const res = await userRequest.get(query)
                 setItem(res.data)
                 console.log(res.data)
             } catch (err) {
@@ -24,6 +25,16 @@ const Item = () => {
         }
         getItem()
     }, [itemId])
+
+    const navigate = useNavigate()    
+    const redirectTo = (url) => {
+        try {
+            navigate(url, {replace: true})
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <div className="page">
             <Sidebar />
@@ -51,9 +62,7 @@ const Item = () => {
                             </ul>
                         </div>
                         }
-                        <Link to={`/products/edit/${item._id}`}>
-                            <button className="info--btn">Edit</button>
-                        </Link>
+                        <button className="info--btn" onClick={()=>redirectTo(`/products/edit/${item._id}`)}>Edit Details</button>
                     </div>
                 </div>
                 }

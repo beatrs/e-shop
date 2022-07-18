@@ -3,23 +3,35 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #2d3744;
-    color: white;
+    background-color: #fcfbfc;
+    color: black;
     height: 100vh;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
 
     
 
     .top {
         text-align: center;
-        height: 50px;
-        font-size: 22px;
-        font-weight: bold;  
-        padding: 15px;
+        height: 10vh;
+        margin-top: 10px;
+        font-family: 'Archivo', sans-serif;
+        font-size: 1.5em;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        a {
+            text-decoration: none;
+        }
 
         .logo {
             text-transform: uppercase;
             letter-spacing: 1px;
+            background: #8E7DBE;
+            background: linear-gradient(to bottom left, #8E7DBE 0%, #D88C9A 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     }
 
@@ -30,13 +42,14 @@
     }
 
     .center {
+        margin-top: 20px;
 
         .title {
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 15px;
             margin-bottom: 5px;
-            color: rgba(white, 0.65);
+            color: rgba(rgb(104, 99, 99), 0.65);
             font-size: 0.85em;
             padding: 10px;
         }
@@ -46,7 +59,8 @@
             padding: 0;
             margin: 0;
 
-            a:active {
+            
+            a, a:active {
                 text-decoration: none;
             }
         }
@@ -54,21 +68,26 @@
         li {
             cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 15px 40px 15px 22px;
-            font-size: 1.25em;
-            color: white;
+            color: rgba(rgb(104, 99, 99), 0.65);
+            text-decoration: none;
+            padding: 20px;
 
             &:hover {
-                background-color: rgba(white, 0.15);
+                background-color: rgba(rgb(218, 218, 218), 0.15);
             }
 
         }
 
+        span {
+            font-size: 0.75em;
+            letter-spacing: 2px;
+        }
+
         .sidebar--icon {
-            margin-right: 10px;
-            font-size: 0.85em;
-            
+            font-size: 2em;
+            margin-bottom: 8px;
         }
     }
 

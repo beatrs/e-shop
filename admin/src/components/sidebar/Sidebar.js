@@ -1,12 +1,17 @@
 import "./Sidebar.scss"
 import { FaHome, FaUser, FaShoppingCart, FaCog, FaLightbulb, FaRegLightbulb } from 'react-icons/fa'
 import { FiLogOut } from "react-icons/fi"
+import { TbSun as LightMdIcon, TbMoonStars as DarkMdIcon } from "react-icons/tb";
 
 import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { DarkModeContext } from "../../context/darkMode"
 import { useDispatch } from "react-redux"
 
+//* new icons { home, users, orders, settings} 
+import { VscDashboard as DashboardIcon, VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsIcon } from "react-icons/vsc";
+// {products, logout}
+import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
 
 const Sidebar = () => {
     const { darkMode, dispatch } = useContext(DarkModeContext)
@@ -31,56 +36,68 @@ const Sidebar = () => {
     return(
         <div className="sidebar">
             <div className="top">
-                <span className="logo">Wiz</span>
+                <Link to="/">
+                    <span className="logo">Wiz</span>
+                </Link>
             </div>
-            <hr />
+            {/* <hr /> */}
             <div className="center">
                 <ul>
-                    <p className="title">Home</p>
+                    {/* <p className="title">Home</p> */}
                     <Link to="/">
                         <li href="/">
-                            <FaHome className="sidebar--icon" />
-                            <span>Dashboard</span>
+                            <DashboardIcon className="sidebar--icon" />
+                            <span>Home</span>
                         </li>
                     </Link>
                     
-                    <p className="title">Site</p>
+                    {/* <p className="title">Site</p> */}
                     <Link to="/users">
                        <li>
-                            <FaUser className="sidebar--icon"  />
+                            <UsersIcon className="sidebar--icon"  />
                             <span>Users</span>
                         </li> 
                     </Link>
                     
-                    <Link to="/products">
+                    <Link to="">
                         <li>
-                            <FaShoppingCart className="sidebar--icon" />
-                            <span>Products</span>
+                            <OrdersIcon className="sidebar--icon" />
+                            <span>Orders</span>
                         </li>
                     </Link>
                     
-                    <p className="title">User</p>
-                    <li>
-                        <FaCog className="sidebar--icon" />
-                        <span>Settings</span>
-                    </li>
+                    <Link to="/products">
+                        <li>
+                            <ProductsIcon className="sidebar--icon" />
+                            <span>Products</span>
+                        </li>
+                    </Link>
+
+                    {/* <p className="title">User</p> */}
+                    <Link to="/settings">
+                        <li>
+                            <SettingsIcon className="sidebar--icon" />
+                            <span>Settings</span>
+                        </li>
+                    </Link>
+                    
                     <li onClick={handleLogout}>
-                        <FiLogOut className="sidebar--icon" />
+                        <LogoutIcon className="sidebar--icon" />
                         <span>Logout</span>
                     </li>
                 </ul>
             </div>
             <div className="bottom">
-                <div 
+                {/* <div 
                     className="sidebar--icon" 
                     onClick={handleClick}
                 >
                     {isDarkMode ?
-                    <FaRegLightbulb />
+                    <DarkMdIcon />
                     :
-                    <FaLightbulb />
+                    <LightMdIcon />
                     }
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -7,11 +7,14 @@
 
 $bg-dark: #2B333E;
 $bg-darker: #1B2430;
-$text-light: #D6D5A8;
+
+$bg-side: #13151b;
+$bg-main: #171821;
+$text-light: #D5D5D5;
 $boxShadow-dark: 3px 3px 8px -2px rgba(0,0,0,0.8);
 
 .dark {
-    background-color: $bg-darker;
+    background-color: $bg-main;
     color: $text-light;
 
     .list--container {
@@ -43,11 +46,16 @@ $boxShadow-dark: 3px 3px 8px -2px rgba(0,0,0,0.8);
         color: $text-light;
     }
     .sidebar {
-        background-color: $bg-dark;
+        background-color: $bg-side;
+
+        .sidebar--icon, span {
+            color: $text-light;
+        }
     }
 
+
     .navbar {
-        background-color: $bg-dark;
+        background-color: $bg-main;
     }
 
     .navbar--wrapper {

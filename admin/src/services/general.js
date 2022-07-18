@@ -1,4 +1,13 @@
 
+import { Component } from "react"
+import { Link, useNavigate } from "react-router-dom"
+
+const Redirect = (url) => {
+    console.log(url)
+    const navigate = useNavigate()
+    navigate(url)
+}
+
 const FormatNumber = {
     withComma: function(val) {
         var parts = (+val).toFixed(2).split(".")
@@ -6,6 +15,12 @@ const FormatNumber = {
     }
 } 
 
+const FormatDate = {
+    getYmd: function(val) {
+        var date = val.split('T')[0]
+        return date
+    }
+}
 
 var darkMode = false
 
@@ -19,4 +34,4 @@ const DarkMode = {
     }
 }
 
-export { FormatNumber, DarkMode }
+export { FormatNumber, DarkMode, FormatDate, Redirect }
