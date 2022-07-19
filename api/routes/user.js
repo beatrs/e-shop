@@ -21,7 +21,8 @@ router.put("/:id", verifyTokenAndAuth, upload.single('profileImg'), async (req, 
             .catch((err)=>console.log(err))
         req.body.profileImg = profile_img.secure_url
     } else {
-        req.body.profileImg = defaultImg
+        if (!req.body.profileImg)
+            req.body.profileImg = defaultImg
     }
     
     //encrypt new password

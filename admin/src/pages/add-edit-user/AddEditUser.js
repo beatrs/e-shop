@@ -2,9 +2,6 @@ import Navbar from "../../components/navbar/Navbar"
 import Sidebar from "../../components/sidebar/Sidebar"
 import "./AddEditUser.scss"
 
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
-
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { userRequest, adminRequest } from "../../reqMethods"
@@ -20,11 +17,11 @@ const AddEditUser = () => {
         email: '',
         password: '',
         profileImg: '',
-        isAdmin: false
+        isAdmin: 'false'
     })
     const [image, setImage] = useState({
         file: '',
-        previewUrl: ''
+        previewUrl: user.profileImg
     })
 
     //get user
@@ -42,6 +39,7 @@ const AddEditUser = () => {
         if (userId) {
             getUser()
         }
+
     }, [userId])
 
     const handleFormChange = (e) => {
@@ -83,36 +81,24 @@ const AddEditUser = () => {
     }
 
 
-    const roleOptions = [
-        { value: 'false', label: 'User (no administrator access)' },
-        { value: 'true', label: 'Global administrator' },
-    ]
-    const [selectedOption, setSelectedOption] = useState(roleOptions[user.isAdmin | 1])
-
-    const onSelect = (e) => {
-        console.log(e.target.value)
-        setSelectedOption(e.target.value)
-
-    }
-
     const handleSave = async(e) => {
         e.preventDefault()
         const formData = serialize(user)
         console.log(formData)
         console.log(user)
         try {
-            let url = `/users`
             if (userId) {
-                url += `/${userId}`
+                const url = `/users/${userId}`
                 const res = await adminRequest.put(url, formData)
                     .then(res => {
                         if (res.status === 200) 
                             navigate('../', {replace: true})
                     })
             } else {
+                const url = `/auth/register`
                 const res = await adminRequest.post(url, formData)
                     .then(res => {
-                        if (res.status === 200) 
+                        if (res.data) 
                             navigate('../', {replace: true})
                     })
             }
@@ -137,8 +123,9 @@ const AddEditUser = () => {
                                     <label>Profile Image</label>
                                     <div className="input--wrapper">
                                         <div className="image--input">
-                                            <div className="image" style={{ backgroundImage: userId? `url(${user.profileImg})` : `url(${image.previewUrl})` }}>
-                                                <div className="upload-btn" style={{ opacity: image.previewUrl !== '' || user.profileImg !== '' ? '0' : '1' }}>
+                                            <div className="image" >
+                                                <img src={image.previewUrl || user.profileImg} alt="" />
+                                                <div className="upload-btn" style={{ opacity: userId || user.profileImg ? '0' : '1' }}>
                                                     <input type="file" onChange={(e)=>handleImgChange(e)} />
                                                     <button type="button"></button>
                                                 </div>
@@ -158,6 +145,12 @@ const AddEditUser = () => {
                                     <label>E-mail</label>
                                     <input type="text" name="email" value={user.email || ""} onChange={handleFormChange} />
                                 </div>
+                                {!userId &&
+                                <div className="form--item">
+                                    <label>Password</label>
+                                    <input type="password" name="password" value={user.password || ""} onChange={handleFormChange} />
+                                </div>
+                                }
                                 <div className="form--item">
                                     <label>User Role</label>
                                     <select name="isAdmin" onChange={handleFormChange} value={userId ? user.isAdmin : false}>

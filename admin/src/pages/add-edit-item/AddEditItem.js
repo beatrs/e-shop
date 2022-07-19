@@ -226,7 +226,8 @@ const AddEditItem = ({type}) => {
                             <label>Main Image:</label>
                             <div className="input--wrapper">
                                 <div className="image--input">
-                                    <div className="image" style={{ backgroundImage: itemId? `url(${item.cover})` : `url(${image.previewUrl})` }}>
+                                    <div className="image">
+                                        <img src={image.previewUrl || item.cover} alt="" />
                                         <div className="upload-btn" style={{ opacity: image.previewUrl !== '' || item.cover !== '' ? '0' : '1' }}>
                                             <input type="file" onChange={(e)=>handleImgChange(e)} />
                                             <button type="button">Click here to upload an image</button>

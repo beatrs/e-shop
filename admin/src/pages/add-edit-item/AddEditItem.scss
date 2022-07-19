@@ -46,10 +46,22 @@
                     width: 100%;
                     border: 1px dashed lightgray;
                     border-radius: 10px;
-                    background-size: cover;
+                    // background-size: cover;
+                    position: relative;
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        border-radius: 10px;
+                        object-fit: cover;
+                    }
                 }
 
                 .upload-btn {
+                    border-radius: 10px;
                     position: relative;
                     width: 100%;
                     height: 100%;
