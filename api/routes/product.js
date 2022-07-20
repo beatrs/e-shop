@@ -53,7 +53,9 @@ router.post("/", verifyTokenAndAdmin,
             img: req.files.img ? otherImg.secure_url : coverImg.secure_url,
             imgAlt: req.body.imgAlt || req.body.coverAlt,
             categories: req.body.categories,
-            versions: req.body.versions
+            versions: req.body.versions,
+            artistFormatted: req.body.artist,
+            artist: req.body.artist.toLowerCase(),
         })
 
         // if (!newProduct.img) {
@@ -92,6 +94,9 @@ router.put("/:id", verifyTokenAndAdmin,
             req.body.cover = coverImg.secure_url
         }
         
+        req.body.artistFormatted = req.body.artist
+        req.body.artist = req.body.artist.toLowerCase()
+
         try {
             const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
@@ -108,7 +113,7 @@ router.get("/:id", async (req, res) => {
         const product = await Product.findById(req.params.id)
         return res.status(200).json(product)
     } catch (err) {
-        return res.send(500).json(err)
+        return res.status(500).json(err)
     }
 })
 
@@ -117,9 +122,14 @@ router.get("/", async (req, res) => {
     try {
         const queryNew = req.query.new
         const queryCategory = req.query.category
+        const queryArtists = req.query.artists
         
         let products
-        if (queryNew) {
+        if (queryArtists === 'all') {
+            artists = await Product.distinct('artistFormatted')
+            return res.status(200).json(artists)
+        }
+        else if (queryNew) {
             products = await Product.find().sort({ createdAt: -1 }).limit(5)
         } else if (queryCategory) {
             products = await Product.find({
@@ -131,6 +141,19 @@ router.get("/", async (req, res) => {
             products = await Product.find()
         }
         return res.status(200).json(products)
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+})
+
+// * GET LIST OF ARTISTS
+router.get("/", async (req, res) => {
+    try {
+        console.log(req.query)
+        const products = await Product.find()
+        
+        return res.status(200).json(products)
+
     } catch (err) {
         return res.status(500).json(err)
     }

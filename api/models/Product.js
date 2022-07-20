@@ -5,6 +5,7 @@ const ProductSchema = new mongoose.Schema(
         title: { type: String, required: true, unique: true },
         desc: { type: String, required: true },
         artist: { type: String, required: false},
+        artistFormatted: { type: String, required: false},
         cover: { type: String, required: true },
         coverAlt: { type: String, required: false },
         img: { type: String, required: false },
