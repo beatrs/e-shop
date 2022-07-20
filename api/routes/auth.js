@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken")
 
 const upload = require("../utilities/multer")
 const cloudinary = require("../utilities/cloudinary")
+const { verifyTokenAndAdmin } = require("./verifyToken")
 const upload_preset = process.env.CLOUDINARY_UPLOAD_PRESET
 const defaultOptions = {
     folder: "/eshop-wiz/users",
@@ -62,6 +63,37 @@ router.post("/login", async (req, res) => {
         }, process.env.JWT_KEY)
         
         const { password, ...others } = user._doc
+        return res.status(200).json({ ...others, token })
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+    return
+})
+
+// * ADMIN LOGIN
+
+router.post("/admin/login", async (req, res) => {
+    try {
+        errMsg = "Incorrect username/password!"
+        const user = await User.findOne({ username: req.body.username })
+        if (!user)
+            return res.status(401).json(errMsg)
+
+        const pass = CryptoJS.AES.decrypt(user.password, process.env.PW_KEY).toString(CryptoJS.enc.Utf8) 
+        if (pass !== req.body.password) 
+            return res.status(401).json(errMsg)
+
+
+        const token = jwt.sign({
+            id: user._id,
+            isAdmin: user.isAdmin,
+        }, process.env.JWT_KEY)
+        
+        const { password, ...others } = user._doc
+        
+        if (!user.isAdmin) {
+            return res.status(401).json("User is not authorized!")
+        }
         return res.status(200).json({ ...others, token })
     } catch (err) {
         return res.status(500).json(err)
