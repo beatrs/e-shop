@@ -6,7 +6,7 @@ import List from "./pages/list/List"
 import Item from "./pages/item/Item"
 import Settings from "./pages/settings/Settings"
 import AddEditItem from "./pages/add-edit-item/AddEditItem"
-import './darkMode.scss'
+import './styles/darkMode.scss'
 
 import { DarkModeContext } from "./context/darkMode"
 import { useSelector } from "react-redux"

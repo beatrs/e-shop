@@ -1,5 +1,5 @@
 
-import './index.css'
+import './index.scss'
 import App from './App'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store'
