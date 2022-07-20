@@ -1,11 +1,11 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import SearchIcon from '@mui/icons-material/Search'
 import Badge from '@mui/material/Badge'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import logo from '../../assets/logo512.png'
-import "./Header.css"
+import "./Header.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -15,35 +15,71 @@ const Container = styled.div`
     height: 120px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    padding: 30px;
+`
+
+const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    position: relative;
+    width: 80%;
+    height: 100%;
+    margin: auto;
 `
+
 //* left side
 const Left = styled.div`
-    flex: 1;
+    width: 20%;
     display: flex;
     align-items: center;
+    justify-content: center;
 `
 
-const Language = styled.div`
+const Logo = styled.div`
     cursor: pointer;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: 0.8em;
-    margin-right: 15px;
-
-    @media (max-width: 768px) {
-        display: none;
-    }
+    display: flex;
+    height: 100%;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+`
+const LogoText = styled.h1`
+    font-family: 'Archivo', sans-serif;
+    /* font-weight: bold; */
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    align-self: center;
+    background: #8E7DBE;
+    background: linear-gradient(to bottom left, #8E7DBE 0%, #D88C9A 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 `
 
+const LogoImg = styled.img`
+    align-self: flex-start;
+    height: 100%;
+`
+
+
+// * center
+
+const Mid = styled.div`
+    width: 60%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+`
 const SearchContainer = styled.div`
     display: flex;
-    border: 1px solid lightgray;
-    height: 36px;
-    padding: 5px 10px;
+    /* border: 1px solid lightgray; */
+    /* height: 36px; */
+    padding: 5px 15px;
+    background-color: rgba(217, 217, 217, 0.3);
+    border-radius: 40px;
+    height: 2.5em;
+    width: 15em;
 
     @media (max-width: 768px) {
         display: none;
@@ -53,58 +89,30 @@ const SearchContainer = styled.div`
 const SearchInput = styled.input`
     border: none;
     color: gray;
+    background-color: transparent;
+    width: 85%;
 
     &:focus {
         outline: none;
     }
 `
 
-// * center
-
-const Mid = styled.div`
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-`
-
-const Logo = styled.div`
-    display: flex;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    cursor: pointer;
-
-    @media (max-width: 768px) {
-        height: auto-fit;
-    }
-`
-
-const LogoText = styled.h1`
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-    font-size: 1.5em;
-    margin: auto;
-    text-transform: uppercase;
-`
-
-const LogoImg = styled.img`
-    align-self: flex-start;
-    height: 100%;
-`
 
 // * right
 
 const Right = styled.div`
-    flex: 1;
+    width: 20%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    gap: 30px;
 `
 
 const NavItem = styled.div`
     cursor: pointer;
-    margin-left: 20px;
+    /* margin-right: 20px; */
+    font-family: 'Hind', sans-serif;
+    font-weight: 400;
 
     @media (max-width: 768px) {
         display: none;
@@ -123,40 +131,49 @@ const Menu = styled.div`
 const Header = () => {
     const linkStyles = {
         color: "black",
-        textDecoration: "none"
+        textDecoration: "none",
+        textTransform: "uppercase"
     }
+
 
     const cart = useSelector(state => state.cart)
     console.log('cart items: ',cart.quantity)
     return (
         <Container>
-            <Left>
-                <Language>EN</Language>
-                <SearchContainer>
-                    <SearchInput type='text' />
-                    <SearchIcon />
-                </SearchContainer>
-            </Left>
-            <Mid>
-                <Link to="/" className="Logo">
-                    <LogoImg src={logo} alt='logo image'/>
-                    <LogoText>Kpop Wiz</LogoText>
-                </Link>
-            </Mid>
-            <Right>
-                <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>
-                <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem>
-                <NavItem>
-                    <Link to="/cart" style={linkStyles}>
-                    <Badge badgeContent={cart.quantity} color="primary">
-                        <ShoppingCartOutlinedIcon />
-                    </Badge>
+            <Wrapper>
+                <Left>
+                    <Link to="/" className="Logo">
+                        <LogoImg src={logo} alt='logo image'/>
+                        <LogoText>Wiz</LogoText>
                     </Link>
-                </NavItem>
-                <Menu>
-                    <FontAwesomeIcon icon={ faBars } />
-                </Menu>
-            </Right>
+                </Left>
+                <Mid>
+                    <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
+                    <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
+                    <NavItem><Link to="/" style={linkStyles}>Official MD</Link></NavItem>
+                    <NavItem><Link to="/" style={linkStyles}>K-Style</Link></NavItem>
+                    <NavItem><Link to="/" style={linkStyles}>Events</Link></NavItem>
+                    <SearchContainer>
+                        <SearchInput type='text' />
+                        <SearchIcon className="search--icon"/>
+                    </SearchContainer>
+                </Mid>
+                <Right>
+                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>
+                    {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}
+                    <NavItem>
+                        <Link to="/cart" style={linkStyles}>
+                        <Badge badgeContent={cart.quantity} color="primary">
+                            <ShoppingCartOutlinedIcon />
+                        </Badge>
+                        </Link>
+                    </NavItem>
+                    <Menu>
+                        <FontAwesomeIcon icon={ faBars } />
+                    </Menu>
+                </Right>
+            </Wrapper>
+            
         </Container>
     )
 }

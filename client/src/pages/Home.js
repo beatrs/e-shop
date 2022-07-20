@@ -6,7 +6,7 @@ import Newsletter from "../components/Newsletter/Newsletter"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
-import "../styles.css"
+import "../styles.scss"
 import styled from "styled-components"
 
 const Title = styled.h1`

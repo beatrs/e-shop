@@ -1,0 +1,74 @@
+
+@import "../../styles/variables";
+
+.header {
+    height: 120px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    .header--wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        height: 100%;
+        margin: auto;
+
+
+        .header--left {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .logo {
+                display: flex;
+                height: 100%;
+
+                .logo--img {
+                    height: 100%;
+                }
+
+                .logo--txt {
+
+                }
+            }
+        }
+
+        .header--mid {
+            width: 60%;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .header--right {
+            width: 20%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.Logo {
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+
+    // @media (max-width: 768px) {
+    //     height: auto-fit;
+    // }
+}
+
+.search--icon {
+    cursor: pointer;
+    align-self: center;
+    justify-self: flex-end;
+}
