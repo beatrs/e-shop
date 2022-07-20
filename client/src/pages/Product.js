@@ -13,6 +13,9 @@ import { useDispatch } from "react-redux"
 
 import FormatNumber from "../services/general"
 
+import Showdown from "showdown"
+import parse from 'html-react-parser';
+
 const Container = styled.div`
 `
 
@@ -161,6 +164,13 @@ const Product = () => {
         )
     }
 
+    const converter = new Showdown.Converter({
+        tables: true,
+        simplifiedAutoLink: true,
+        strikethrough: true,
+        tasklists: true,
+    })
+
     return (
         <Container>
             <StickyHeader navFirst={true} />
@@ -190,7 +200,7 @@ const Product = () => {
                         <CartButton onClick={updateCart}>Add To Cart</CartButton>
                     </CartWrapper>
                     <Description>
-                        {item.desc}
+                        {parse(converter.makeHtml(item.desc))}
                     </Description>
                 </InfoContainer>
             </Wrapper>
