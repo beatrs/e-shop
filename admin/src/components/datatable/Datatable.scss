@@ -1,9 +1,24 @@
 
+@import "../../styles/variables";
+
 .datatable {
     height: 400px;
     width: auto;
     margin: 30px;
-    font-family: 'Hind', sans-serif;
+    font-family: $text-font;
+}
+
+.actionRow {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+
+    .action--btn {
+        cursor: pointer;
+        height: 1.25em;
+        width: 1.25em;
+        color: $text-dark;
+    }
 }
 
 .MuiDataGrid-cell {
@@ -39,17 +54,20 @@
 
 .rowDesc {
     height: 100%;
-    width: 100%;
+    // width: 100%;
+    width: 300px;
     white-space: no-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: flex;
-    align-items: center;
+    position: relative;
+    top: 30%;
+    // display: flex;
+    // align-items: center;
 
-    &:hover, &:active, &:focus {
-        white-space: break-spaces;
-        overflow-y: auto;
-    }
+    // &:hover, &:active, &:focus {
+    //     white-space: break-spaces;
+    //     overflow-y: auto;
+    // }
 
     .rowDesc--txt {
         font-size: 0.9em;

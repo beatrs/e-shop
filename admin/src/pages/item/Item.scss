@@ -27,9 +27,20 @@
         flex-direction: column;
         justify-content: space-around;
 
-        .info--artist {
-            text-transform: capitalize;
+        
+        .info--item {
+            margin-bottom: 10px;
+
+            .info--artist {
+                text-transform: capitalize;
+            }
         }
+
+        .info--versions {
+            margin-bottom: 15px;
+        }
+
+        
     }
 
     .info--btn {

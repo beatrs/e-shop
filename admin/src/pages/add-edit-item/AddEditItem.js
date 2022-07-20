@@ -23,7 +23,9 @@ const AddEditItem = ({type}) => {
         versions: [],
         categories: [],
         cover: '',
-        coverAlt: ''
+        coverAlt: '',
+        img: '',
+        imgAlt: '',
     })
  
     //get items
@@ -144,14 +146,11 @@ const AddEditItem = ({type}) => {
     })
 
 
-    const [image, setImage] = useState({
-        file: '',
-        previewUrl: ''
-    })
+    const [image, setImage] = useState({ file: '', previewUrl: '' })
+    const [image2, setImage2] = useState({ file: '', previewUrl: '' })
 
-    const handleImgChange = (e) => {
+    const handleCoverChange = (e) => {
         e.preventDefault()
-
         const file = e.target.files[0]
         const reader = new FileReader()
         
@@ -163,6 +162,24 @@ const AddEditItem = ({type}) => {
             setItem(prevState => ({
                 ...prevState,
                 cover: file
+            }))
+        }
+        reader.readAsDataURL(file)
+    }
+
+    const handleImgChange = (e) => {
+        e.preventDefault()
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        
+        reader.onloadend = () => {
+            setImage2({
+                file: file,
+                previewUrl: reader.result
+            })
+            setItem(prevState => ({
+                ...prevState,
+                img: file
             }))
         }
         reader.readAsDataURL(file)
@@ -181,73 +198,108 @@ const AddEditItem = ({type}) => {
             <Sidebar />
             <div className="form--container">
                 <Navbar />
-                <div className="item-form">
                     {item && 
+                    <div className="item-form">
                     <form>
                         <h2>{!itemId ? 'Add New item': 'Edit item'}</h2>
-                        <div className="form--item">
-                            <label>Product name:</label>
-                            <input type="text" name="title" value={item.title || ""} onChange={handleFormChange} />
-                        </div>
-                        {/* <div className="form--item">
-                            <label>Description:</label>
-                            <textarea name="desc" value={item.desc || ""} className="form--textarea" onChange={handleFormChange} />
-                        </div> */}
-                        <div className="form--item">
-                            <label>Artist:</label>
-                            <input type="text" name="artist" value={item.artist || ""} onChange={handleFormChange} />
-                        </div>
-                        <div className="form--item">
-                            <label>Price:</label>
-                            <input type="number" name="price" value={item.price || 0} onChange={handleFormChange}  />
-                        </div>
-                        <div className="form--item">
-                            <label>Versions:</label>
-                            <div className="item--multi">
-                                <input type="text" name="versions" onKeyPress={handleKeyPress} />
-                                <span className="help">Hit enter or comma to add tags</span>
-                                <ul className="tags">
-                                    {versionTags}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="form--item">
-                            <label>Categories:</label>
-                            <div className="item--multi">
-                                <input type="text" name="categories" onKeyPress={handleKeyPress} />
-                                <span className="help">Hit enter or comma to add tags</span>
-                                <ul className="tags">
-                                    {categoryTags}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="form--item">
-                            <label>Main Image:</label>
-                            <div className="input--wrapper">
-                                <div className="image--input">
-                                    <div className="image">
-                                        <img src={image.previewUrl || item.cover} alt="" />
-                                        <div className="upload-btn" style={{ opacity: image.previewUrl !== '' || item.cover !== '' ? '0' : '1' }}>
-                                            <input type="file" onChange={(e)=>handleImgChange(e)} />
-                                            <button type="button">Click here to upload an image</button>
+                        {/* FORM BODY */}
+                        <div className="form--body">
+                            {/* ! SECTION LEFT ! */}
+                            <div className="section--left">
+                                {/* COVER IMAGE */}
+                                <div className="form--item">
+                                    <label>Main Image</label>
+                                    <div className="input--wrapper">
+                                        <div className="image--input">
+                                            <div className="image">
+                                                <img src={image.previewUrl || item.cover} alt="" />
+                                                <div className="upload-btn" style={{ opacity: image.previewUrl !== '' || item.cover !== '' ? '0' : '1' }}>
+                                                    <input type="file" onChange={(e)=>handleCoverChange(e, image)} />
+                                                    <button type="button">Click here to upload an image</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <input type="text" name="coverAlt" value={item.coverAlt || ""} onChange={handleFormChange}  placeholder="Cover Alt Text" />
                                         </div>
                                     </div>
-                                    
-                                    <input type="text" name="coverAlt" value={item.coverAlt || ""} onChange={handleFormChange}  placeholder="Image Alt Text" />
+                                </div>
+                                {/* OTHER IMAGE */}
+                                <div className="form--item">
+                                    <label>Secondary Image</label>
+                                    <div className="input--wrapper">
+                                        <div className="image--input">
+                                            <div className="image">
+                                                <img src={image2.previewUrl || item.img} alt="" />
+                                                <div className="upload-btn" style={{ opacity: image2.previewUrl !== '' || item.img !== '' ? '0' : '1' }}>
+                                                    <input type="file" onChange={(e)=>handleImgChange(e, image2)} />
+                                                    <button type="button">Click here to upload an image</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <input type="text" name="imgAlt" value={item.imgAlt || ""} onChange={handleFormChange}  placeholder="Image Alt Text" />
+                                            <span className="help">Image not required</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            {/* END OF SECTION LEFT */}
+
+                            {/* SECTION RIGHT */}
+                            <div className="section--right">
+                                {/* PRODUCT NAME */}
+                                <div className="form--item">
+                                    <label>Product name</label>
+                                    <input type="text" name="title" value={item.title || ""} onChange={handleFormChange} />
+                                </div>
+                                {/* DESCRIPTION */}
+                                <div className="form--item">
+                                    <label>Description</label>
+                                    <Editor 
+                                        currentText={item.desc || ""}
+                                        updateText={updateText}
+                                    />
+                                </div>
+                                {/* ARTIST NAME & PRICE */}
+                                <div className="form--row">
+                                    <div className="form--item">
+                                        <label>Artist</label>
+                                        <input type="text" name="artist" value={item.artist || ""} onChange={handleFormChange} />
+                                    </div>
+                                    <div className="form--item">
+                                        <label>Price (PHP)</label>
+                                        <input type="number" name="price" value={item.price || 0} onChange={handleFormChange} min='0'  />
+                                    </div>
+                                </div>
+                                {/* VERSIONS */}
+                                <div className="form--item">
+                                    <label>Versions</label>
+                                    <div className="item--multi">
+                                        <input type="text" name="versions" onKeyPress={handleKeyPress} />
+                                        <span className="help">Hit enter or comma to add tags</span>
+                                        <ul className="tags">
+                                            {versionTags}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {/* CATEGORIES */}
+                                <div className="form--item">
+                                    <label>Categories</label>
+                                    <div className="item--multi">
+                                        <input type="text" name="categories" onKeyPress={handleKeyPress} />
+                                        <span className="help">Hit enter or comma to add tags</span>
+                                        <ul className="tags">
+                                            {categoryTags}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* END OF SECTION RIGHT */}
+                            
                         </div>
-
-                        <Editor 
-                            currentText={item.desc || ""}
-                            updateText={updateText}
-                        />
-
-                        <button type="button" onClick={handleSave}>Save</button>
+                        <button type="button" onClick={handleSave} className="save--btn">Save item details</button>
                     </form>
+                    </div>
                     }
-                </div>
             </div>
         </div>
     )

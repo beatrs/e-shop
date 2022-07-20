@@ -17,7 +17,7 @@ const List = ({type}) => {
     
       const getUsers = async () => {
         try {
-            const res = await userRequest.get(userQuery)
+            const res = await adminRequest.get(userQuery)
             setUsers(modList(res.data))
         } catch (err) {
             console.error(err)

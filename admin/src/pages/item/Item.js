@@ -1,11 +1,17 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Fragment } from "react"
 import { useLocation, Link, useNavigate } from "react-router-dom"
 import "./Item.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import { userRequest } from "../../reqMethods"
 import { Redirect } from "../../services/general"
+
+import ReactMde from "react-mde"
+import ReactMarkdown from "react-markdown"
+import 'react-mde/lib/styles/css/react-mde-all.css'
+import Showdown from "showdown"
+import parse from 'html-react-parser';
 
 const Item = () => {
     const [item, setItem] = useState()
@@ -35,6 +41,21 @@ const Item = () => {
         }
     }
 
+    const converter = new Showdown.Converter({
+        tables: true,
+        simplifiedAutoLink: true,
+        strikethrough: true,
+        tasklists: true,
+    })
+
+    const convertedText = () => {
+        return (
+            <Fragment>
+                {parse(converter.makeHtml(item.desc))}
+            </Fragment>
+        )
+    }
+
     return (
         <div className="page">
             <Sidebar />
@@ -49,12 +70,19 @@ const Item = () => {
                         <h2 className="info--title">
                             { item.title }
                         </h2>
-                        <span>Artist: <span className="info--artist">{ item.artist }</span></span>
-                        <span>Description: { item.desc }</span>
-                        <span>Price: ₱ { item.price }</span>
+                        {item.artist &&
+                        <span className="info--item">
+                            Artist: 
+                            <span className="info--artist"> { item.artist }</span>
+                        </span>
+                        }
+                        <span className="info--item">
+                            Description: {convertedText()}
+                        </span>
+                        <span className="info--item">Price: ₱ { item.price }</span>
                         {item.versions &&
                         <div className="info--versions">
-                            <span>Versions:</span>
+                            <span className="info--item">Versions:</span>
                             <ul>
                                 {item.versions.map((version) => (
                                     <li key={version}>{version}</li>

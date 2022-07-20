@@ -153,9 +153,9 @@ const AddEditUser = () => {
                                 }
                                 <div className="form--item">
                                     <label>User Role</label>
-                                    <select name="isAdmin" onChange={handleFormChange} value={userId ? user.isAdmin : false}>
-                                        <option value={false}>User (no administrator access)</option>
-                                        <option value={true}>Global administrator</option>
+                                    <select name="isAdmin" onChange={handleFormChange} value={userId ? user.isAdmin.toString() : 'false'}>
+                                        <option value='false'>User (no administrator access)</option>
+                                        <option value='true'>Global administrator</option>
                                     </select>
                                 </div>
                             </div>
