@@ -9,7 +9,7 @@ import "./Header.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const Container = styled.div`
     height: 120px;
@@ -108,11 +108,13 @@ const Right = styled.div`
     gap: 30px;
 `
 
-const NavItem = styled.div`
+const NavItem = styled.a`
     cursor: pointer;
     /* margin-right: 20px; */
     font-family: 'Hind', sans-serif;
     font-weight: 400;
+    border: none;
+    background: none;
 
     @media (max-width: 768px) {
         display: none;
@@ -134,9 +136,18 @@ const Header = () => {
         textDecoration: "none",
         textTransform: "uppercase"
     }
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const cart = useSelector(state => state.cart)
+    const user = useSelector((state) => state.user.currentUser)
+
+    const handleLogout = () => {
+        dispatch({
+            type: "RESET"
+        })
+        navigate("/")
+    }
     console.log('cart items: ',cart.quantity)
     return (
         <Container>
@@ -159,11 +170,16 @@ const Header = () => {
                     </SearchContainer>
                 </Mid>
                 <Right>
-                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>
+                    {!user ?
+                    <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem>  
+                    :
+                    <NavItem><Link to="/" style={linkStyles}>Sign In</Link></NavItem>  
+                    }
+                    
                     {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}
                     <NavItem>
                         <Link to="/cart" style={linkStyles}>
-                        <Badge badgeContent={cart.quantity} color="primary">
+                        <Badge badgeContent={cart && cart.quantity} color="primary">
                             <ShoppingCartOutlinedIcon />
                         </Badge>
                         </Link>

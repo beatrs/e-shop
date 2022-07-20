@@ -80,18 +80,6 @@ const ProductList = () => {
     
     console.log(sort)
 
-    // const artistOptions = [
-    //     {value: '', label: 'ALL'},
-    //     {value: 'kwon eun bi', label: 'Kwon Eun Bi'},
-    //     {value: 'jo yuri', label: 'Jo Yuri'},
-    //     {value: 'ive', label: 'IVE'},
-    //     {value: 'iz*one', label: 'IZ*ONE'},
-    //     {value: 'kang hye won', label: 'Kang Hye Won'},
-    //     {value: 'yena', label: 'YENA'},
-    //     {value: 'le sserafim', label: 'LE SSERAFIM'},
-    //     {value: 'fromis_9', label: 'fromis_9'},
-    //     {value: 'txt', label: 'TXT'},
-    // ]
     const [artistOptions, setArtistOptions] = useState([
         {value: '', label: 'ALL'}
     ])

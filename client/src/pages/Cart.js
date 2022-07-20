@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
 import { Link } from "react-router-dom"
 import FormatNumber from "../services/general"
+import { changeQty } from "../redux/cartRedux"
 
 const Container = styled.div`
 `
@@ -171,6 +172,16 @@ const CheckoutBtn = styled.button`
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
+
+    const dispatch = useDispatch()
+    const updateCart = (e, pId) => {
+        const quantity = parseInt(e.target.value)
+        console.log(quantity)
+        dispatch(
+            changeQty({pId, quantity})
+        )
+    }
+
     return (
         <Container>
             <StickyHeader />
@@ -199,7 +210,7 @@ const Cart = () => {
                             <PriceDetails>
                                 <Quantity>
                                     <QuantityLbl>Quantity</QuantityLbl>
-                                    <QuantityInput type="number" min="1" value={item.quantity} />
+                                    <QuantityInput type="number" min="1" value={item.quantity} onChange={(e)=>updateCart(e, item._id)} />
                                 </Quantity>
                                 <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
                             </PriceDetails>

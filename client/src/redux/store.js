@@ -13,24 +13,25 @@ const persistConfig = {
     storage,
 }
 
-const rootReducer = combineReducers({
+const combinedReducer = combineReducers({
     user: userReducer,
     cart: cartReducer
 })
 
 
-export const resetReducer = (state, action) => {
-    if (action.type === "LOGOUT") {
-        const { routing } = state
-        state = { routing }
+const persistedReducer = persistReducer(persistConfig, combinedReducer)
+
+const rootReducer = (state, action) => {
+    if (action.type === 'RESET') {
+        state = undefined
+        storage.removeItem('persist:root')
     }
-    return rootReducer(state, action)
+    return persistedReducer(state, action)
 }
   
-const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore ({
-    reducer: persistedReducer,
+    reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
