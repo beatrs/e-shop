@@ -1,0 +1,16 @@
+
+
+$text-title: 'Archivo', sans-serif;
+$text-primary: 'Hind', sans-serif;
+
+
+$theme-fonts: (
+  'textTitle': "'Archivo', sans-serif",
+  'textPrimary': $text-primary,
+);
+
+:export {
+  @each $font, $value in $theme-fonts {
+    $font: $value;
+  }
+}

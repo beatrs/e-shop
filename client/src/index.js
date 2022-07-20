@@ -1,4 +1,4 @@
-import './styles.css'
+import './styles.scss'
 import App from './App'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store'
