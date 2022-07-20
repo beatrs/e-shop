@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const cartSlice = createSlice({
     name: "cart",
@@ -34,9 +34,28 @@ const cartSlice = createSlice({
             // console.log(newQty)
             state.quantity = sumQty
             state.total = sumTotal
+        },
+        removeItem: (state, action) => {
+            // let newProd = []
+            // state.products.forEach((prod) => {
+            //     if (prod._id !== action.payload)
+            //         newProd.push(prod)
+            // })
+            state.products = state.products.filter(prod => prod._id !== action.payload)
+            
+            let sumQty = 0
+            let sumTotal = 0
+            state.products.forEach((prod) => {
+                console.log(prod.quantity, prod.price)
+                sumQty += prod.quantity
+                sumTotal += (prod.quantity * prod.price)
+            })
+            console.log(sumQty, sumTotal)
+            state.quantity = sumQty
+            state.total = sumTotal
         }
     }
 })
 
-export const { addProduct, changeQty } = cartSlice.actions
+export const { addProduct, changeQty, removeItem } = cartSlice.actions
 export default cartSlice.reducer

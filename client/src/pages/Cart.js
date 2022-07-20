@@ -5,7 +5,7 @@ import StickyHeader from "../components/Header/StickyHeader"
 
 import { Link } from "react-router-dom"
 import FormatNumber from "../services/general"
-import { changeQty } from "../redux/cartRedux"
+import { changeQty, removeItem } from "../redux/cartRedux"
 
 const Container = styled.div`
 `
@@ -169,6 +169,13 @@ const CheckoutBtn = styled.button`
     letter-spacing: 1px;
 `
 
+const ClrButton = styled.button`
+    cursor: pointer;
+    border: none;
+    background: none;
+    margin-left: 10px;
+`
+
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
@@ -179,6 +186,13 @@ const Cart = () => {
         console.log(quantity)
         dispatch(
             changeQty({pId, quantity})
+        )
+    }
+
+    const deleteItem = (pId) => {
+        console.log(pId)
+        dispatch(
+            removeItem(pId)
         )
     }
 
@@ -213,6 +227,7 @@ const Cart = () => {
                                     <QuantityInput type="number" min="1" value={item.quantity} onChange={(e)=>updateCart(e, item._id)} />
                                 </Quantity>
                                 <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
+                                <ClrButton onClick={()=>deleteItem(item._id)}>&times;</ClrButton>
                             </PriceDetails>
                         </ProductInfo>
                     </Product>
