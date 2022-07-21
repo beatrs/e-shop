@@ -5,7 +5,7 @@ import StickyHeader from "../components/Header/StickyHeader"
 
 import { Link, useNavigate } from "react-router-dom"
 import FormatNumber from "../services/general"
-import { changeQty, removeItem } from "../redux/cartRedux"
+import { changeQty, removeItem, resetCart } from "../redux/cartRedux"
 import { userRequest } from "../reqMethods"
 
 const Container = styled.div`
@@ -177,6 +177,9 @@ const ClrButton = styled.button`
     margin-left: 10px;
 `
 
+const ClrAllBtn = styled.button`
+    cursor: pointer;
+`
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
@@ -229,6 +232,15 @@ const Cart = () => {
                 }
             }
             submitOrder()
+            handleClearAll()
+        }
+    }
+
+    const handleClearAll = () => {
+        try {
+            dispatch( resetCart() )
+        } catch (err) {
+            console.error(err)
         }
     }
 
@@ -278,6 +290,7 @@ const Cart = () => {
                         <SummaryTotal>₱ {FormatNumber.formatPrice(cart.total)}</SummaryTotal>
                     </Summary>
                     <CheckoutBtn onClick={handleCheckout}>Checkout</CheckoutBtn>
+                    <ClrAllBtn onClick={handleClearAll}>Empty Cart</ClrAllBtn>
                 </Bottom>
             </Wrapper>
             <Footer />

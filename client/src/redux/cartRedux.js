@@ -24,38 +24,29 @@ const cartSlice = createSlice({
                 sumQty += prod.quantity
                 sumTotal += (prod.quantity * prod.price)
             })
-            console.log(sumQty, sumTotal)
-            // const newQty = state.products.reduce(
-            //     (prevVal, curVal) => prevVal.quantity + curVal.quantity
-            // )
-            // const newTotal = state.products.reduce(
-            //     (prevVal, currVal) => prevVal + currVal.qty*currVal.price
-            // )
-            // console.log(newQty)
+            
             state.quantity = sumQty
             state.total = sumTotal
         },
         removeItem: (state, action) => {
-            // let newProd = []
-            // state.products.forEach((prod) => {
-            //     if (prod._id !== action.payload)
-            //         newProd.push(prod)
-            // })
             state.products = state.products.filter(prod => prod._id !== action.payload)
             
-            let sumQty = 0
-            let sumTotal = 0
+            let [sumQty, sumTotal] = [0, 0]
             state.products.forEach((prod) => {
-                console.log(prod.quantity, prod.price)
                 sumQty += prod.quantity
                 sumTotal += (prod.quantity * prod.price)
             })
-            console.log(sumQty, sumTotal)
+            
             state.quantity = sumQty
             state.total = sumTotal
+        },
+        resetCart: (state) => {
+            state.products = []
+            state.quantity = 0
+            state.total = 0
         }
     }
 })
 
-export const { addProduct, changeQty, removeItem } = cartSlice.actions
+export const { addProduct, changeQty, removeItem, resetCart } = cartSlice.actions
 export default cartSlice.reducer
