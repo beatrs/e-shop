@@ -3,9 +3,10 @@ import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import FormatNumber from "../services/general"
 import { changeQty, removeItem } from "../redux/cartRedux"
+import { userRequest } from "../reqMethods"
 
 const Container = styled.div`
 `
@@ -179,7 +180,9 @@ const ClrButton = styled.button`
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
-
+    const user = useSelector((state) => state.user.currentUser)
+    
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const updateCart = (e, pId) => {
         const quantity = parseInt(e.target.value)
@@ -194,6 +197,39 @@ const Cart = () => {
         dispatch(
             removeItem(pId)
         )
+    }
+
+    const handleCheckout = () => {
+        if (user && cart) {
+            let prodList = []
+            cart.products.forEach((product) => {
+                var {_id, quantity, itemVersion} = product
+                prodList.push({
+                    productId: _id,
+                    quantity: quantity,
+                    version: itemVersion
+                })
+            })
+            // console.log(prodList)
+            const newOrder = {
+                userId: user._id,
+                products: prodList,
+                totalQty: cart.quantity,
+                amount: cart.total
+            }
+            
+            const submitOrder = async() => {
+                try {
+                    const query = `/orders`
+                    const res = await userRequest.post(query, newOrder)
+                    if (res.data)
+                        navigate('/')
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+            submitOrder()
+        }
     }
 
     return (
@@ -241,7 +277,7 @@ const Cart = () => {
                         <SummaryLbl>Subtotal</SummaryLbl>
                         <SummaryTotal>₱ {FormatNumber.formatPrice(cart.total)}</SummaryTotal>
                     </Summary>
-                    <CheckoutBtn>Checkout</CheckoutBtn>
+                    <CheckoutBtn onClick={handleCheckout}>Checkout</CheckoutBtn>
                 </Bottom>
             </Wrapper>
             <Footer />

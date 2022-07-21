@@ -6,6 +6,7 @@ const Order = require("../models/Order")
 // * CREATE
 router.post("/", verifyToken, async (req, res) => {
     const newOrder = new Order(req.body)
+    console.log(newOrder)
     try {Order
         const savedOrder = await newOrder.save()
         return res.status(200).json(savedOrder)
