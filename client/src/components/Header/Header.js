@@ -170,10 +170,10 @@ const Header = () => {
                     </SearchContainer>
                 </Mid>
                 <Right>
-                    {!user ?
+                    {user ?
                     <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem>  
                     :
-                    <NavItem><Link to="/" style={linkStyles}>Sign In</Link></NavItem>  
+                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>  
                     }
                     
                     {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}
