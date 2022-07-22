@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/beatrs/e-shop/issues"
   },
-  "homepage": "https://github.com/beatrs/e-shop#readme"
+  "homepage": "https://github.com/beatrs/e-shop#readme",
+  "dependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
