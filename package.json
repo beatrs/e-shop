@@ -7,10 +7,10 @@
     "node": "16.13.1"
   },
   "scripts": {
-    "start": "node api/index",
-    "server": "nodemon api/index",
+    "start": "nodemon api/index.js",
+    "server": "nodemon api/index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
   },
   "keywords": [],
