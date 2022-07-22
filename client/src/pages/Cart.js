@@ -208,14 +208,14 @@ const Cart = () => {
             cart.products.forEach((product) => {
                 var {_id, quantity, itemVersion} = product
                 prodList.push({
-                    productId: _id,
+                    _product: _id,
                     quantity: quantity,
                     version: itemVersion
                 })
             })
             // console.log(prodList)
             const newOrder = {
-                userId: user._id,
+                _user: user._id,
                 products: prodList,
                 totalQty: cart.quantity,
                 amount: cart.total

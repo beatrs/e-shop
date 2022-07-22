@@ -11,7 +11,7 @@ import { serialize } from 'object-to-formdata'
 const AddEditUser = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const userId = location.pathname.split("/")[3]
+    const userId = location.pathname.split("/").pop()
     const [user, setUser] = useState({
         username: '',
         email: '',

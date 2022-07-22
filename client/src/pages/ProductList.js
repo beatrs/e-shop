@@ -34,6 +34,7 @@ const Filter = styled.div`
 
 const Title = styled.h1`
     margin: 20px;
+    text-transform: capitalize;
 `
 
 const FilterText = styled.span`
@@ -107,10 +108,15 @@ const ProductList = () => {
         console.log(artistOptions)
     }, [])
 
+    let PageTitle = ''
+    if (category === 'album')
+        PageTitle = 'Albums'
+    else if (category === 'merch')
+        PageTitle = 'Official MD'
     return (
         <Container>
             <StickyHeader navFirst={false} />
-            <Title>Albums</Title>
+            <Title>{PageTitle}</Title>
             <FilterContainer>
                 <Filter>
                     {/* TODO: change into dynammic */}

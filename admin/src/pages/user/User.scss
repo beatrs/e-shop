@@ -1,4 +1,25 @@
 
+.orders--container {
+    width: 80vw;
+}
+.datagrid {
+    width: 78vw;
+    padding: 0.75rem;
+    margin: 1.25rem;
+    margin: auto;
+
+    @media only screen and (max-width: 1499px) {
+        width: 77vw;
+    }
+
+    // .MulDataGrid-cellContent {
+    //     background: #F2D0A9;
+    //     border-radius: 80px;
+    //     padding: 5px 25px;
+    // }
+}
+
+
 .user--container {
     padding: 1.25rem;
     margin: 1.25rem;

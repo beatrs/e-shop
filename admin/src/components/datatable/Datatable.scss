@@ -24,6 +24,15 @@
 .MuiDataGrid-cell {
     border-bottom: none !important;
     margin-bottom: 5px !important;
+
+    .rowTxt--status {
+        border-radius: 80px;
+        padding: 5px 25px;
+        color: white;
+        width: 110px;
+        display: inline-block;
+        text-align: center;
+    }
 }
 
 .withImg {

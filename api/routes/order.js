@@ -38,12 +38,29 @@ router.delete("/:id", verifyTokenAndAuth, async (req, res) => {
 })
 
 // * GET ORDERS by userId
-router.get("/:id", verifyTokenAndAuth, async (req, res) => {
+router.get("/:userId", verifyTokenAndAuth, async (req, res) => {
     try {
-        const orders = await Order.find({ id: req.params.userId })
+        console.log(req.params)
+        const orders = 
+            await Order.find({ _user: req.params.userId })
+            .populate('_user', '_id username')
+            .populate('products._product', '_id title artistFormatted')
         return res.status(200).json(orders)
     } catch (err) {
-        return res.send(500).json(err)
+        return res.status(500).json(err)
+    }
+})
+
+// * GET ALL ORDERS
+router.get("/", async (req, res) => {
+    try {
+        const orders = 
+            await Order.find()
+                .populate('_user', '_id username')
+                .populate('products._product', '_id title artistFormatted')
+        return res.status(200).json(orders)
+    } catch (err) {
+        return res.status(500).json(err)
     }
 })
 

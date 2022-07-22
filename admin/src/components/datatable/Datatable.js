@@ -7,6 +7,7 @@ import { HiOutlineSearchCircle as ViewIcon, HiOutlinePencilAlt as EditIcon, HiOu
 
 import Showdown from "showdown"
 import parse from 'html-react-parser';
+import { FormatDate } from '../../services/general'
 
 const userColumns = [
     { field: 'id', headerName: 'ID', width: 70,},
@@ -63,6 +64,111 @@ const productColumns = [
     { field: 'artistFormatted', headerName: 'Artist', width: 130 },
 ]
 
+const orderColumns = [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { 
+        field: 'createdAt', headerName: 'Order Date', width: 170,
+        renderCell: (params)=>{
+            return (
+                <div>
+                    <span className="rowTxt">{FormatDate.getYmd(params.row.createdAt)}</span>
+                </div>
+            )
+        } 
+    },
+    { 
+        field: 'user', headerName: 'Customer', width: 200,
+        renderCell: (params)=>{
+            return (
+                <div>
+                    <span className="rowTxt">{params.row._user.username}</span>
+                </div>
+            )
+        } 
+    },
+    { 
+        field: 'orders', headerName: 'Orders', width: 350,
+        renderCell: (params)=>{
+            const products = params.row.products.map(prod => prod._product.title)
+            const prodList = products.join(', ')
+            console.log(prodList)
+            return (
+                <div>
+                    <span className="rowTxt">{prodList}</span>
+                </div>
+            )
+        } 
+    },
+    { 
+        field: 'status', headerName: 'Status', width: 150,
+        renderCell: (params)=>{
+            const status = params.row.status
+            let bgColor
+            if (status === 'fulfilled')
+                bgColor = '#99C1B9'
+            else if (status === 'pending')
+                bgColor = '#F2D0A9'
+            else
+                bgColor = '#D88C9A'
+            const rowStyles = {
+                background: bgColor
+            }
+            return (
+                <div>
+                    <span className="rowTxt--status" style={rowStyles}>{params.row.status}</span>
+                </div>
+            )
+        } 
+    }
+]
+
+const userOrdersColumn = [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { 
+        field: 'createdAt', headerName: 'Order Date', width: 170,
+        renderCell: (params)=>{
+            return (
+                <div>
+                    <span className="rowTxt">{FormatDate.getYmd(params.row.createdAt)}</span>
+                </div>
+            )
+        } 
+    },
+    { 
+        field: 'orders', headerName: 'Orders', width: 350,
+        renderCell: (params)=>{
+            const products = params.row.products.map(prod => prod._product.title)
+            const prodList = products.join(', ')
+            console.log(prodList)
+            return (
+                <div>
+                    <span className="rowTxt">{prodList}</span>
+                </div>
+            )
+        } 
+    }, 
+    { 
+        field: 'status', headerName: 'Status', width: 150,
+        renderCell: (params)=>{
+            const status = params.row.status
+            let bgColor
+            if (status === 'fulfilled')
+                bgColor = '#99C1B9'
+            else if (status === 'pending')
+                bgColor = '#F2D0A9'
+            else
+                bgColor = '#D88C9A'
+            const rowStyles = {
+                background: bgColor,
+            }
+            return (
+                <div>
+                    <span className="rowTxt--status" style={rowStyles}>{params.row.status}</span>
+                </div>
+            )
+        } 
+    }
+]
 
 
 const Datatable = ({rows, type}) => {
@@ -92,7 +198,18 @@ const Datatable = ({rows, type}) => {
         navigate(url)
     }
     
-    const columns = type === 'prod' ? productColumns : userColumns
+    // const columns = type === 'prod' ? productColumns : userColumns
+    let columns
+    if (type === 'prod')
+        columns = productColumns
+    if (type === 'user')
+        columns = userColumns
+    if (type === 'order')
+        columns = orderColumns
+    if (type === 'userOrders')
+        columns = userOrdersColumn
+        
+    console.log('col: ', columns)
     return (
         <div className="datatable">
             <DataGrid

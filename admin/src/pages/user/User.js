@@ -6,14 +6,16 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import { userRequest } from "../../reqMethods"
 import { FormatDate } from "../../services/general"
+import Datatable from "../../components/datatable/Datatable"
 
 
 const User = () => {
     const [user, setUser] = useState()
+    const [userOrders, setUserOrders] = useState([])
     const location = useLocation()
     const navigate = useNavigate()
-    const userId = location.pathname.split("/")[2]
-    console.log(userId)
+    const userId = location.pathname.split("/").pop()
+    console.log(location.pathname.split("/").pop())
 
     const redirectTo = (url) => {
         try {
@@ -25,7 +27,7 @@ const User = () => {
 
     useEffect(() => {
         const query = `http://localhost:5000/api/users/${userId}`
-        const getuser = async () => {
+        const getUser = async () => {
             try {
                 const res = await userRequest.get(query)
                 setUser(res.data)
@@ -34,8 +36,31 @@ const User = () => {
                 console.error(err)
             }
         }
-        getuser()
+        const getUserOrders = async () => {
+            try {
+                const query = `/orders/${userId}`
+                const res = await userRequest(query)
+                setUserOrders(modList(res.data))
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        getUser()
+        getUserOrders()
     }, [userId])
+
+    const modList = (arr) => {
+        try {
+            const newArr = arr.map(obj => ({
+                ...obj,
+                'id': arr.indexOf(obj) + 1
+            }))
+
+            return newArr
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     return (
         <div className="page">
@@ -92,6 +117,7 @@ const User = () => {
                     
                 </div>
                 }
+                <Datatable className="orders--container" rows={userOrders} type="userOrders" />
             </div>
         </div>
     )

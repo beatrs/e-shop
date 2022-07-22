@@ -14,7 +14,7 @@ const AddEditItem = ({type}) => {
     //const [item, setItem] = useState()
     const navigate = useNavigate()
     const location = useLocation()
-    const itemId = location.pathname.split("/")[3]
+    const itemId = location.pathname.split("/").pop()
     const [item, setItem] = useState({
         title: '',
         artist: '',

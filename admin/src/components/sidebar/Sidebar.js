@@ -44,29 +44,29 @@ const Sidebar = () => {
             <div className="center">
                 <ul>
                     {/* <p className="title">Home</p> */}
-                    <Link to="/">
-                        <li href="/">
+                    <Link to="/admin">
+                        <li>
                             <DashboardIcon className="sidebar--icon" />
                             <span>Home</span>
                         </li>
                     </Link>
                     
                     {/* <p className="title">Site</p> */}
-                    <Link to="/users">
+                    <Link to="/admin/users">
                        <li>
                             <UsersIcon className="sidebar--icon"  />
                             <span>Users</span>
                         </li> 
                     </Link>
                     
-                    <Link to="">
+                    <Link to="/admin/orders">
                         <li>
                             <OrdersIcon className="sidebar--icon" />
                             <span>Orders</span>
                         </li>
                     </Link>
                     
-                    <Link to="/products">
+                    <Link to="/admin/products">
                         <li>
                             <ProductsIcon className="sidebar--icon" />
                             <span>Products</span>
@@ -74,7 +74,7 @@ const Sidebar = () => {
                     </Link>
 
                     {/* <p className="title">User</p> */}
-                    <Link to="/settings">
+                    <Link to="/admin/settings">
                         <li>
                             <SettingsIcon className="sidebar--icon" />
                             <span>Settings</span>

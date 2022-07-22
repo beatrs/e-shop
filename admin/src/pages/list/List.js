@@ -11,12 +11,12 @@ import { Link } from "react-router-dom"
 const List = ({type}) => {
     const [users, setUsers] = useState([])
     const [products, setProducts] = useState([])
+    const [orders, setOrders] = useState([])
     useEffect(() => {
-      const userQuery = `http://localhost:5000/api/users`
-      const prodQuery = `http://localhost:5000/api/products`
     
       const getUsers = async () => {
         try {
+            const userQuery = `/users`
             const res = await adminRequest.get(userQuery)
             setUsers(modList(res.data))
         } catch (err) {
@@ -26,6 +26,7 @@ const List = ({type}) => {
 
       const getProducts = async () => {
         try {
+            const prodQuery = `/products`
             const res = await userRequest.get(prodQuery)
             setProducts(modList(res.data))
         } catch (err) {
@@ -33,10 +34,23 @@ const List = ({type}) => {
         }
       }
 
+      const getOrders = async () => {
+        try {
+            const query = `/orders`
+            const res = await adminRequest.get(query)
+            setOrders(modList(res.data))
+            console.log(res.data)
+        } catch (err) {
+            console.error(err)
+        }
+      }
+
       getUsers()
       getProducts()
+      getOrders()
     }, [])
 
+    
     const modList = (arr) => {
         try {
             const newArr = arr.map(obj => ({
@@ -49,19 +63,25 @@ const List = ({type}) => {
             console.error(err)
         }
     }
+
+    const getDatatable = () => {
+        if (type === 'products')
+            return <Datatable rows={products} type="prod" />
+        else if (type === 'users')
+            return <Datatable rows={users} type="user" />
+        else if (type === 'orders')
+            return <Datatable rows={orders} type="order" />
+    }
+    
     return (
         <div className="list">
             <Sidebar />
             <div className="list--container">
                 <Navbar />
-                <Link to={type === 'products' ? `/products/new/` : `/users/new`} className="add-btn">
+                <Link to={`/${type}/new`} className="add-btn">
                     <button >Add New</button>
                 </Link>
-                { type === 'products' ?
-                <Datatable rows={products} type="prod" />
-                :
-                <Datatable rows={users} type="user" />
-                }
+                { getDatatable() }
             </div>
         </div>
     )

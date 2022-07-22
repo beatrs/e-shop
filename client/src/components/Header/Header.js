@@ -23,6 +23,10 @@ const Wrapper = styled.div`
     width: 80%;
     height: 100%;
     margin: auto;
+
+    @media only screen and (max-width: 1279px)  {
+        width: 90%;
+    }
 `
 
 //* left side
@@ -71,6 +75,16 @@ const Mid = styled.div`
     align-items: center;
     gap: 20px;
 `
+
+const NavItems = styled.div`
+    display: flex;
+    gap: 20px;
+
+    @media only screen and (max-width: 1079px) {
+        display: none;
+    }
+`
+
 const SearchContainer = styled.div`
     display: flex;
     /* border: 1px solid lightgray; */
@@ -81,12 +95,17 @@ const SearchContainer = styled.div`
     height: 2.5em;
     width: 15em;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 1079px) {
+        width: 80%;
+    }
+
+    @media only screen and (max-width: 768px) {
         display: none;
     }
 `
 
 const SearchInput = styled.input`
+    flex: 1;
     border: none;
     color: gray;
     background-color: transparent;
@@ -115,6 +134,8 @@ const NavItem = styled.a`
     font-weight: 400;
     border: none;
     background: none;
+    display: flex;
+    position: relative;
 
     @media (max-width: 768px) {
         display: none;
@@ -130,11 +151,32 @@ const Menu = styled.div`
     }
 `
 
+const ProfileImg = styled.img`
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+`
+
+const NavSelect = styled.select`
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+`
+
+const Option = styled.option`
+    cursor: pointer;
+`
+
 const Header = () => {
     const linkStyles = {
         color: "black",
         textDecoration: "none",
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        alignSelf: "center"
     }
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -159,11 +201,14 @@ const Header = () => {
                     </Link>
                 </Left>
                 <Mid>
-                    <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
-                    <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
-                    <NavItem><Link to="/" style={linkStyles}>Official MD</Link></NavItem>
-                    <NavItem><Link to="/" style={linkStyles}>K-Style</Link></NavItem>
-                    <NavItem><Link to="/" style={linkStyles}>Events</Link></NavItem>
+                    <NavItems>
+                        <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
+                        <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
+                        <NavItem><Link to="/shop/merch" style={linkStyles}>Official MD</Link></NavItem>
+                        <NavItem><Link to="/" style={linkStyles}>K-Style</Link></NavItem>
+                        <NavItem><Link to="/" style={linkStyles}>Events</Link></NavItem>
+                    </NavItems>
+                    
                     <SearchContainer>
                         <SearchInput type='text' />
                         <SearchIcon className="search--icon"/>
@@ -171,7 +216,14 @@ const Header = () => {
                 </Mid>
                 <Right>
                     {user ?
-                    <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem>  
+                    // <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem> 
+                    <NavItem>
+                        <ProfileImg src={user.profileImg} />
+                        <NavSelect>
+                            <Option>Profile</Option>
+                            <Option value="logout" onClick={handleLogout}>Logout</Option>
+                        </NavSelect>
+                    </NavItem>
                     :
                     <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>  
                     }

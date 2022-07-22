@@ -16,7 +16,7 @@ import parse from 'html-react-parser';
 const Item = () => {
     const [item, setItem] = useState()
     const location = useLocation()
-    const itemId = location.pathname.split("/")[2]
+    const itemId = location.pathname.split("/").pop()
     console.log(itemId)
     useEffect(() => {
         const query = `http://localhost:5000/api/products/${itemId}`
