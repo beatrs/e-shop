@@ -24,15 +24,15 @@ const App = () => {
   } 
 
   const BASE = "admin"
-  const LOGIN_URL = '/admin/login'
+  const LOGIN_URL = '/login'
   return(
     <div className={darkMode ? 'dark' : ''}>
       <BrowserRouter>
         <Routes>
           {/* <Route path="admin" element={user ? <Home /> : redirectTo('/login')}> */}
-          <Route path="admin">
-            <Route index element={user ? <Home /> : redirectTo('login')} />
-            <Route path="login" element={!user ? <Login /> : redirectTo('/admin')} /> 
+          <Route path="/">
+            <Route index element={user ? <Home /> : redirectTo('/login')} />
+            <Route path="login" element={!user ? <Login /> : redirectTo('/')} /> 
 
             <Route path="users">
               <Route index element={user? <List type="users"/> : redirectTo(LOGIN_URL)} />
