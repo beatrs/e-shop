@@ -10,7 +10,7 @@ const Sticky = styled.div`
     z-index: 10;
 `
 
-const StickyHeader = ({navFirst}) => {
+const StickyHeader = ({navFirst}, props) => {
     // console.log(navFirst)
     if (!navFirst) {
         return (

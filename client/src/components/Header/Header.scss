@@ -4,7 +4,14 @@
 .header {
     height: 120px;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0,0,0.16,-0.16) 0px 1px 4px;
+    
+    @media (max-width: 810px) {
+        box-shadow: none;
+        height: 0px;
+        box-shadow: rgba(0,0,0.16,-0.16) 0px 1px 4px;
+        
+    }
 
     .header--wrapper {
         display: flex;

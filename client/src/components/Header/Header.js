@@ -171,7 +171,7 @@ const Option = styled.option`
     cursor: pointer;
 `
 
-const Header = () => {
+const Header = (props) => {
     const linkStyles = {
         color: "black",
         textDecoration: "none",
@@ -190,7 +190,7 @@ const Header = () => {
         })
         navigate("/")
     }
-    console.log('cart items: ',cart.quantity)
+    console.log('cart items: ', cart.quantity)
     return (
         <Container>
             <Wrapper>

@@ -9,6 +9,9 @@ import StickyHeader from "../components/Header/StickyHeader"
 import "../styles.scss"
 import styled from "styled-components"
 
+import { useState } from "react"
+import MinHeader from "../components/Header/MinHeader"
+
 const Title = styled.h1`
     text-transform: uppercase;
     margin: 40px 20px;
@@ -17,9 +20,11 @@ const Title = styled.h1`
 `
 
 const Home = () => {
+    const [isToggled, setIsToggled] = useState(false)
     return (
         <div>
             <StickyHeader />
+            <MinHeader />
             <Slider />
             <Title>Shop</Title>
             <Categories />
