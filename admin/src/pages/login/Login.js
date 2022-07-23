@@ -19,11 +19,11 @@ const Login = () => {
         login(dispatch, {username, password})
     }
 
-    useEffect(()=> {
-        if (!currentUser) {
-            dispatch(clearIsError())
-        }
-    }, [])
+    // useEffect(()=> {
+    //     if (!currentUser) {
+    //         dispatch(clearIsError())
+    //     }
+    // }, [])
 
     const Logo = () => {
         return (
