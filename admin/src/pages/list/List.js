@@ -48,7 +48,7 @@ const List = ({type}) => {
       getUsers()
       getProducts()
       getOrders()
-    }, [])
+    }, [users])
 
     
     const modList = (arr) => {
