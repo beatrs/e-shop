@@ -6,7 +6,7 @@ import Datatable from "../../components/datatable/Datatable"
 import { useState, useEffect } from "react"
 
 import { adminRequest, userRequest } from "../../reqMethods"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const List = ({type}) => {
     const [users, setUsers] = useState([])
@@ -39,7 +39,6 @@ const List = ({type}) => {
             const query = `/orders`
             const res = await adminRequest.get(query)
             setOrders(modList(res.data))
-            console.log(res.data)
         } catch (err) {
             console.error(err)
         }
@@ -48,7 +47,7 @@ const List = ({type}) => {
       getUsers()
       getProducts()
       getOrders()
-    }, [users])
+    }, [])
 
     
     const modList = (arr) => {
@@ -73,14 +72,18 @@ const List = ({type}) => {
             return <Datatable rows={orders} type="order" />
     }
     
+    const [isToggled, setIsToggled] = useState(false)
+    const navigate = useNavigate()
+    
     return (
         <div className="list">
-            <Sidebar />
-            <div className="list--container">
-                <Navbar />
-                <Link to={`/${type}/new`} className="add-btn">
-                    <button >Add New</button>
-                </Link>
+            <Sidebar styleProp={isToggled} />
+            <div className="list--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
+                <div className="add-btn">
+                    <button onClick={()=>navigate(`/${type}/new`)}>Add New</button>
+                </div>
+                
                 { getDatatable() }
             </div>
         </div>

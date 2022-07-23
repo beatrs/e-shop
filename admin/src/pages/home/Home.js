@@ -4,12 +4,18 @@ import Widget from '../../components/widget/Widget'
 import { table as Table } from '../../components/table/Table'
 import './Home.scss'
 import { MdOutlineAttachMoney, MdShoppingCart } from "react-icons/md";
+import { useState } from 'react'
 const Home = () => {
+    const [isToggled, setIsToggled] = useState(false)
+    const toggleDrawer  = () => {
+        setIsToggled(true)
+        console.log(isToggled)
+    }
     return(
         <div className='home'>
-            <Sidebar />
-            <div className='home--container'>
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className='home--container' onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                 <div className='widgets'>
                     <Widget 
                         title='users'

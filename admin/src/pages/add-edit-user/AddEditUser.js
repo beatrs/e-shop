@@ -108,11 +108,13 @@ const AddEditUser = () => {
         }
     }
 
+    const [isToggled, setIsToggled] = useState(false)
+    
     return (
         <div className="form">
-            <Sidebar />
-            <div className="form--container">
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className="form--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                 {user && 
                 <div className="user-form">
                     <form>

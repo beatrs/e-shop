@@ -7,7 +7,18 @@
     height: 10vh;
     margin-top: 10px;
     padding: 25px 20px;
+    z-index: 20;
     // border-bottom: 0.5px solid rgba(lightgray, 0.65);
+
+    .drawer {
+        display: none;
+        cursor: pointer;
+        font-size: 1.35em;
+
+        @media only screen and (max-width: 539px) {
+            display: inline-block;
+        }
+    }
 }
 
 .items {
@@ -16,6 +27,8 @@
     align-items: center;
     padding: 5px;
 
+    
+
     .item {
         margin-right: 20px;
         height: 100%;
@@ -23,7 +36,12 @@
         align-items: center;
         position: relative;
         cursor: pointer;
-
+        
+        &.lang {
+            @media only screen and (max-width: 539px) {
+                display: none;
+            }
+        }
         .item--icon {
             margin-right: 5px;
             font-size: 1.2em;
@@ -60,6 +78,11 @@
     background-color: rgba(#cdcdcd, 0.20);
     border-radius: 5px;
 
+    @media only screen and (max-width: 539px) {
+        padding: 0px;
+        position: relative;
+    }
+
     input {
         border: none;
         font-size: 0.9em;
@@ -83,6 +106,11 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+
+        @media only screen and (max-width: 539px) {
+            position: absolute;
+            right: 0;
+        }
 
         .search--icon {
             font-size: 1em;

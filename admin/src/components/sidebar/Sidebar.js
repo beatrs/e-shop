@@ -7,7 +7,7 @@ import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } fr
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-const Sidebar = () => {
+const Sidebar = ({styleProp}) => {
     const forward = useDispatch()
     const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ const Sidebar = () => {
     }
 
     return(
-        <div className="sidebar">
+        <div className={styleProp ? 'sidebar toggled' : 'sidebar'} >
             <div className="top">
                 <Link to="/">
                     <span className="logo">Wiz</span>

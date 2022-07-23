@@ -6,6 +6,10 @@ $textgray : rgba(91, 90, 90, 0.1098039216);
     .form-body {
         display: flex;
         color: gray;
+
+        @media only screen and (max-width: 479px) {
+            flex-direction: column;
+        }
     }
 
     h2 {

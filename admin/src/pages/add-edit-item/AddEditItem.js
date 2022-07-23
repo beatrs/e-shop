@@ -186,12 +186,13 @@ const AddEditItem = ({type}) => {
         }))
     }
 
-
+    const [isToggled, setIsToggled] = useState(false)
+    
     return (
         <div className="form">
-            <Sidebar />
-            <div className="form--container">
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className="form--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                     {item && 
                     <div className="item-form">
                     <form>

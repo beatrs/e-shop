@@ -32,11 +32,13 @@ const Settings = () => {
         }
     }, [isDarkMode])
 
+    const [isToggled, setIsToggled] = useState(false)
+    
     return (
         <div className="settings">
-            <Sidebar />
-            <div className="settings--container">
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className="settings--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                 <div className="settings--main">
                     <h1 className="settings--heading">General Settings</h1>
                     <div className="settings--section">

@@ -35,10 +35,25 @@ $textgray : rgba(91, 90, 90, 0.1098039216);
         .form--body {
             display: flex;
             color: gray;
+
+            @media only screen and (max-width: 810px) {
+                flex-direction: column;
+            }
         }
 
         .section--left {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            @media only screen and (max-width: 810px) {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            @media only screen and (max-width: 479px) {
+                flex-direction: column;
+            }
 
             .form--item {
                 margin-bottom: 20px;
@@ -111,6 +126,10 @@ $textgray : rgba(91, 90, 90, 0.1098039216);
             .form--row {
                 display: flex;
                 gap: 20px;
+
+                @media only screen and (max-width: 810px) {
+                    flex-direction: column;
+                }
 
                 .form--item {
                     flex: 1;

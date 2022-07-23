@@ -1,6 +1,10 @@
 
 @import "../../styles/variables";
 
+.MuiDataGrid-root {
+    width: 100% !important;
+}
+
 .datatable {
     height: 400px;
     width: auto;

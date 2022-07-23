@@ -4,6 +4,7 @@ import { HiOutlineSearchCircle as ViewIcon, HiOutlinePencilAlt as EditIcon, HiOu
 import { DataGrid } from '@mui/x-data-grid'
 import { Link, useNavigate } from "react-router-dom"
 import { FormatDate } from '../../services/general'
+import { useEffect } from "react"
 
 const userColumns = [
     { field: 'id', headerName: 'ID', width: 70,},
@@ -80,7 +81,6 @@ const orderColumns = [
         renderCell: (params)=>{
             const products = params.row.products.map(prod => prod._product.title)
             const prodList = products.join(', ')
-            console.log(prodList)
             return (
                 <div>
                     <span className="rowTxt">{prodList}</span>
@@ -160,7 +160,7 @@ const userOrdersColumn = [
 ]
 
 
-const Datatable = ({rows, type}) => {
+const Datatable = ({rows, type, classname}) => {
     const actionColumn = [
         { 
             field: 'actions', headerName: 'Actions', width: 200,  
@@ -195,9 +195,8 @@ const Datatable = ({rows, type}) => {
     if (type === 'userOrders')
         columns = userOrdersColumn
         
-    console.log('col: ', columns)
     return (
-        <div className="datatable">
+        <div className={`datatable ${classname}`}>
             <DataGrid
                 className="datagrid"
                 rows={rows}

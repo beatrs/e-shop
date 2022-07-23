@@ -62,11 +62,13 @@ const User = () => {
         }
     }
 
+    const [isToggled, setIsToggled] = useState(false)
+    
     return (
         <div className="page">
-            <Sidebar />
-            <div className="page--container">
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className="page--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                 {user &&
                 <div className="user--container">
                     <div className="info-card">
@@ -117,7 +119,7 @@ const User = () => {
                     
                 </div>
                 }
-                <Datatable className="orders--container" rows={userOrders} type="userOrders" />
+                <Datatable classname={"orders--container"} rows={userOrders} type="userOrders" />
             </div>
         </div>
     )

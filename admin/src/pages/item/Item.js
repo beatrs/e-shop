@@ -53,11 +53,13 @@ const Item = () => {
         )
     }
 
+    const [isToggled, setIsToggled] = useState(false)
+    
     return (
         <div className="page">
-            <Sidebar />
-            <div className="page--container">
-                <Navbar />
+            <Sidebar styleProp={isToggled} />
+            <div className="page--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
+                <Navbar handleMenuClick={()=>setIsToggled(true)} />
                 {item &&
                 <div className="item--container">
                     <div className="item--img">
