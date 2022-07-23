@@ -5,9 +5,7 @@ import styled from "styled-components"
 
 import { TbSun as LightMdIcon, TbMoonStars as DarkMdIcon } from "react-icons/tb";
 import { useContext, useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
 import { DarkModeContext } from "../../context/darkMode"
-import { useDispatch } from "react-redux"
 
 const Icon = styled.div`
     border: ${props => props.isSelected && '1px solid gray'};

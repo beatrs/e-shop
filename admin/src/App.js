@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Home from "./pages/home/Home"
 import Login from "./pages/login/Login"
@@ -30,33 +30,29 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/* <Route path="admin" element={user ? <Home /> : redirectTo('/login')}> */}
-          <Route path="/">
-            <Route index element={user ? <Home /> : redirectTo('/login')} />
-            <Route path="login" element={!user ? <Login /> : redirectTo('/')} /> 
+          <Route path="/" element={user ? <Home /> : redirectTo('/login')} />
+            
+          <Route path="login" element={!user ? <Login /> : redirectTo('/')} /> 
 
-            <Route path="users">
-              <Route index element={user? <List type="users"/> : redirectTo(LOGIN_URL)} />
-              <Route path=":uId" element={user? <User /> : redirectTo(LOGIN_URL)} />
-              <Route path="new" element={user? <AddEditUser type="add" /> : redirectTo(LOGIN_URL)} />
-              <Route path="edit/:uId" element={user? <AddEditUser type="edit" /> : redirectTo(LOGIN_URL)} />
-            </Route>
-
-            <Route path="orders">
-              <Route index element={user ? <List type="orders" /> : redirectTo(LOGIN_URL)} />
-            </Route>
-
-            <Route path="products">
-              <Route index element={user? <List type="products" /> : redirectTo(LOGIN_URL)} />
-              <Route path=":pId" element={user ? <Item /> : redirectTo(LOGIN_URL)} />
-              <Route path="new" element={user ? <AddEditItem type="add" /> : redirectTo(LOGIN_URL)} />
-              <Route path="edit/:pId" element={user ? <AddEditItem type="edit" /> : redirectTo(LOGIN_URL)} />
-            </Route>
-
-            <Route path="settings" element={user? <Settings /> : redirectTo(LOGIN_URL)} />
+          <Route path="users">
+            <Route index element={user? <List type="users"/> : redirectTo(LOGIN_URL)} />
+            <Route path=":uId" element={user? <User /> : redirectTo(LOGIN_URL)} />
+            <Route path="new" element={user? <AddEditUser type="add" /> : redirectTo(LOGIN_URL)} />
+            <Route path="edit/:uId" element={user? <AddEditUser type="edit" /> : redirectTo(LOGIN_URL)} />
           </Route>
 
-          
+          <Route path="orders">
+            <Route index element={user ? <List type="orders" /> : redirectTo(LOGIN_URL)} />
+          </Route>
 
+          <Route path="products">
+            <Route index element={user? <List type="products" /> : redirectTo(LOGIN_URL)} />
+            <Route path=":pId" element={user ? <Item /> : redirectTo(LOGIN_URL)} />
+            <Route path="new" element={user ? <AddEditItem type="add" /> : redirectTo(LOGIN_URL)} />
+            <Route path="edit/:pId" element={user ? <AddEditItem type="edit" /> : redirectTo(LOGIN_URL)} />
+          </Route>
+
+          <Route path="settings" element={user? <Settings /> : redirectTo(LOGIN_URL)} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,30 +1,15 @@
 import "./Sidebar.scss"
-import { FaHome, FaUser, FaShoppingCart, FaCog, FaLightbulb, FaRegLightbulb } from 'react-icons/fa'
-import { FiLogOut } from "react-icons/fi"
-import { TbSun as LightMdIcon, TbMoonStars as DarkMdIcon } from "react-icons/tb";
-
-import { useContext, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { DarkModeContext } from "../../context/darkMode"
-import { useDispatch } from "react-redux"
-
 //* new icons { home, users, orders, settings} 
 import { VscDashboard as DashboardIcon, VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsIcon } from "react-icons/vsc";
 // {products, logout}
 import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
 
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+
 const Sidebar = () => {
-    const { darkMode, dispatch } = useContext(DarkModeContext)
-    const [isDarkMode, setDarkMode] = useState(darkMode)
     const forward = useDispatch()
     const navigate = useNavigate()
-
-    const handleClick = () => {
-        setDarkMode(!isDarkMode)
-        dispatch({
-            type: "TOGGLE"
-        })
-    } 
 
     const handleLogout = () => {
         forward({

@@ -44,33 +44,42 @@
         overflow: hidden;
         display: flex;
 
+        @media only screen and (max-width: 810px) {
+            width: 90vw;
+        }
+
         .left {
-            flex: 3;
+            flex: 2;
             background-color: #1A232E;
 
-            .logo {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-
-                img {
-                    width: 50%;
-                    position: relative;
-                }
-
-                .logo--lbl {
-                    font-family: 'Sora', sans-serif;
-                    color: white;
-                    letter-spacing: 3px;
-                }
-
+            @media only screen and (max-width: 479px) {
+                display: none;
             }
+
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+            img {
+                width: 50%;
+                position: relative;
+            }
+
+            .logo--lbl {
+                font-family: 'Sora', sans-serif;
+                color: white;
+                letter-spacing: 3px;
+            }
+
         }
 
         .right {
-            flex: 4;
+            flex: 3;
             background-color: #eef1f7;
             display: flex;
             height: 100%;
@@ -86,6 +95,24 @@
                 background-color: white;
                 border-radius: 3px;
 
+                .logo {
+                    display: none;
+                    @media screen and (max-width: 479px) {
+                        display: flex;
+                        flex-direction: column;
+
+                        .logo--lbl {
+                            color: #1A232E;
+                        }
+                    }
+                }
+
+                
+                .right-lbl {
+                    @media screen and (max-width: 479px) {
+                        display: none;
+                    }
+                }
                 span {
                     font-size: 0.75em;
                     color: gray;
@@ -114,6 +141,10 @@
                             padding: 10px;
                             border-radius: 3px;
                             border: 0.5px solid rgba(gray, 0.5);
+
+                            &:focus-visible {
+                                outline: none;
+                            }
                         }
 
                     }

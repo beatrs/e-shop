@@ -92,19 +92,13 @@ const AddEditItem = ({type}) => {
                 console.log('go here')
                 url += `/${itemId}`
                 const res = await adminRequest.put(url, formData)
-                    .then(res => {
-                        if (res.status === 200) 
-                            navigate('../', {replace: true})
-                    })
-                    .catch(err => console.log(err))
+                if (res.status === 200) 
+                    navigate('../', {replace: true})
 
             } else {
                 const res = await adminRequest.post(url, formData)
-                    .then(res => {
-                        if (res.status === 200) 
-                            navigate('../', {replace: true})
-                    })
-                    .catch(err => console.log(err))
+                if (res.status === 200) 
+                    navigate('../', {replace: true})
             }
         } catch (err) {
             console.error(err)

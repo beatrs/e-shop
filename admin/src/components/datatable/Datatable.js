@@ -1,12 +1,8 @@
 import "./Datatable.scss"
-import { DataGrid } from '@mui/x-data-grid'
-import { Link, useNavigate } from "react-router-dom"
-
-// import { GrView as ViewIcon, GrEdit as EditIcon, GrTrash as DeleteIcon } from "react-icons/gr"
 import { HiOutlineSearchCircle as ViewIcon, HiOutlinePencilAlt as EditIcon, HiOutlineTrash as DeleteIcon } from "react-icons/hi"
 
-import Showdown from "showdown"
-import parse from 'html-react-parser';
+import { DataGrid } from '@mui/x-data-grid'
+import { Link, useNavigate } from "react-router-dom"
 import { FormatDate } from '../../services/general'
 
 const userColumns = [
@@ -27,14 +23,7 @@ const userColumns = [
     { field: 'email', headerName: 'E-mail', width: 230 },
 ]
 
-// const converter = new Showdown.Converter()
-// const convertedText = (text) => {
-//     return (
-//         <span>
-//             {parse(converter.makeHtml(text))}
-//         </span>
-//     )
-// }
+
 const productColumns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { 
@@ -189,9 +178,6 @@ const Datatable = ({rows, type}) => {
         }
     ]
 
-    const IconStyle = {
-        color: 'red'
-    }
 
     const navigate = useNavigate()
     const redirectTo = (url) => {

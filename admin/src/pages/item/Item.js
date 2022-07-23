@@ -1,14 +1,11 @@
 
 import { useEffect, useState, Fragment } from "react"
-import { useLocation, Link, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import "./Item.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import { userRequest } from "../../reqMethods"
-import { Redirect } from "../../services/general"
 
-import ReactMde from "react-mde"
-import ReactMarkdown from "react-markdown"
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import Showdown from "showdown"
 import parse from 'html-react-parser';
