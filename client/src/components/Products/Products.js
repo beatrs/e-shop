@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { hotProducts } from "../../data"
+import { genRequest } from "../../reqMethods"
 import Product from "./Product"
-import axios from "axios"
 
 const Container = styled.div`
     padding: 20px;
@@ -20,12 +20,12 @@ const Products = ({category, filters, sort}) => {
 
     useEffect(() => {
         const apiQuery = category 
-            ? `http://localhost:5000/api/products?category=${category}` 
-            : `http://localhost:5000/api/products`
+            ? `/products?category=${category}` 
+            : `/products`
 
         const getProducts = async () => {
             try {
-                const res = await axios.get(apiQuery)
+                const res = await genRequest.get(apiQuery)
                 setProducts(res.data)
                 setFilteredProducts(res.data)
             } catch (err) {

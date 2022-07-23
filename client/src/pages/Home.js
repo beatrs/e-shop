@@ -24,7 +24,6 @@ const Home = () => {
     return (
         <div>
             <StickyHeader />
-            <MinHeader />
             <Slider />
             <Title>Shop</Title>
             <Categories />

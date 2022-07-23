@@ -15,6 +15,7 @@ import FormatNumber from "../services/general"
 
 import Showdown from "showdown"
 import parse from 'html-react-parser';
+import { genRequest } from "../reqMethods"
 
 const Container = styled.div`
 `
@@ -122,10 +123,10 @@ const Product = () => {
     const itemId = location.pathname.split("/")[2]
     console.log(itemId)
     useEffect(() => {
-        const apiQuery = `http://localhost:5000/api/products/${itemId}`
+        const apiQuery = `/products/${itemId}`
         const getProduct = async () => {
             try {
-                const res = await axios.get(apiQuery)
+                const res = await genRequest.get(apiQuery)
                 console.log(res)
                 setItem(res.data)
             } catch (err) {

@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import Announcement from "../Announcement/Announcement"
 import Header from "./Header"
+import MinHeader from "./MinHeader"
 
 const Sticky = styled.div`
     position: sticky;
@@ -17,6 +18,7 @@ const StickyHeader = ({navFirst}, props) => {
             <Sticky>
                 <Announcement />
                 <Header />
+                <MinHeader />
             </Sticky>
         )
     } else {

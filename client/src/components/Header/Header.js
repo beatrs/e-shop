@@ -15,6 +15,10 @@ const Container = styled.div`
     height: 120px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    @media screen and (max-width: 1079px) {
+        box-shadow: none;
+    }
 `
 
 const Wrapper = styled.div`
@@ -125,6 +129,10 @@ const Right = styled.div`
     justify-content: center;
     align-items: center;
     gap: 30px;
+
+    @media (max-width: 479px) {
+        width: 40%;
+    }
 `
 
 const NavItem = styled.a`
@@ -140,6 +148,17 @@ const NavItem = styled.a`
     @media (max-width: 768px) {
         display: none;
     }
+`
+
+const NavItemShow = styled.a`
+    cursor: pointer;
+    /* margin-right: 20px; */
+    font-family: 'Hind', sans-serif;
+    font-weight: 400;
+    border: none;
+    background: none;
+    display: flex;
+    position: relative;
 `
 
 const Menu = styled.div`
@@ -217,28 +236,28 @@ const Header = (props) => {
                 <Right>
                     {user ?
                     // <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem> 
-                    <NavItem>
+                    <NavItemShow>
                         <ProfileImg src={user.profileImg} />
                         <NavSelect>
                             <Option>Profile</Option>
                             <Option value="logout" onClick={handleLogout}>Logout</Option>
                         </NavSelect>
-                    </NavItem>
+                    </NavItemShow>
                     :
-                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>  
+                    <NavItemShow><Link to="/login" style={linkStyles}>Sign In</Link></NavItemShow>  
                     }
                     
                     {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}
-                    <NavItem>
+                    <NavItemShow>
                         <Link to="/cart" style={linkStyles}>
                         <Badge badgeContent={cart && cart.quantity} color="primary">
                             <ShoppingCartOutlinedIcon />
                         </Badge>
                         </Link>
-                    </NavItem>
-                    <Menu>
+                    </NavItemShow>
+                    {/* <Menu>
                         <FontAwesomeIcon icon={ faBars } />
-                    </Menu>
+                    </Menu> */}
                 </Right>
             </Wrapper>
             

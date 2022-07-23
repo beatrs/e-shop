@@ -12,17 +12,24 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from "react-redux"
 
 const Container = styled.div`
-    height: 120px;
+    /* height: 120px; */
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: none;
+
+    @media screen and (max-width: 1079px) {
+        position: relative;
+        z-index: -1;
+        display: flex;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
 `
 
 const Wrapper = styled.div`
     display: flex;
-    justify-content: space-between;
     width: 80%;
     height: 100%;
     margin: auto;
+    padding: 8px;
 
     @media only screen and (max-width: 1279px)  {
         width: 90%;
@@ -32,7 +39,15 @@ const Wrapper = styled.div`
 const NavItems = styled.div`
     display: flex;
     gap: 20px;
+    width: 80%;
+    justify-content: space-around;
+    margin: auto;
+    align-items: center;
 
+    @media screen and (max-width: 479px) {
+        font-size: 0.9em;
+        width: 100%;
+    }
 `
 
 const NavItem = styled.a`
@@ -44,55 +59,22 @@ const NavItem = styled.a`
     background: none;
     display: flex;
     position: relative;
+    text-transform: uppercase;
 
-`
-
-
-
-
-const NavSelect = styled.select`
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-`
-
-const Option = styled.option`
-    cursor: pointer;
 `
 
 const MinHeader = (props) => {
-    const linkStyles = {
-        color: "black",
-        textDecoration: "none",
-        textTransform: "uppercase",
-        alignSelf: "center"
-    }
-    const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    const cart = useSelector(state => state.cart)
-    const user = useSelector((state) => state.user.currentUser)
-
-    const handleLogout = () => {
-        dispatch({
-            type: "RESET"
-        })
-        navigate("/")
-    }
     
     return (
         <Container>
             <Wrapper>
                 <NavItems>
-                    <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
-                    <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
-                    <NavItem><Link to="/shop/merch" style={linkStyles}>Official MD</Link></NavItem>
-                    <NavItem><Link to="/" style={linkStyles}>K-Style</Link></NavItem>
-                    <NavItem><Link to="/" style={linkStyles}>Events</Link></NavItem>
+                    <NavItem onClick={()=>navigate("/")}>Home</NavItem>
+                    <NavItem onClick={()=>navigate("/shop/album")}>Albums</NavItem>
+                    <NavItem onClick={()=>navigate("/shop/merch")}>Official MD</NavItem>
+                    <NavItem onClick={()=>navigate("/")}>K-Style</NavItem>
+                    <NavItem onClick={()=>navigate("/")}>Events</NavItem>
                 </NavItems>
             </Wrapper>
             
