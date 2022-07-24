@@ -19,12 +19,6 @@ const Login = () => {
         login(dispatch, {username, password})
     }
 
-    // useEffect(()=> {
-    //     if (!currentUser) {
-    //         dispatch(clearIsError())
-    //     }
-    // }, [])
-
     const Logo = () => {
         return (
             <div className="logo">
