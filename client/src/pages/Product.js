@@ -26,6 +26,10 @@ const Wrapper = styled.div`
     align-items: center;
     margin: auto;
     padding: 20px;
+
+    @media screen and (max-width: 810px) {
+        flex-direction: column;
+    }
 `
 
 const ImgContainer = styled.div`
@@ -34,6 +38,10 @@ const ImgContainer = styled.div`
 `
 const Image = styled.img`
     width: 480px;
+
+    @media screen and (max-width: 810px) {
+        width: 100%;
+    }
 `
 
 const InfoContainer = styled.div`

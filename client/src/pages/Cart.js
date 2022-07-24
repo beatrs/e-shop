@@ -179,6 +179,12 @@ const ClrButton = styled.button`
 
 const ClrAllBtn = styled.button`
     cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    height: 40px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
 `
 
 const Cart = () => {

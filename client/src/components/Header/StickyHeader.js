@@ -25,6 +25,7 @@ const StickyHeader = ({navFirst}, props) => {
         return (
             <Sticky>
                 <Header />
+                <MinHeader />
                 <Announcement />
             </Sticky>
         )
