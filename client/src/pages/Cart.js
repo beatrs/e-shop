@@ -1,12 +1,16 @@
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 
 import { Link, useNavigate } from "react-router-dom"
-import FormatNumber from "../services/general"
+import { FormatNumber } from "../services/general"
 import { changeQty, removeItem, resetCart } from "../redux/cartRedux"
 import { userRequest } from "../reqMethods"
+
+import Modal from "../components/Etc/Modal"
+import useModal from "../services/useModal"
 
 const Container = styled.div`
 `
@@ -156,19 +160,7 @@ const SummaryTotal = styled.div`
     font-size: 2em;
     font-weight: bold;
 `
-const CheckoutBtn = styled.button`
-    cursor: pointer;
-    height: 40px;
-    padding: 10px;
-    margin-top: 10px;
-    background: coral;
-    border: none;
-    color: white;
-    font-size: 1.05em;
-    font-weight: bolder;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-`
+
 
 const ClrButton = styled.button`
     cursor: pointer;
@@ -250,56 +242,108 @@ const Cart = () => {
         }
     }
 
+    const checkoutBtnStyle = {
+        cursor: "pointer",
+        height: "40px",
+        padding: "10px",
+        marginTop: "10px",
+        background: "coral",
+        border: "none",
+        color: "white",
+        fontSize: "1.05em",
+        fontWeight: "bolder",
+        textTransform: "uppercase",
+        letterSpacing: "1px",
+    }
+
+    const CheckoutBtn = {
+        name: "Checkout",
+        style: checkoutBtnStyle
+    }
+
+    const clrAllBtnStyle = {
+        cursor: "pointer",
+        marginTop: "10px",
+        border: "none",
+        height: "40px",
+        fontFamily: "'Lato', sans-serif",
+        fontWeight: "600",
+        textTransform: "uppercase",
+    }
+
+    const ClrAllBtn = {
+        name: "Empty Cart",
+        style: clrAllBtnStyle
+    }
+
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <Container>
-            <StickyHeader />
-            <Wrapper>
-                <Title>Your Cart</Title>
-                <Top>
-                    <Button>Continue shopping</Button>
-                    <Links>
-                        <LinkItem>Shopping Bag(1)</LinkItem>
-                        <LinkItem>Wishlist(0)</LinkItem>
-                    </Links>
-                    <Button>Checkout now</Button>
-                </Top>
-                <CartWrapper>
-                    {
-                    cart.quantity > 0 
-                    ? cart.products.map((item)=>(                    
-                    <Product key={item._id + item.itemVersion}>
-                        <ProductImage src={item.img} alt={item.imgAlt} />
-                        <ProductInfo>
-                            <ProductDetails>
-                                <ProductName>{item.title} </ProductName>
-                                <ProductOptions>{item.itemVersion}</ProductOptions>
-                                <ProductPrice>Price ₱ {FormatNumber.formatPrice(item.price)}</ProductPrice>
-                            </ProductDetails>
-                            <PriceDetails>
-                                <Quantity>
-                                    <QuantityLbl>Quantity</QuantityLbl>
-                                    <QuantityInput type="number" min="1" value={item.quantity} onChange={(e)=>updateCart(e, item._id)} />
-                                </Quantity>
-                                <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
-                                <ClrButton onClick={()=>deleteItem(item._id)}>&times;</ClrButton>
-                            </PriceDetails>
-                        </ProductInfo>
-                    </Product>
-                    ))
-                    :
-                    <EmptyLbl>Your cart is currently empty. <Link to ="/shop">Start shopping</Link></EmptyLbl>
-                    }
-                </CartWrapper>
-                <Bottom>
-                    <Summary>
-                        <SummaryLbl>Subtotal</SummaryLbl>
-                        <SummaryTotal>₱ {FormatNumber.formatPrice(cart.total)}</SummaryTotal>
-                    </Summary>
-                    <CheckoutBtn onClick={handleCheckout}>Checkout</CheckoutBtn>
-                    <ClrAllBtn onClick={handleClearAll}>Empty Cart</ClrAllBtn>
-                </Bottom>
-            </Wrapper>
-            <Footer />
+            <StickyHeader handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)}>
+                <Wrapper>
+                    <Title>Your Cart</Title>
+                    <Top>
+                        <Button>Continue shopping</Button>
+                        <Links>
+                            <LinkItem>Shopping Bag(1)</LinkItem>
+                            <LinkItem>Wishlist(0)</LinkItem>
+                        </Links>
+                        <Button>Checkout now</Button>
+                    </Top>
+                    <CartWrapper>
+                        {
+                        cart.quantity > 0 
+                        ? cart.products.map((item)=>(                    
+                        <Product key={item._id + item.itemVersion}>
+                            <ProductImage src={item.img} alt={item.imgAlt} />
+                            <ProductInfo>
+                                <ProductDetails>
+                                    <ProductName>{item.title} </ProductName>
+                                    <ProductOptions>{item.itemVersion}</ProductOptions>
+                                    <ProductPrice>Price ₱ {FormatNumber.formatPrice(item.price)}</ProductPrice>
+                                </ProductDetails>
+                                <PriceDetails>
+                                    <Quantity>
+                                        <QuantityLbl>Quantity</QuantityLbl>
+                                        <QuantityInput type="number" min="1" value={item.quantity} onChange={(e)=>updateCart(e, item._id)} />
+                                    </Quantity>
+                                    <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
+                                    <ClrButton onClick={()=>deleteItem(item._id)}>&times;</ClrButton>
+                                </PriceDetails>
+                            </ProductInfo>
+                        </Product>
+                        ))
+                        :
+                        <EmptyLbl>Your cart is currently empty. <Link to ="/shop">Start shopping</Link></EmptyLbl>
+                        }
+                    </CartWrapper>
+                    <Bottom>
+                        <Summary>
+                            <SummaryLbl>Subtotal</SummaryLbl>
+                            <SummaryTotal>₱ {FormatNumber.formatPrice(cart.total)}</SummaryTotal>
+                        </Summary>
+                        {/* <CheckoutBtn onClick={handleCheckout}>Checkout</CheckoutBtn> */}
+                        <Modal 
+                            button={CheckoutBtn}
+                            handleConfirm={handleCheckout}
+                            content={{
+                                title: "Checkout items",
+                                body: "Are you sure? Would you like to proceed with your transactions?"
+                            }}
+                        />
+                        <Modal 
+                            button={ClrAllBtn}
+                            handleConfirm={handleClearAll}
+                            content={{
+                                title: "Are you sure?",
+                                body: "Would you like to reset your cart? This process cannot be undone."
+                            }}
+                        />
+                    </Bottom>
+                </Wrapper>
+                <Footer />
+            </div>
         </Container>
     )
 }
