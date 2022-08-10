@@ -1,3 +1,4 @@
+import { useState } from "react"
 import styled from "styled-components"
 import Newsletter from "../components/Newsletter/Newsletter"
 import Footer from "../components/Footer/Footer"
@@ -64,9 +65,12 @@ const Link = styled.a`
 `
 
 const Register = () => {
+    
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <Container>
-            <StickyHeader />
+            <StickyHeader handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)}>
             <Wrapper>
                 <Title>Create an account</Title>
                 <Form>
@@ -90,6 +94,7 @@ const Register = () => {
             </Wrapper>
             <Newsletter />
             <Footer />
+            </div>
         </Container>
     )
 }

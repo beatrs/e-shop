@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Categories from "../components/Categories/Categories"
 import Slider from "../components/Slider/Slider"
 import Products from "../components/Products/Products"
@@ -20,17 +20,19 @@ const Title = styled.h1`
 `
 
 const Home = () => {
-    const [isToggled, setIsToggled] = useState(false)
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <div>
-            <StickyHeader />
-            <Slider />
-            <Title>Shop</Title>
-            <Categories />
-            <Title>Hot items</Title>
-            <Products />
-            <Newsletter />
-            <Footer />
+            <StickyHeader handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)} >
+                <Slider />
+                <Title>Shop</Title>
+                <Categories />
+                <Title>Hot items</Title>
+                <Products />
+                <Newsletter />
+                <Footer />
+            </div>
         </div>
     )
 }

@@ -4,9 +4,11 @@ import styled from "styled-components"
 import SearchIcon from '@mui/icons-material/Search'
 import Badge from '@mui/material/Badge'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import logo from '../../assets/logo512.png'
+import logo from '../../assets/logos/xoxo-logos_transparent.png'
 import "./Header.scss"
 
+
+import { GrMenu as MenuIcon } from "react-icons/gr";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from "react-redux"
@@ -35,10 +37,14 @@ const Wrapper = styled.div`
 
 //* left side
 const Left = styled.div`
-    width: 20%;
+    width: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media only screen and (max-width: 539px) {
+        flex: 3;
+    }
 `
 
 const Logo = styled.div`
@@ -64,20 +70,33 @@ const LogoText = styled.h1`
 `
 
 const LogoImg = styled.img`
-    align-self: flex-start;
+    /* align-self: flex-start; */
     height: 100%;
+    align-self: center;
+    width: 280px;
+    object-fit: cover;
+    cursor: pointer;
+
+    @media only screen and (max-width: 539px) {
+        padding: 10px 0px 0px 50px;
+    }
 `
 
 
 // * center
 
 const Mid = styled.div`
-    width: 60%;
+    width: 65%;
     text-align: center;
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 20px;
+
+    @media only screen and (max-width: 539px) {
+        /* display: none; */
+        flex: 0;
+    }
 `
 
 const NavItems = styled.div`
@@ -103,7 +122,7 @@ const SearchContainer = styled.div`
         width: 80%;
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 539px) {
         display: none;
     }
 `
@@ -130,8 +149,11 @@ const Right = styled.div`
     align-items: center;
     gap: 30px;
 
-    @media (max-width: 479px) {
+    /* @media (max-width: 479px) {
         width: 40%;
+    } */
+    @media only screen and (max-width: 539px) {
+        flex: 1;
     }
 `
 
@@ -210,14 +232,17 @@ const Header = (props) => {
         navigate("/")
     }
     console.log('cart items: ', cart.quantity)
+
+    const goTo = (url) => {
+        navigate(url)
+    }
+    
     return (
         <Container>
             <Wrapper>
                 <Left>
-                    <Link to="/" className="Logo">
-                        <LogoImg src={logo} alt='logo image'/>
-                        <LogoText>Wiz</LogoText>
-                    </Link>
+                    <MenuIcon className="drawer" onClick={()=>props.handleMenuClick()} />
+                    <LogoImg src={logo} alt='logo image' onClick={()=>goTo('/')}/>
                 </Left>
                 <Mid>
                     <NavItems>
@@ -236,15 +261,15 @@ const Header = (props) => {
                 <Right>
                     {user ?
                     // <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem> 
-                    <NavItemShow>
+                    <NavItem>
                         <ProfileImg src={user.profileImg} />
                         <NavSelect>
-                            <Option>Profile</Option>
+                            <Option onClick={()=>goTo("/orders")}>Profile</Option>
                             <Option value="logout" onClick={handleLogout}>Logout</Option>
                         </NavSelect>
-                    </NavItemShow>
+                    </NavItem>
                     :
-                    <NavItemShow><Link to="/login" style={linkStyles}>Sign In</Link></NavItemShow>  
+                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>  
                     }
                     
                     {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}

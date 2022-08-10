@@ -11,7 +11,7 @@ import Newsletter from "../components/Newsletter/Newsletter"
 import { addProduct } from "../redux/cartRedux"
 import { useDispatch } from "react-redux"
 
-import FormatNumber from "../services/general"
+import { FormatNumber } from "../services/general"
 
 import Showdown from "showdown"
 import parse from 'html-react-parser';
@@ -180,9 +180,11 @@ const Product = () => {
         tasklists: true,
     })
 
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <Container>
-            <StickyHeader navFirst={true} />
+            <StickyHeader navFirst={true} handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)}>
             {item && 
             <Wrapper>
                 <ImgContainer>
@@ -216,6 +218,7 @@ const Product = () => {
             }
             <Newsletter />
             <Footer />
+            </div>
         </Container>
     )
 }

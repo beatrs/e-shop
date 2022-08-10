@@ -113,9 +113,13 @@ const ProductList = () => {
         PageTitle = 'Albums'
     else if (category === 'merch')
         PageTitle = 'Official MD'
+    
+        
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <Container>
-            <StickyHeader navFirst={false} />
+            <StickyHeader navFirst={false} handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)}>
             <Title>{PageTitle}</Title>
             <FilterContainer>
                 <Filter>
@@ -159,6 +163,7 @@ const ProductList = () => {
             <Products category={category} filters={filters} sort={sort} />
             <Newsletter />
             <Footer />
+            </div>
         </Container>
     )
 }

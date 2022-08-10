@@ -5,7 +5,7 @@ import { VscDashboard as DashboardIcon, VscAccount as UsersIcon, VscArchive as O
 import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
 
 import { Link, useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const Sidebar = ({styleProp}) => {
     const forward = useDispatch()
@@ -17,12 +17,14 @@ const Sidebar = ({styleProp}) => {
         })
         navigate("/login")
     }
+    
+    const user = useSelector((state) => state.user.currentUser)
 
     return(
         <div className={styleProp ? 'sidebar toggled' : 'sidebar'} >
             <div className="top">
                 <Link to="/">
-                    <span className="logo">Wiz</span>
+                    <span className="logo">xoxo store</span>
                 </Link>
             </div>
             {/* <hr /> */}
@@ -37,39 +39,34 @@ const Sidebar = ({styleProp}) => {
                     </Link>
                     
                     {/* <p className="title">Site</p> */}
-                    <Link to="/users">
+                    <Link to="/shop/album">
                        <li>
                             <UsersIcon className="sidebar--icon"  />
-                            <span>Users</span>
+                            <span>Albums</span>
                         </li> 
                     </Link>
                     
-                    <Link to="/orders">
+                    <Link to="/shop/merch">
                         <li>
                             <OrdersIcon className="sidebar--icon" />
-                            <span>Orders</span>
+                            <span>Official MD</span>
                         </li>
                     </Link>
                     
-                    <Link to="/products">
+                    <Link to="/">
                         <li>
                             <ProductsIcon className="sidebar--icon" />
-                            <span>Products</span>
+                            <span>K-Style</span>
                         </li>
                     </Link>
 
                     {/* <p className="title">User</p> */}
-                    <Link to="/settings">
+                    <Link to="/">
                         <li>
                             <SettingsIcon className="sidebar--icon" />
-                            <span>Settings</span>
+                            <span>Events</span>
                         </li>
                     </Link>
-                    
-                    <li onClick={handleLogout}>
-                        <LogoutIcon className="sidebar--icon" />
-                        <span>Logout</span>
-                    </li>
                 </ul>
             </div>
             <div className="bottom">
@@ -83,6 +80,27 @@ const Sidebar = ({styleProp}) => {
                     <LightMdIcon />
                     }
                 </div> */}
+                {user ?
+                <div>
+                    <Link to="/">
+                        <li>
+                            <SettingsIcon className="sidebar--icon" />
+                            <span>My Orders</span>
+                        </li>
+                    </Link>
+                    <li onClick={handleLogout}>
+                        <LogoutIcon className="sidebar--icon" />
+                        <span>Logout</span>
+                    </li>
+                </div>
+                :
+                <Link to="/login">
+                    <li>
+                        <SettingsIcon className="sidebar--icon" />
+                        <span>Sign In</span>
+                    </li>
+                </Link>
+                }
             </div>
         </div>
     )

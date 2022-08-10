@@ -77,26 +77,30 @@ const Login = () => {
         e.preventDefault()
         login(dispatch, {username, password})
     }
+    
+    const [isToggled, setIsToggled] = useState(true)
     return (
         <Container>
-            <StickyHeader navFirst={true}/>
-            <Wrapper>
-                <Title>Login</Title>
-                <Form>
-                    <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}  />
-                    <Input placeholder="Password" type="password" onChange={(e)=>setPassword(e.target.value)} />
-                    <Button onClick={handleLogin}>Sign in</Button>
-                    {error &&
-                    <Error>Incorrect username/password</Error>
-                    }
-                    <Register>
-                        Don't have an account yet?
-                        <Link> Create an account</Link>
-                    </Register>
-                </Form>
-            </Wrapper>
-            <Newsletter />
-            <Footer />
+            <StickyHeader navFirst={true} handleToggle={isToggled} />
+            <div onClick={()=>setIsToggled(!isToggled)}>
+                <Wrapper>
+                    <Title>Login</Title>
+                    <Form>
+                        <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}  />
+                        <Input placeholder="Password" type="password" onChange={(e)=>setPassword(e.target.value)} />
+                        <Button onClick={handleLogin}>Sign in</Button>
+                        {error &&
+                        <Error>Incorrect username/password</Error>
+                        }
+                        <Register>
+                            Don't have an account yet?
+                            <Link> Create an account</Link>
+                        </Register>
+                    </Form>
+                </Wrapper>
+                <Newsletter />
+                <Footer />
+            </div>
         </Container>
     )
 }
