@@ -8,6 +8,7 @@ import Product from './pages/Product'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ScrollToTop from './components/Etc/scrollToTop'
+import OrderList from './pages/OrderList'
 
 export default function App() {
   const user = useSelector((state) => state.user.currentUser)
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="shop/:category" element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="orders" element={<OrderList />} />
         </Routes>
     </BrowserRouter>
   )

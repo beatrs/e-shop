@@ -1,0 +1,34 @@
+
+.datatable {
+    height: 400px;
+    width: auto;
+    margin: 30px;
+}
+
+.MuiDataGrid-cell {
+    border-bottom: none !important;
+    margin-bottom: 5px !important;
+
+    .rowTxt--status {
+        border-radius: 80px;
+        padding: 5px 25px;
+        color: white;
+        width: 110px;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+.actionRow {
+    button {
+        cursor: pointer;
+        border: none;
+        background-color: rgb(203, 51, 51);
+        border-radius: 80px;
+        padding: 5px 25px;
+        color: white;
+        width: 110px;
+        display: inline-block;
+        text-align: center;
+    }
+}
