@@ -6,4 +6,13 @@ const FormatNumber = {
     }
 } 
 
-export default FormatNumber
+
+const FormatDate = {
+    getYmd: function(val) {
+        var date = val.split('T')[0]
+        return date
+    }
+}
+
+
+export { FormatNumber, FormatDate }
