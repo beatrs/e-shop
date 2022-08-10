@@ -22,7 +22,7 @@ const Sidebar = ({styleProp}) => {
         <div className={styleProp ? 'sidebar toggled' : 'sidebar'} >
             <div className="top">
                 <Link to="/">
-                    <span className="logo">Wiz</span>
+                    <span className="logo">Admin</span>
                 </Link>
             </div>
             {/* <hr /> */}

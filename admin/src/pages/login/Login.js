@@ -1,5 +1,6 @@
 import "./Login.scss"
-import logo from "../../assets/images/logo512.png"
+import logo_light from "../../assets/logos/xoxo-logos_white.png"
+import logo_dark from "../../assets/logos/xoxo-logos_black.png"
 
 import { login } from "../../redux/apiCalls"
 import { useEffect, useState } from "react"
@@ -19,11 +20,11 @@ const Login = () => {
         login(dispatch, {username, password})
     }
 
-    const Logo = () => {
+    const Logo = (dark) => {
         return (
             <div className="logo">
-                <img src={logo} alt="admin-logo" />
-                <h2 className="logo--lbl">wiz admin</h2>
+                <img src={dark ? logo_dark : logo_light} alt="admin-logo" />
+                <h2 className="logo--lbl">admin</h2>
             </div>
         )
     }
@@ -33,12 +34,12 @@ const Login = () => {
             <div className="bg-layer"></div>
             <div className="login--container">
                 <div className="left">
-                    {Logo()}
+                    {Logo(false)}
                 </div>
                 <div className="right">
                     <div className="form--container">
-                        {Logo()}
-                        <span className="right-lbl">Welcome to Wiz Admin Panel</span>
+                        {Logo(true)}
+                        <span className="right-lbl">Welcome to Admin Panel</span>
                         <h2 className="right-lbl">Login to your admin account</h2>
                         <form>
                             <div className="form--item">
