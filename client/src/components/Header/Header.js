@@ -264,7 +264,7 @@ const Header = (props) => {
                     <NavItem>
                         <ProfileImg src={user.profileImg} />
                         <NavSelect>
-                            <Option onClick={()=>goTo("/orders")}>Profile</Option>
+                            <Option onClick={()=>goTo("/orders")}>My Orders</Option>
                             <Option value="logout" onClick={handleLogout}>Logout</Option>
                         </NavSelect>
                     </NavItem>

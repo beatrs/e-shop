@@ -1,11 +1,17 @@
 import "./Sidebar.scss"
 //* new icons { home, users, orders, settings} 
-import { VscDashboard as DashboardIcon, VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsIcon } from "react-icons/vsc";
+// import { BiHomeSmile as HomeIcon, BiDisc as AlbumIcon } from "react-icons/bi";
+import { AiFillHome as HomeIcon } from "react-icons/ai";
+import { GiCompactDisc as AlbumIcon, GiHandheldFan as MDIcon, GiClothes as KStyleIcon } from "react-icons/gi";
+import { IoTicketSharp as EventsIcon } from "react-icons/io5";
+import { VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsIcon } from "react-icons/vsc";
 // {products, logout}
 import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
 
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+
+import logo from '../../assets/logos/xoxo-logos_transparent.png'
 
 const Sidebar = ({styleProp}) => {
     const forward = useDispatch()
@@ -23,9 +29,10 @@ const Sidebar = ({styleProp}) => {
     return(
         <div className={styleProp ? 'sidebar toggled' : 'sidebar'} >
             <div className="top">
-                <Link to="/">
+                {/* <Link to="/">
                     <span className="logo">xoxo store</span>
-                </Link>
+                </Link> */}
+                <img src={logo} alt='logo'/>
             </div>
             {/* <hr /> */}
             <div className="center">
@@ -33,7 +40,7 @@ const Sidebar = ({styleProp}) => {
                     {/* <p className="title">Home</p> */}
                     <Link to="/">
                         <li>
-                            <DashboardIcon className="sidebar--icon" />
+                            <HomeIcon className="sidebar--icon" />
                             <span>Home</span>
                         </li>
                     </Link>
@@ -41,21 +48,21 @@ const Sidebar = ({styleProp}) => {
                     {/* <p className="title">Site</p> */}
                     <Link to="/shop/album">
                        <li>
-                            <UsersIcon className="sidebar--icon"  />
+                            <AlbumIcon className="sidebar--icon"  />
                             <span>Albums</span>
                         </li> 
                     </Link>
                     
                     <Link to="/shop/merch">
                         <li>
-                            <OrdersIcon className="sidebar--icon" />
+                            <MDIcon className="sidebar--icon" />
                             <span>Official MD</span>
                         </li>
                     </Link>
                     
                     <Link to="/">
                         <li>
-                            <ProductsIcon className="sidebar--icon" />
+                            <KStyleIcon className="sidebar--icon" />
                             <span>K-Style</span>
                         </li>
                     </Link>
@@ -63,7 +70,7 @@ const Sidebar = ({styleProp}) => {
                     {/* <p className="title">User</p> */}
                     <Link to="/">
                         <li>
-                            <SettingsIcon className="sidebar--icon" />
+                            <EventsIcon className="sidebar--icon" />
                             <span>Events</span>
                         </li>
                     </Link>
@@ -82,9 +89,9 @@ const Sidebar = ({styleProp}) => {
                 </div> */}
                 {user ?
                 <div>
-                    <Link to="/">
+                    <Link to="/orders">
                         <li>
-                            <SettingsIcon className="sidebar--icon" />
+                            <OrdersIcon className="sidebar--icon" />
                             <span>My Orders</span>
                         </li>
                     </Link>
@@ -96,7 +103,7 @@ const Sidebar = ({styleProp}) => {
                 :
                 <Link to="/login">
                     <li>
-                        <SettingsIcon className="sidebar--icon" />
+                        <UsersIcon className="sidebar--icon"  />
                         <span>Sign In</span>
                     </li>
                 </Link>

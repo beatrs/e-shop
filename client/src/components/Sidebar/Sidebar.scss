@@ -1,20 +1,21 @@
 
 .sidebar {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #fcfbfc;
-    color: black;
-    height: 100vh;
-    box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
+    display: none;
 
     &.toggled {
         @media only screen and (max-width: 539px) {
             display: flex;
+            flex: 1;
             position: absolute;
             z-index: 10;
             transform: translateX(0%);
             transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            flex-direction: column;
+            background-color: #fff;
+            color: black;
+            height: 100vh;
+            box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
+            width: 70vw;
         }
     }
     
@@ -46,6 +47,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        img {
+            height: 80%;
+            object-fit: cover;
+            width: 50%;
+            margin-top: 15px;
+            align-self: center;
+        }
     }
 
     hr {
@@ -54,7 +63,7 @@
         margin-bottom: 15px;
     }
 
-    .center {
+    .center, .bottom {
         margin-top: 20px;
 
         .title {
@@ -81,11 +90,11 @@
         li {
             cursor: pointer;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             color: rgba(rgb(104, 99, 99), 0.65);
             text-decoration: none;
-            padding: 20px;
+            padding: 10px;
 
             &:hover {
                 background-color: rgba(rgb(218, 218, 218), 0.15);
@@ -94,25 +103,28 @@
         }
 
         span {
-            font-size: 0.75em;
+            font-size: 1.25em;
             letter-spacing: 2px;
         }
 
         .sidebar--icon {
-            font-size: 2em;
-            margin-bottom: 8px;
+            font-size: 1.25em;
+            margin-left: 25px;
+            margin-right: 20px;
+            // margin-bottom: 8px;
         }
     }
 
     .bottom {
         margin-top: 20px;
-        .sidebar--icon {
-            font-size: 1.25em;
-            margin: 15px 40px 15px 20px;
-            cursor: pointer;
-
-            
+        a {
+            text-decoration: none;
         }
+        // .sidebar--icon {
+        //     font-size: 1.25em;
+        //     margin: 15px 40px 15px 20px;
+        //     cursor: pointer;
+        // }
     }
 
 }
