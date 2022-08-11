@@ -8,9 +8,7 @@ import logo from '../../assets/logos/xoxo-logos_transparent.png'
 import "./Header.scss"
 
 
-import { GrMenu as MenuIcon } from "react-icons/gr";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { GrMenu as MenuIcon } from "react-icons/gr"
 import { useDispatch, useSelector } from "react-redux"
 
 const Container = styled.div`
