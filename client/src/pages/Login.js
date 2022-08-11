@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 
 import { login } from "../redux/apiCalls"
+import { useNavigate } from "react-router-dom"
 const Container = styled.div`
 `
 const Wrapper = styled.div`
@@ -57,7 +58,7 @@ const Register = styled.span`
     text-align: center;
 `
 
-const Link = styled.a`
+const Link = styled.span`
     cursor: pointer;
     color: #709f70;
 `
@@ -77,6 +78,10 @@ const Login = () => {
         e.preventDefault()
         login(dispatch, {username, password})
     }
+    const navigate = useNavigate()
+    const goTo = (url) => {
+        navigate(url)
+    }
     
     const [isToggled, setIsToggled] = useState(true)
     return (
@@ -94,7 +99,7 @@ const Login = () => {
                         }
                         <Register>
                             Don't have an account yet?
-                            <Link> Create an account</Link>
+                            <Link onClick={()=>goTo('/register')}> Create an account</Link>
                         </Register>
                     </Form>
                 </Wrapper>

@@ -42,7 +42,7 @@ const Left = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media only screen and (max-width: 539px) {
+    @media only screen and (max-width: 768px) {
         flex: 3;
     }
 `
@@ -77,7 +77,7 @@ const LogoImg = styled.img`
     object-fit: cover;
     cursor: pointer;
 
-    @media only screen and (max-width: 539px) {
+    @media only screen and (max-width: 768px) {
         padding: 10px 0px 0px 50px;
     }
 `
@@ -93,7 +93,7 @@ const Mid = styled.div`
     align-items: center;
     gap: 20px;
 
-    @media only screen and (max-width: 539px) {
+    @media only screen and (max-width: 768px) {
         /* display: none; */
         flex: 0;
     }
@@ -103,7 +103,7 @@ const NavItems = styled.div`
     display: flex;
     gap: 20px;
 
-    @media only screen and (max-width: 1079px) {
+    @media only screen and (max-width: 768px) {
         display: none;
     }
 `
@@ -119,12 +119,13 @@ const SearchContainer = styled.div`
     width: 15em;
 
     @media only screen and (max-width: 1079px) {
-        width: 80%;
-    }
-
-    @media only screen and (max-width: 539px) {
+        /* width: 80%; */
         display: none;
     }
+
+    /* @media only screen and (max-width: 539px) {
+        display: none;
+    } */
 `
 
 const SearchInput = styled.input`
@@ -152,7 +153,7 @@ const Right = styled.div`
     /* @media (max-width: 479px) {
         width: 40%;
     } */
-    @media only screen and (max-width: 539px) {
+    @media only screen and (max-width: 768px) {
         flex: 1;
     }
 `
@@ -249,8 +250,8 @@ const Header = (props) => {
                         <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
                         <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
                         <NavItem><Link to="/shop/merch" style={linkStyles}>Official MD</Link></NavItem>
-                        <NavItem><Link to="/" style={linkStyles}>K-Style</Link></NavItem>
-                        <NavItem><Link to="/" style={linkStyles}>Events</Link></NavItem>
+                        <NavItem><Link to="/shop/kstyle" style={linkStyles}>K-Style</Link></NavItem>
+                        <NavItem><Link to="/shop/photo%20book" style={linkStyles}>Photo Books</Link></NavItem>
                     </NavItems>
                     
                     <SearchContainer>

@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Newsletter from "../components/Newsletter/Newsletter"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
 `
@@ -67,6 +68,11 @@ const Link = styled.a`
 const Register = () => {
     
     const [isToggled, setIsToggled] = useState(true)
+
+    const navigate = useNavigate()
+    const goTo = (url) => {
+        navigate(url)
+    }
     return (
         <Container>
             <StickyHeader handleToggle={isToggled} />
@@ -88,7 +94,7 @@ const Register = () => {
                     
                     <Login>
                         Already have an account?
-                        <Link> Sign in here</Link>
+                        <Link onClick={()=>goTo('/login')}> Sign in here</Link>
                     </Login>
                 </Form>
             </Wrapper>

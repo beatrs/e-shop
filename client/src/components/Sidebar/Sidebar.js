@@ -4,6 +4,7 @@ import "./Sidebar.scss"
 import { AiFillHome as HomeIcon } from "react-icons/ai";
 import { GiCompactDisc as AlbumIcon, GiHandheldFan as MDIcon, GiClothes as KStyleIcon } from "react-icons/gi";
 import { IoTicketSharp as EventsIcon } from "react-icons/io5";
+import { MdMenuBook as PhotoBkIcon } from "react-icons/md";
 import { VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsIcon } from "react-icons/vsc";
 // {products, logout}
 import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
@@ -60,7 +61,7 @@ const Sidebar = ({styleProp}) => {
                         </li>
                     </Link>
                     
-                    <Link to="/">
+                    <Link to="/shop/kstyle">
                         <li>
                             <KStyleIcon className="sidebar--icon" />
                             <span>K-Style</span>
@@ -68,10 +69,10 @@ const Sidebar = ({styleProp}) => {
                     </Link>
 
                     {/* <p className="title">User</p> */}
-                    <Link to="/">
+                    <Link to="/shop/photo%20book">
                         <li>
-                            <EventsIcon className="sidebar--icon" />
-                            <span>Events</span>
+                            <PhotoBkIcon className="sidebar--icon" />
+                            <span>Photo Books</span>
                         </li>
                     </Link>
                 </ul>

@@ -29,7 +29,7 @@ const OrderList = () => {
     useEffect(() => {
         const getOrders = async() => {
             try {
-                const query = `/orders/${userId}?status=pending`
+                const query = `/orders/${userId}/orders?status=pending`
                 const res = await userRequest.get(query)
                 console.log(res)
                 setOrders(modList(res.data))

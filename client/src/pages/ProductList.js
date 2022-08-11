@@ -92,7 +92,7 @@ const ProductList = () => {
                 const res = await genRequest.get(query)
                 console.log(res.data)
 
-                res.data.map(artist => 
+                res.data.map(artist => artist !== '' && 
                     setArtistOptions(prevState => ([
                         ...prevState, 
                         {value: artist.toLowerCase(), label: artist}
@@ -113,6 +113,10 @@ const ProductList = () => {
         PageTitle = 'Albums'
     else if (category === 'merch')
         PageTitle = 'Official MD'
+    else if (category === 'kstyle')
+        PageTitle = 'K-Style'
+    else if (category === 'photo book')
+        PageTitle = 'Photo Books'
     
         
     const [isToggled, setIsToggled] = useState(true)
