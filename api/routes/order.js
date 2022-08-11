@@ -15,11 +15,14 @@ router.post("/", verifyToken, async (req, res) => {
     }
 })
 
-// * UPDATE
-router.put("/:id", verifyTokenAndAuth, async (req, res) => {
+// * UPDATE order status
+router.put("/:id/:newStatus", verifyTokenAndAuth, async (req, res) => {
+    console.log(req.params.newStatus)
     try {
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
-            $set: req.body,
+            $set: {
+                status: req.params.newStatus
+            },
         }, {new: true})
         return res.status(200).json(updatedOrder)
     } catch (err) {
@@ -38,7 +41,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
 })
 
 // * GET ORDERS by userId
-router.get("/:userId", verifyToken, async (req, res) => {
+router.get("/:userId/orders", verifyToken, async (req, res) => {
     try {
         console.log(req.params)
         const itemStatus = req.query.status
@@ -66,7 +69,18 @@ router.get("/:userId", verifyToken, async (req, res) => {
     }
 })
 
-
+// * GET ORDER BY ORDER ID
+router.get("/:id", async (req, res) => {
+    try {
+        const orders = 
+            await Order.findById(req.params.id)
+                .populate('_user', '_id username')
+                .populate('products._product', '_id title artistFormatted')
+        return res.status(200).json(orders)
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+})
 // * GET ALL ORDERS
 router.get("/", async (req, res) => {
     try {
