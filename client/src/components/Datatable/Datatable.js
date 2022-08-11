@@ -1,5 +1,5 @@
 import "./Datatable.scss"
-import { HiOutlineSearchCircle as ViewIcon, HiOutlinePencilAlt as EditIcon, HiOutlineTrash as DeleteIcon } from "react-icons/hi"
+// import { HiOutlineSearchCircle as ViewIcon, HiOutlinePencilAlt as EditIcon, HiOutlineTrash as DeleteIcon } from "react-icons/hi"
 
 import { DataGrid } from '@mui/x-data-grid'
 import { Link, useNavigate } from "react-router-dom"
