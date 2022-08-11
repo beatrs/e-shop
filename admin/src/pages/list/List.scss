@@ -1,3 +1,6 @@
+
+@import "../../styles/variables";
+
 .datatable {
     margin: 0 !important;
     width: 85% !important;
@@ -12,14 +15,25 @@
         flex-direction: column;
     }
 
-    .add-btn {
+    .list--top {
         align-self: center;
         width: 85%;
         margin-top: 1rem;
         margin-bottom: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        
+
+        h2 {
+            text-transform: capitalize;
+            font-size: 2em;
+            color: $text-dark;
+        }
 
         button {
-            float: right;
+            // float: right;
+            // align-content: flex-end;
             cursor: pointer;
             // width: 100%;
             height: 100%;

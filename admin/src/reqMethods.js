@@ -9,7 +9,7 @@ const API_URL = process.env.NODE_ENV === 'production' ? PROD_URL : LOCAL_URL
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.currentUser
 const TOKEN = user && JSON.parse(user)?.token
-console.log((localStorage.getItem("persist:root")))
+// console.log((localStorage.getItem("persist:root")))
 export const genRequest = axios.create({
     baseURL: API_URL
 })

@@ -88,7 +88,7 @@ const AddEditItem = ({type}) => {
         console.log(formData)
         try {
             let url = `/products`
-            if (itemId) {
+            if (type === 'edit') {
                 console.log('go here')
                 url += `/${itemId}`
                 const res = await adminRequest.put(url, formData)
@@ -196,7 +196,7 @@ const AddEditItem = ({type}) => {
                     {item && 
                     <div className="item-form">
                     <form>
-                        <h2>{!itemId ? 'Add New item': 'Edit item'}</h2>
+                        <h2>{type === 'add' ? 'Add New item': 'Edit item'}</h2>
                         {/* FORM BODY */}
                         <div className="form--body">
                             {/* ! SECTION LEFT ! */}
@@ -262,7 +262,7 @@ const AddEditItem = ({type}) => {
                                     </div>
                                     <div className="form--item">
                                         <label>Price (PHP)</label>
-                                        <input type="number" name="price" value={item.price || 0} onChange={handleFormChange} min='0'  />
+                                        <input type="number" name="price" value={item.price || null} onChange={handleFormChange} min='0' placeholder={0}/>
                                     </div>
                                 </div>
                                 {/* VERSIONS */}

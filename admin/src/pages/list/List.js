@@ -80,8 +80,11 @@ const List = ({type}) => {
             <Sidebar styleProp={isToggled} />
             <div className="list--container" onClick={isToggled ? ()=>setIsToggled(false) : null} >
                 <Navbar handleMenuClick={()=>setIsToggled(true)} />
-                <div className="add-btn">
+                <div className="list--top">
+                    <h2>{type}</h2>
+                    {type !== 'orders' &&
                     <button onClick={()=>navigate(`/${type}/new`)}>Add New</button>
+                    }
                 </div>
                 
                 { getDatatable() }

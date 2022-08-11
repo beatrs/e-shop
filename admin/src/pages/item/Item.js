@@ -9,19 +9,20 @@ import { userRequest } from "../../reqMethods"
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import Showdown from "showdown"
 import parse from 'html-react-parser';
+import { FormatNumber } from "../../services/general"
 
 const Item = () => {
     const [item, setItem] = useState()
     const location = useLocation()
     const itemId = location.pathname.split("/").pop()
-    console.log(itemId)
+    // console.log(itemId)
     useEffect(() => {
         const query = `http://localhost:5000/api/products/${itemId}`
         const getItem = async () => {
             try {
                 const res = await userRequest.get(query)
                 setItem(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             } catch (err) {
                 console.error(err)
             }
@@ -78,7 +79,7 @@ const Item = () => {
                         <span className="info--item">
                             Description: {convertedText()}
                         </span>
-                        <span className="info--item">Price: ₱ { item.price }</span>
+                        <span className="info--item">Price: ₱ { FormatNumber.withComma(item.price) }</span>
                         {item.versions &&
                         <div className="info--versions">
                             <span className="info--item">Versions:</span>

@@ -12,6 +12,7 @@ import { DarkModeContext } from "./context/darkMode"
 import { useSelector } from "react-redux"
 import AddEditUser from "./pages/add-edit-user/AddEditUser"
 import User from "./pages/user/User"
+import AddEditOrder from "./pages/add-edit-order/AddEditOrder"
 
 const App = () => {
   
@@ -43,6 +44,8 @@ const App = () => {
 
           <Route path="orders">
             <Route index element={user ? <List type="orders" /> : redirectTo(LOGIN_URL)} />
+            <Route path=":oId" element={user ? <AddEditOrder type="view" /> : redirectTo(LOGIN_URL)} />
+            <Route path="edit/:oId" element={user ? <AddEditOrder type="edit" /> : redirectTo(LOGIN_URL)} />
           </Route>
 
           <Route path="products">
