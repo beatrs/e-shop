@@ -30,7 +30,7 @@ const AddEditItem = ({type}) => {
  
     //get items
     useEffect(() => {
-        const query = `http://localhost:5000/api/products/${itemId}`
+        const query = `/products/${itemId}`
         const getItem = async () =>  {
             try {
                 const res = await userRequest.get(query)

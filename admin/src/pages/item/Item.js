@@ -17,7 +17,7 @@ const Item = () => {
     const itemId = location.pathname.split("/").pop()
     // console.log(itemId)
     useEffect(() => {
-        const query = `http://localhost:5000/api/products/${itemId}`
+        const query = `/products/${itemId}`
         const getItem = async () => {
             try {
                 const res = await userRequest.get(query)

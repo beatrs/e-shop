@@ -26,7 +26,7 @@ const AddEditUser = () => {
 
     //get user
     useEffect(() => {
-        const query = `http://localhost:5000/api/users/${userId}`
+        const query = `/users/${userId}`
         const getUser = async () =>  {
             try {
                 const res = await userRequest.get(query)
