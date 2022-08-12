@@ -3,7 +3,7 @@
     display: none;
 
     &.toggled {
-        @media only screen and (max-width: 539px) {
+        @media only screen and (max-width: 768px) {
             display: flex;
             flex: 1;
             position: absolute;
