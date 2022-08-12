@@ -31,8 +31,9 @@ const Form = styled.form`
 
 const Input = styled.input`
     padding: 10px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin-bottom: 15px;
+    outline: none;
 `
 
 const Name = styled.div`
@@ -81,12 +82,13 @@ const Register = () => {
                 <Title>Create an account</Title>
                 <Form>
                     <Name>
-                        <Input placeholder="first name" />
-                        <Input placeholder="last name" />
+                        <Input type="text" placeholder="First name" />
+                        <Input type="text" placeholder="Last name" />
                     </Name>
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Input placeholder="confirm password" />
+                    <Input type="text" placeholder="Username" />
+                    <Input type="email" placeholder="Email" />
+                    <Input type="password" placeholder="Password" />
+                    <Input type="password" placeholder="Confirm Password" />
                     <Agreement>
                         By clicking Create Account, you agree to our Terms and that you have read our Data Policy, including our Cookie Use.
                     </Agreement>
