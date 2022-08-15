@@ -115,7 +115,7 @@ const ProductList = () => {
         PageTitle = 'Official MD'
     else if (category === 'kstyle')
         PageTitle = 'K-Style'
-    else if (category === 'photo book')
+    else if (category === 'photo%20book')
         PageTitle = 'Photo Books'
     
         

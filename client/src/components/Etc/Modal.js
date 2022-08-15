@@ -7,6 +7,7 @@ import Popup from "reactjs-popup"
 const Modal = (props) => {
     const btn = props.button
     const content = props.content
+    const isAlert = false || props.isAlert
     const Button = React.forwardRef(({ open, ...props }, ref) => (
         <button className="button" ref={ref} {...props} style={btn.style}>{btn.name}</button>
     ))
@@ -31,6 +32,7 @@ const Modal = (props) => {
                     <div className="modal--body">
                         {content.body}
                     </div>
+                    {!isAlert?
                     <div className="modal--footer">
                         <button className="btn-cancel" onClick={close}>Cancel</button>
                         <button className="btn-confirm" onClick={() => {
@@ -38,6 +40,14 @@ const Modal = (props) => {
                             close()
                         }}>Continue</button>
                     </div>
+                    :
+                    <div className="modal--footer">
+                        <button className="btn-confirm" onClick={() => {
+                            props.handleConfirm() 
+                            close()
+                        }}>Okay</button>
+                    </div>
+                    }
                 </div>
             )}
         </Popup>

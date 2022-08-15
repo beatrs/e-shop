@@ -1,5 +1,6 @@
 
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
     flex: 1;
@@ -47,12 +48,14 @@ const Button = styled.button`
 `
 
 const CategoryItem = ({item}) => {
+    const navigate = useNavigate()
+
     return (
         <Container>
             <Image src={item.img} />
             <Info>
                 <Title>{item.title}</Title>
-                <Button>See more</Button>
+                <Button onClick={()=>navigate(item.url)}>See more</Button>
             </Info>
         </Container>
     )

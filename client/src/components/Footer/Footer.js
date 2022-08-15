@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTwitterSquare, faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons'
@@ -104,6 +104,8 @@ const Footer = () => {
         marginRight: '15px'
     }
 
+    const navigate = useNavigate()
+
     return (
         <Container>
             <Left>
@@ -127,23 +129,23 @@ const Footer = () => {
             <Center>
                 <Title>Useful Links</Title>
                 <List>
-                    <ListItem><Link to="/">Home</Link></ListItem>
-                    <ListItem><Link to="/cart">Cart</Link></ListItem>
-                    <ListItem><Link to="/shop/album">Albums</Link></ListItem>
-                    <ListItem>Official MD</ListItem>
-                    <ListItem>Accessories</ListItem>
-                    <ListItem>Tickets</ListItem>
-                    <ListItem><Link to="/login">My Account</Link></ListItem>
-                    <ListItem>My Orders</ListItem>
-                    <ListItem>Wishlist</ListItem>
-                    <ListItem>Terms and Policy</ListItem>
+                    <ListItem onClick={()=>navigate('/')}>Home</ListItem>
+                    <ListItem onClick={()=>navigate('/cart')}>Cart</ListItem>
+                    <ListItem onClick={()=>navigate('/shop/album')}>Albums</ListItem>
+                    <ListItem onClick={()=>navigate('/shop/merch')}>Official MD</ListItem>
+                    <ListItem onClick={()=>navigate('/shop/kstyle')}>K-Style</ListItem>
+                    <ListItem onClick={()=>navigate('/')}>Tickets</ListItem>
+                    <ListItem onClick={()=>navigate('/login')}>My Account</ListItem>
+                    <ListItem onClick={()=>navigate('/orders')}>My Orders</ListItem>
+                    <ListItem onClick={()=>navigate('/')}>Wishlist</ListItem>
+                    <ListItem onClick={()=>navigate('/')}>Terms and Policy</ListItem>
                 </List>
             </Center>
             <Right>
                 <Title>Contact Us</Title>
                 <ContactItem>
                     <FontAwesomeIcon style={contactStyle} icon={faLocationDot} />
-                    012 Glassy Door, Smiley Street Winter Ave., Izland
+                    574 Oakway Lane, Irvine, CA
                 </ContactItem>
                 <ContactItem>
                     <FontAwesomeIcon style={contactStyle} icon={faPhone} />
@@ -151,7 +153,7 @@ const Footer = () => {
                 </ContactItem>
                 <ContactItem>
                     <FontAwesomeIcon style={contactStyle} icon={faAt} />
-                    sseradive48@memoria.cy
+                    xoxostore@info.com
                 </ContactItem>
                 <Payment src="https://lumosblue.com/wp-content/uploads/2021/04/Full_Online_Tray_RGB.png" />
             </Right>

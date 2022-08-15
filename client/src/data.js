@@ -29,17 +29,20 @@ export const categories = [
     {
         id: 1,
         img: "https://ph-test-11.slatic.net/p/7e6cfcd3016e5a4dd2cebd42809e888a.jpg",
-        title: "Official Merchandise"
+        title: "Official Merchandise",
+        url: "/shop/merch"
     },
     {
         id: 2,
         img: "https://cdn.shopify.com/s/files/1/0519/8207/4037/products/FPkjB7GagAY0fQj_1024x.jpg?v=1649682414",
-        title: "Albums"
+        title: "Albums",
+        url: "/shop/album"
     },
     {
         id: 3,
         img: "https://pbs.twimg.com/media/EKvyU28UUAARmzL.jpg",
-        title: "Ticketing"
+        title: "Ticketing",
+        url: "/shop"
     },
 ]
 
