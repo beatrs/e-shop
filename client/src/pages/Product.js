@@ -210,7 +210,7 @@ const Product = () => {
                     <CartWrapper>
                         <CartQty>
                             <FontAwesomeIcon icon={faMinus} className="icon" onClick={()=>handleQty(-1)} />
-                            <CartCount type="number" placeholder="1" min={0} value={quantity} onChange={(e)=>setQuantity(e.target.value)} />
+                            <CartCount type="number" placeholder="1" min={0} value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
                             <FontAwesomeIcon icon={faPlus} className="icon" onClick={()=>handleQty(1)} />
                         </CartQty>
                         <CartButton onClick={updateCart}>Add To Cart</CartButton>
