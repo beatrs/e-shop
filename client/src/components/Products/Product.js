@@ -27,14 +27,13 @@ const Image = styled.img`
     z-index: 2;
 `
 
-const Circle = styled.div`
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: white;
-    position: absolute;
-
-`
+// const Circle = styled.div`
+//     width: 200px;
+//     height: 200px;
+//     border-radius: 50%;
+//     background-color: white;
+//     position: absolute;
+// `
 
 const Info = styled.div`
     opacity: 0;
@@ -86,7 +85,6 @@ const Product = ({item}) => {
     }
     return (
         <Container>
-            {/* <Circle /> */}
             <Image src={item.cover} />
             <Info>
                 <Link to={`/product/${item._id}`} style={linkStyles}>

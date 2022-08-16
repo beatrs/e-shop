@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -205,7 +204,7 @@ const Product = () => {
                     <CartWrapper>
                         <CartQty>
                             <FontAwesomeIcon icon={faMinus} className="icon" onClick={()=>handleQty(-1)} />
-                            <CartCount type="number" placeholder="1" min={0} value={quantity} readOnly />
+                            <CartCount type="number" placeholder="1" min={0} value={quantity} onChange={(e)=>setQuantity(e.target.value)} />
                             <FontAwesomeIcon icon={faPlus} className="icon" onClick={()=>handleQty(1)} />
                         </CartQty>
                         <CartButton onClick={updateCart}>Add To Cart</CartButton>
