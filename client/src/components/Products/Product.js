@@ -89,17 +89,21 @@ const Product = ({item}) => {
             {/* <Circle /> */}
             <Image src={item.cover} />
             <Info>
+                <Link to={`/product/${item._id}`} style={linkStyles}>
                 <Icon>
                     <FontAwesomeIcon icon={faShoppingCart} />
                 </Icon>
+                </Link>
                 <Link to={`/product/${item._id}`} style={linkStyles}>
                 <Icon>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Icon>
                 </Link>
+                <Link to={`/product/${item._id}`} style={linkStyles}>
                 <Icon>
                     <FontAwesomeIcon icon={faHeart} />
                 </Icon>
+                </Link>
             </Info>
         </Container>
     )
