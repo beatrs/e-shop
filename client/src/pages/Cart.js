@@ -10,7 +10,7 @@ import { changeQty, removeItem, resetCart } from "../redux/cartRedux"
 import { userRequest } from "../reqMethods"
 
 import Modal from "../components/Etc/Modal"
-import useModal from "../services/useModal"
+import { useAlert } from "react-alert"
 
 const Container = styled.div`
 `
@@ -200,8 +200,10 @@ const Cart = () => {
         )
     }
 
+    const alert = useAlert()
+
     const handleCheckout = () => {
-        if (user && cart) {
+        if (user && cart && cart.quantity >= 1) {
             let prodList = []
             cart.products.forEach((product) => {
                 var {_id, quantity, itemVersion} = product
@@ -231,6 +233,13 @@ const Cart = () => {
             }
             submitOrder()
             handleClearAll()
+        } else {
+            if (!user){
+                alert.show('Please login to proceed.')
+            }
+            if (cart.quantity < 1) {
+                alert.show('Cart is empty.')
+            }
         }
     }
 
@@ -284,7 +293,7 @@ const Cart = () => {
                 <Wrapper>
                     <Title>Your Cart</Title>
                     <Top>
-                        <Button>Continue shopping</Button>
+                        <Button onClick={()=>navigate('/shop')}>Continue shopping</Button>
                         <Links>
                             <LinkItem>Shopping Bag(1)</LinkItem>
                             <LinkItem>Wishlist(0)</LinkItem>
