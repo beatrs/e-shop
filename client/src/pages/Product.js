@@ -113,6 +113,12 @@ const CartCount = styled.input`
     &:focus {
         outline: none;
     }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
 `
 const CartButton = styled.button`
     flex: 7;
