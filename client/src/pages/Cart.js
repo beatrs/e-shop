@@ -9,7 +9,7 @@ import { FormatNumber } from "../services/general"
 import { changeQty, removeItem, resetCart } from "../redux/cartRedux"
 import { userRequest } from "../reqMethods"
 
-import Modal from "../components/Etc/Modal"
+import Modal from "../components/Shared/Modal"
 import { useAlert } from "react-alert"
 
 const Container = styled.div`

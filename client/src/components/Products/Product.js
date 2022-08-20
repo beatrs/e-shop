@@ -2,6 +2,8 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { genRequest } from "../../reqMethods"
 
 
 const Container = styled.div`
@@ -70,7 +72,6 @@ const Icon = styled.div`
         background-color: rgb(240, 248, 255);
         transform: scale(1.1);
     }
-
     
     @media only screen and (max-width: 479px) {
         width: 30px;
@@ -83,6 +84,29 @@ const Product = ({item}) => {
         color: "black",
         textDecoration: "none"
     }
+
+    const user = useSelector((state) => state.user.currentUser)
+
+    const addToWishlist = (pId) => {
+        console.log('adding to wishes')
+        if (user) {
+            const newWish = {
+                _user: user._id,
+                products: [{_product: pId}]
+            }
+            console.log(newWish)
+            const postWish = async() => {
+                try {
+                    const query = `/wish`
+                    const res = await genRequest.post(query, newWish)
+                    console.log(res.data)
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            postWish()
+        }
+    }
     return (
         <Container>
             <Image src={item.cover} />
@@ -92,16 +116,14 @@ const Product = ({item}) => {
                     <FontAwesomeIcon icon={faShoppingCart} />
                 </Icon>
                 </Link>
-                <Link to={`/product/${item._id}`} style={linkStyles}>
+                {/* <Link to={`/product/${item._id}`} style={linkStyles}>
                 <Icon>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Icon>
-                </Link>
-                <Link to={`/product/${item._id}`} style={linkStyles}>
-                <Icon>
+                </Link> */}
+                <Icon onClick={()=>addToWishlist(item._id)}>
                     <FontAwesomeIcon icon={faHeart} />
                 </Icon>
-                </Link>
             </Info>
         </Container>
     )

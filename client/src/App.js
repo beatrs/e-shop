@@ -7,7 +7,7 @@ import ProductList from './pages/ProductList'
 import Product from './pages/Product'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import ScrollToTop from './components/Etc/scrollToTop'
+import ScrollToTop from './components/Shared/scrollToTop'
 import OrderList from './pages/OrderList'
 
 

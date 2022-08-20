@@ -4,7 +4,7 @@ import Newsletter from "../components/Newsletter/Newsletter"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
 import { useNavigate } from "react-router-dom"
-import Modal from "../components/Etc/Modal"
+import Modal from "../components/Shared/Modal"
 import { genRequest } from "../reqMethods"
 import { serialize } from 'object-to-formdata'
 import { useAlert } from "react-alert"

@@ -132,9 +132,9 @@ const CartButton = styled.button`
 const Product = () => {
     const [item, setItem] = useState()
     const location = useLocation()
-    console.log(location)
+    
     const itemId = location.pathname.split("/")[2]
-    console.log(itemId)
+    
     useEffect(() => {
         const apiQuery = `/products/${itemId}`
         const getProduct = async () => {

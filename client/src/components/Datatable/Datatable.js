@@ -8,7 +8,7 @@ import { useEffect } from "react"
 
 import { useDispatch, useSelector } from "react-redux"
 import { removeItem } from "../../redux/cartRedux"
-import Modal from "../../components/Etc/Modal"
+import Modal from "../../components/Shared/Modal"
 import { userRequest } from "../../reqMethods"
 
 const userOrdersColumn = [
