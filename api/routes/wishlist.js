@@ -17,8 +17,19 @@ router.post("/", async (req, res) => {
         } else {
             console.log('else: ', newWish.products)
             const wishId = await Wish.find(newWish._id)
-            const itemExists = await Wish.find({_products: {_product: newWish.products[0]._product}})
-            if (!itemExists) {
+            const itemExists = await Wish.find({
+                $and: [
+                    {_user: newWish._user},
+                    {"products._product": newWish.products[0]._product}
+                ]
+            })
+
+            
+            console.log('prod id', newWish.products[0]._product)
+            console.log('wishlist', wishlist)
+            console.log('wish id', wishId)
+            console.log('item exists: ', itemExists)
+            if (!itemExists.length) {
                 wishlist = await Wish.updateOne(
                     {_user: newWish._user}, 
                     {
@@ -32,8 +43,6 @@ router.post("/", async (req, res) => {
                 throw new Error("Item already exists in wishlist")
             }
             
-            console.log('wish id', wishId)
-            console.log('wishlist', wishlist)
         }
         return res.status(200).json(wishlist)
     } catch (err) {
@@ -55,7 +64,7 @@ router.put("/:id", verifyTokenAndAuth, async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const wishlist = 
-            await Wish.find({ id: req.params.userId })
+            await Wish.find({ _user: req.params.id })
             .populate('products._product', '_id title artistFormatted img imgAlt price versions')
         return res.status(200).json(wishlist)
     } catch (err) {

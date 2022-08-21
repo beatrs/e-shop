@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import styled from "styled-components"
 import Footer from "../components/Footer/Footer"
 import StickyHeader from "../components/Header/StickyHeader"
+import { BsCartCheckFill as ShopIcon } from "react-icons/bs"
 
 import { Link, useNavigate } from "react-router-dom"
 import { FormatNumber } from "../services/general"
-import { changeQty, removeItem, resetCart } from "../redux/cartRedux"
 import { userRequest } from "../reqMethods"
 
 import Modal from "../components/Shared/Modal"
@@ -126,42 +126,21 @@ const Options = styled.div`
     }
 `
 
-const Quantity = styled.div`
-    margin-right: 30px;
+const ShopButton = styled.button`
+    cursor: pointer;
+    padding: 12px 40px;
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
-    border: 1px solid lightgray;
-    padding: 5px 10px;
-    width: 115px;
-`
-const QuantityLbl = styled.small`
-    color: gray;
-`
-
-const QuantityInput = styled.input`
-    width: 80%;
-    margin: auto;
-    margin-top: 8px;
+    gap: 8px;
+    font-size: 1.025em;
     border: none;
+    border-radius: 5px;
 `
-
-const Subtotal = styled.div``
 
 const Bottom = styled.div`
     display: flex;
     flex-direction: column;
 `
-const Summary = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
-const SummaryLbl = styled.div`
-`
-const SummaryTotal = styled.div`
-    font-size: 2em;
-    font-weight: bold;
-`
-
 
 const ClrButton = styled.button`
     cursor: pointer;
@@ -170,21 +149,12 @@ const ClrButton = styled.button`
     margin-left: 10px;
 `
 
-const ClrAllBtn = styled.button`
-    cursor: pointer;
-    margin-top: 10px;
-    border: none;
-    height: 40px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-`
-
 const WishList = () => {
     const user = useSelector((state) => state.user.currentUser)
+    const cart = useSelector(state => state.cart)
     const [wishlist, setWishlist] = useState([])
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    
     useEffect(() => {
         if (user) {
             console.log(user)
@@ -192,6 +162,7 @@ const WishList = () => {
                 try {
                     const query = `/wish/${user._id}`
                     const res = await userRequest.get(query)
+                    // console.log(res)
                     if (res.data )
                         setWishlist(res.data[0])
                 } catch (err) {
@@ -226,14 +197,14 @@ const WishList = () => {
                     <Top>
                         <Button onClick={()=>navigate('/shop')}>Continue shopping</Button>
                         <Links>
-                            <LinkItem>Shopping Bag(1)</LinkItem>
-                            <LinkItem>Wishlist(0)</LinkItem>
+                            <LinkItem onClick={()=>navigate('/cart')}>Shopping Bag({cart.quantity})</LinkItem>
+                            <LinkItem>Wishlist({wishlist.products ? wishlist.products.length : 0})</LinkItem>
                         </Links>
-                        <Button>Checkout now</Button>
+                        <Button onClick={()=>navigate('/shop')}>Continue shopping</Button>
                     </Top>
                     <WishlistWrapper>
-                        {wishlist ? 
-                        wishlist.products && wishlist.products.map((item)=>(                    
+                        {wishlist && 
+                        wishlist.products ? wishlist.products.map((item)=>(                    
                         <Product key={item._product._id}>
                             <ProductImage src={item._product.img} alt={item._product.imgAlt} />
                             <ProductInfo>
@@ -243,7 +214,10 @@ const WishList = () => {
                                     <ProductPrice>Price ₱ {FormatNumber.formatPrice(item._product.price)}</ProductPrice>
                                 </ProductDetails>
                                 <Options>
-                                    <Button onClick={()=>navigate(`/product/${item._product._id}`)}>Shop</Button>
+                                    <ShopButton onClick={()=>navigate(`/product/${item._product._id}`)} >
+                                        <ShopIcon />
+                                        <span>Shop</span>
+                                    </ShopButton>
                                     <ClrButton onClick={()=>deleteItem(item._product._id)}>&times;</ClrButton>
                                 </Options>
                             </ProductInfo>
