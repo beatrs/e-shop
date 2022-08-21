@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import "./AddEditUser.scss"
 
 import { useState, useEffect } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { userRequest, adminRequest } from "../../reqMethods"
 
 import { serialize } from 'object-to-formdata'
@@ -11,8 +11,12 @@ import { serialize } from 'object-to-formdata'
 const AddEditUser = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const userId = location.pathname.split("/").pop()
+    const params = useParams()
+    // const userId = location.pathname.split("/").pop()
+    const userId = params.uId
     const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
         username: '',
         email: '',
         password: '',
@@ -139,6 +143,14 @@ const AddEditUser = () => {
 
                             </div>
                             <div className="section--right">
+                                <div className="form--item">
+                                    <label>First Name</label>
+                                    <input type="text" name="firstName" value={user.firstName || ""} onChange={handleFormChange} />
+                                </div>
+                                <div className="form--item">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lastName" value={user.lastName || ""} onChange={handleFormChange} />
+                                </div>
                                 <div className="form--item">
                                     <label>Username</label>
                                     <input type="text" name="username" value={user.username || ""} onChange={handleFormChange} />
