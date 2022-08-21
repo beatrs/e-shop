@@ -37,12 +37,10 @@ const Sidebar = ({styleProp}) => {
                     </Link>
                     
                     {/* <p className="title">Site</p> */}
-                    <Link to="/users">
-                       <li>
-                            <UsersIcon className="sidebar--icon"  />
-                            <span>Users</span>
-                        </li> 
-                    </Link>
+                    <li onClick={()=>window.location.assign('/users')}>
+                        <UsersIcon className="sidebar--icon"  />
+                        <span>Users</span>
+                    </li> 
                     
                     <Link to="/orders">
                         <li>
