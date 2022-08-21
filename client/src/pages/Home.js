@@ -15,8 +15,17 @@ import MinHeader from "../components/Header/MinHeader"
 const Title = styled.h1`
     text-transform: uppercase;
     margin: 40px 20px;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 1.75em;
+`
+
+const Wrapper = styled.div`
+    width: 80vw;
+    margin: auto;
+
+    @media screen and (max-width: 810px) {
+        width: 90vw;
+    }
 `
 
 const Home = () => {
@@ -26,10 +35,12 @@ const Home = () => {
             <StickyHeader handleToggle={isToggled} />
             <div onClick={()=>setIsToggled(!isToggled)} >
                 <Slider />
-                <Title>Shop</Title>
-                <Categories />
-                <Title>Hot items</Title>
-                <Products />
+                <Wrapper>
+                    <Title>Shop</Title>
+                    <Categories />
+                    <Title>Hot items</Title>
+                    <Products limit={true} />
+                </Wrapper>
                 <Newsletter />
                 <Footer />
             </div>
