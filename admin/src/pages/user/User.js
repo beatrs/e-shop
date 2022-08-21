@@ -26,7 +26,7 @@ const User = () => {
     }
 
     useEffect(() => {
-        const query = `http://localhost:5000/api/users/${userId}`
+        const query = `/users/${userId}`
         const getUser = async () => {
             try {
                 const res = await userRequest.get(query)
@@ -38,8 +38,9 @@ const User = () => {
         }
         const getUserOrders = async () => {
             try {
-                const query = `/orders/${userId}`
+                const query = `/orders/${userId}/orders`
                 const res = await userRequest(query)
+                console.log(res.data)
                 setUserOrders(modList(res.data))
             } catch (err) {
                 console.error(err)

@@ -25,7 +25,7 @@ const AddEditOrder = ({type}) => {
     const [status, setStatus] = useState((order && order.status) || '')
     //get user
     useEffect(() => {
-        const query = `http://localhost:5000/api/orders/${orderId}`
+        const query = `/orders/${orderId}`
         const getOrder = async () =>  {
             try {
                 const res = await userRequest.get(query)
