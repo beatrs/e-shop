@@ -171,9 +171,16 @@ const NavItem = styled.a`
     text-decoration: none;
     text-transform: uppercase;
     align-self: center;
+    
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
 
     @media (max-width: 768px) {
         display: none;
+    }
+
+    &:hover {
+        color: #539E8A;
     }
 `
 

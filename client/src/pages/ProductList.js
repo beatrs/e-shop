@@ -130,7 +130,7 @@ const ProductList = () => {
     return (
         <Container>
             <StickyHeader navFirst={false} handleToggle={isToggled} />
-            <div onClick={()=>setIsToggled(!isToggled)}>
+            <div onClick={()=>setIsToggled(!isToggled)} className="page-container">
             <Title>{PageTitle}</Title>
             <FilterContainer>
                 <Filter>
@@ -144,6 +144,7 @@ const ProductList = () => {
                             <Option value={artist.value} key={artistOptions.indexOf(artist)}>{artist.label}</Option>
                         ))}
                     </Select>
+                    {category === 'album' &&
                     <Select name="type" onChange={handleFilters} defaultValue="Type">
                         <Option disabled defaultValue={true}>
                             Type
@@ -155,6 +156,7 @@ const ProductList = () => {
                         <Option>Digipack / Kihno</Option>
                         <Option>Jewel Case</Option>
                     </Select>
+                    }
                 </Filter>
                 <Filter>
                     <FilterText>Sort Products</FilterText>
@@ -171,10 +173,10 @@ const ProductList = () => {
                     </Select>
                 </Filter>
             </FilterContainer>
-            <Products category={category} filters={filters} sort={sort} search={search} />
+            <Products category={category} filters={filters} sort={sort} search={search} style={{margin: "auto"}}/>
+            </div>
             <Newsletter />
             <Footer />
-            </div>
         </Container>
     )
 }

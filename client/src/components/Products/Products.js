@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { hotProducts } from "../../data"
 import { genRequest } from "../../reqMethods"
 import Product from "./Product"
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 const Container = styled.div`
     padding: 20px;
@@ -38,6 +39,15 @@ const Products = ({category, filters, sort, search}) => {
         }
         getProducts()
     }, [category, search])
+
+    const divStyle = {
+        display: "flex",
+        flexWrap: "wrap",
+        // padding: "20px",
+        margin: "auto",
+        width: "99%",
+        // justifyContent: "space-between",
+    }
 
     useEffect(() => {
         
@@ -84,9 +94,13 @@ const Products = ({category, filters, sort, search}) => {
                 <Product key={item._id} item={item} />
             ))
             } */}
+            <Stagger in style={divStyle}>
             {filteredProducts.map(item => (
-                <Product key={item._id} item={item} />
+                <Fade in style={{minWidth: "280px"}}>
+                    <Product key={item._id} item={item} />
+                </Fade>
             ))}
+            </Stagger>
         </Container>
     )
 }

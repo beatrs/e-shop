@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
     width: 80vw;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     margin: auto;

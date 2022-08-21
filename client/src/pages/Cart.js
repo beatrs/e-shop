@@ -16,6 +16,9 @@ const Container = styled.div`
 `
 const Wrapper = styled.div`
     padding: 30px;
+    width: 80vw;
+    min-height: 70vh;
+    margin: auto;
 `
 const Title = styled.h1`
     text-align: center;
@@ -295,8 +298,8 @@ const Cart = () => {
                     <Top>
                         <Button onClick={()=>navigate('/shop')}>Continue shopping</Button>
                         <Links>
-                            <LinkItem>Shopping Bag(1)</LinkItem>
-                            <LinkItem>Wishlist(0)</LinkItem>
+                            <LinkItem>Shopping Bag({cart.quantity})</LinkItem>
+                            <LinkItem onClick={()=>navigate('/wishlist')}>Wishlist</LinkItem>
                         </Links>
                         <Button>Checkout now</Button>
                     </Top>

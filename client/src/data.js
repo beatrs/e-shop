@@ -1,19 +1,19 @@
 export const sliderItems = [
     {
         id: 1,
-        img: "https://0.soompi.io/wp-content/uploads/2019/03/29200501/IZONE17.jpg",
-        imgAlt: 'Iz*One Violeta Group Photo',
-        title: "Heart*Iz out now!",
-        desc: "Get your copy of IZ*ONE's latest album featuring their title track 'Violeta'",
-        bg: "#F0FFFF"
-    },
-    {
-        id: 2,
         img: "https://m.media-amazon.com/images/I/51IcXO62+3L._AC_SL1000_.jpg",
         imgAlt: 'Midnight Guest Album Photo',
         title: "Midnight Guest sale",
         desc: "Check out Fromis_9's 4th mini album",
         bg: "#bbd"
+    },
+    {
+        id: 2,
+        img: "https://0.soompi.io/wp-content/uploads/2019/03/29200501/IZONE17.jpg",
+        imgAlt: 'Iz*One Violeta Group Photo',
+        title: "Heart*Iz out now!",
+        desc: "Get your copy of IZ*ONE's latest album featuring their title track 'Violeta'",
+        bg: "#F0FFFF"
     },
     {
         id: 3,

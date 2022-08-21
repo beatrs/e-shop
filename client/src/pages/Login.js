@@ -17,6 +17,14 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 50px;
+    /* width: 80vw; */
+    min-height: 70vh;
+    margin: auto;
+
+    @media screen and (max-width: 810px) {
+        width: 95vw;
+        padding: 10px;
+    }
 `
 const Title = styled.h1`
     margin-bottom: 25px;
@@ -25,10 +33,14 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     padding: 20px;
-    width: 50%;
+    width: 40%;
 
-    @media (max-width: 768px) {
-        width: 80%;
+    
+    @media screen and (max-width: 1079px) {
+        width: 70%;
+    }
+    @media screen and (max-width: 479px) {
+        width: 90%;
     }
 
 `
