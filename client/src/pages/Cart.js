@@ -19,6 +19,10 @@ const Wrapper = styled.div`
     width: 80vw;
     min-height: 70vh;
     margin: auto;
+
+    @media screen and (max-width: 810px) {
+        width: 90vw;
+    }
 `
 const Title = styled.h1`
     text-align: center;
@@ -299,14 +303,14 @@ const Cart = () => {
                         <Button onClick={()=>navigate('/shop')}>Continue shopping</Button>
                         <Links>
                             <LinkItem>Shopping Bag({cart.quantity})</LinkItem>
-                            <LinkItem onClick={()=>navigate('/wishlist')}>Wishlist</LinkItem>
+                            <LinkItem onClick={()=>navigate('/wish')}>Wishlist</LinkItem>
                         </Links>
                         <Button>Checkout now</Button>
                     </Top>
                     <CartWrapper>
                         {
                         cart.quantity > 0 
-                        ? cart.products.map((item)=>(                    
+                        ? cart.products.map((item, index)=>(                    
                         <Product key={item._id + item.itemVersion}>
                             <ProductImage src={item.img} alt={item.imgAlt} />
                             <ProductInfo>
@@ -321,7 +325,7 @@ const Cart = () => {
                                         <QuantityInput type="number" min="1" value={item.quantity} onChange={(e)=>updateCart(e, item._id)} />
                                     </Quantity>
                                     <Subtotal>₱ {FormatNumber.formatPrice(item.price * item.quantity)}</Subtotal>
-                                    <ClrButton onClick={()=>deleteItem(item._id)}>&times;</ClrButton>
+                                    <ClrButton onClick={()=>deleteItem(index)}>&times;</ClrButton>
                                 </PriceDetails>
                             </ProductInfo>
                         </Product>
