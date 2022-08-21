@@ -20,6 +20,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="login" element={!user ? <Login /> : <Navigate to="/" /> } />
             <Route path="register" element={!user ? <Register /> : <Navigate to="/" /> } />
+            <Route path="shop" element={<ProductList />} />
             <Route path="shop/find/:term" element={<ProductList />} />
             <Route path="shop/:category" element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />

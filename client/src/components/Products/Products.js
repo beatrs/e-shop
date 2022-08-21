@@ -13,7 +13,7 @@ const Container = styled.div`
     
 `
 
-const Products = ({category, filters, sort, search, limit}) => {
+const Products = ({category, filters, sort, search, limit, center}) => {
     console.log({category,filters,sort})
 
     const [products, setProducts] = useState([])
@@ -50,6 +50,7 @@ const Products = ({category, filters, sort, search, limit}) => {
         // padding: "20px",
         margin: "auto",
         width: "99%",
+        justifyContent: center && "center",
         // justifyContent: "space-between",
     }
 

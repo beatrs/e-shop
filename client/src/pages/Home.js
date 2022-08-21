@@ -14,7 +14,7 @@ import MinHeader from "../components/Header/MinHeader"
 
 const Title = styled.h1`
     text-transform: uppercase;
-    margin: 40px 20px;
+    margin: 40px 20px 20px 20px;
     font-weight: 500;
     font-size: 1.75em;
 `
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     width: 80vw;
     margin: auto;
 
-    @media screen and (max-width: 810px) {
+    @media screen and (max-width: 479px) {
         width: 90vw;
     }
 `
@@ -38,8 +38,8 @@ const Home = () => {
                 <Wrapper>
                     <Title>Shop</Title>
                     <Categories />
-                    <Title>Hot items</Title>
-                    <Products limit={true} />
+                    <Title>New items</Title>
+                    <Products limit={true} center={true} />
                 </Wrapper>
                 <Newsletter />
                 <Footer />

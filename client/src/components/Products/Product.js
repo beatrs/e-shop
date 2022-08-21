@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { genRequest } from "../../reqMethods"
 import { useAlert } from "react-alert"
@@ -18,9 +18,9 @@ const Container = styled.div`
     background-color: rgb(240, 248, 255);
     position: relative;
 
-    @media only screen and (max-width: 479px) {
-        min-width: 120px;
-        height: 120px;
+    @media screen and (max-width: 479px) {
+        min-width: 150px;
+        height: 150px;
     }
 
 `
@@ -68,13 +68,14 @@ const Icon = styled.div`
     padding: 3px;
     transition: all 0.5s ease;
     cursor: pointer;
+    z-index: 10;
 
     &:hover {
         background-color: rgb(240, 248, 255);
         transform: scale(1.1);
     }
     
-    @media only screen and (max-width: 479px) {
+    @media screen and (max-width: 479px) {
         width: 30px;
         height: 30px;
     }
@@ -88,6 +89,7 @@ const Product = ({item}) => {
 
     const user = useSelector((state) => state.user.currentUser)
     const alert = useAlert()
+    const navigate = useNavigate()
 
     const addToWishlist = (pId) => {
         console.log('adding to wishes')
@@ -115,7 +117,7 @@ const Product = ({item}) => {
         }
     }
     return (
-        <Container>
+        <Container onClick={()=>navigate(`/product/${item._id}`)}>
             <Image src={item.cover} />
             <Info>
                 <Link to={`/product/${item._id}`} style={linkStyles}>
