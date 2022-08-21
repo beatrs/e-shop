@@ -10,6 +10,7 @@ import "./Header.scss"
 
 import { GrMenu as MenuIcon } from "react-icons/gr"
 import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react"
 
 const Container = styled.div`
     height: 120px;
@@ -106,7 +107,7 @@ const NavItems = styled.div`
     }
 `
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
     display: flex;
     /* border: 1px solid lightgray; */
     /* height: 36px; */
@@ -165,6 +166,11 @@ const NavItem = styled.a`
     background: none;
     display: flex;
     position: relative;
+    
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    align-self: center;
 
     @media (max-width: 768px) {
         display: none;
@@ -180,6 +186,8 @@ const NavItemShow = styled.a`
     background: none;
     display: flex;
     position: relative;
+    
+    align-self: center;
 `
 
 const Menu = styled.div`
@@ -194,30 +202,52 @@ const Menu = styled.div`
 const ProfileImg = styled.img`
     width: 2.5em;
     height: 2.5em;
+    border: 1px solid lightgray;
     border-radius: 50%;
 `
 
-const NavSelect = styled.select`
-    cursor: pointer;
-    position: absolute;
+const NavSelect = styled.div`
+    /* cursor: pointer;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
+    opacity: 0; */
+    position: absolute;
+    top: 3em;
 `
 
-const Option = styled.option`
-    cursor: pointer;
+const OptionList = styled.ul`
+    width: 8em;
+    margin: 0;
+    padding: 0;
+    /* padding-left: 1em; */
+    background: #ffffff;
+    border: 2px solid #e5e5e5;
+    font-size: 0.95em;
+    font-weight: 500;
+    box-sizing: border-box;
+    color: gray;
+    text-transform: capitalize;
+    /* padding-bottom: 0.8em; */
+
+    /* &:first-child {
+        padding-top: 0.8em;
+    } */
+`
+
+const Option = styled.li`
+    /* cursor: pointer; */
+    list-style: none;
+    /* margin-bottom: 0.8em; */
+    padding: 10px;
+
+    &:hover {
+        background-color: rgb(240, 248, 255);
+    }
 `
 
 const Header = (props) => {
-    const linkStyles = {
-        color: "black",
-        textDecoration: "none",
-        textTransform: "uppercase",
-        alignSelf: "center"
-    }
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -230,12 +260,29 @@ const Header = (props) => {
         })
         navigate("/")
     }
-    console.log('cart items: ', cart.quantity)
+    // console.log('cart items: ', cart.quantity)
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen)
+        console.log(isDropdownOpen)
+    }
 
     const goTo = (url) => {
+        setIsDropdownOpen(false)
         navigate(url)
     }
-    
+    const [searchTerm, setSearchTerm] = useState()
+    const handleSearch = async(e) => {
+        e.preventDefault()
+        try {
+            console.log(searchTerm)
+            goTo(`/shop/find/${searchTerm}`)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <Container>
             <Wrapper>
@@ -245,39 +292,42 @@ const Header = (props) => {
                 </Left>
                 <Mid>
                     <NavItems>
-                        <NavItem><Link to="/" style={linkStyles}>Home</Link></NavItem>
-                        <NavItem><Link to="/shop/album" style={linkStyles}>Albums</Link></NavItem>
-                        <NavItem><Link to="/shop/merch" style={linkStyles}>Official MD</Link></NavItem>
-                        <NavItem><Link to="/shop/kstyle" style={linkStyles}>K-Style</Link></NavItem>
-                        <NavItem><Link to="/shop/photo%20book" style={linkStyles}>Photo Books</Link></NavItem>
+                        <NavItem onClick={()=>goTo('/')}>Home</NavItem>
+                        <NavItem onClick={()=>goTo('/shop/album')}>Albums</NavItem>
+                        <NavItem onClick={()=>goTo('/shop/merch')}>Official MD</NavItem>
+                        <NavItem onClick={()=>goTo('/shop/kstyle')}>K-Style</NavItem>
+                        <NavItem onClick={()=>goTo('/shop/photo%20book')}>Photo Books</NavItem>
                     </NavItems>
                     
-                    <SearchContainer>
-                        <SearchInput type='text' />
-                        <SearchIcon className="search--icon"/>
+                    <SearchContainer onSubmit={handleSearch}>
+                        <SearchInput type='text' onChange={(e)=>setSearchTerm(e.target.value)} />
+                        <SearchIcon className="search--icon" onClick={handleSearch}/>
                     </SearchContainer>
                 </Mid>
                 <Right>
                     {user ?
                     // <NavItem onClick={handleLogout}><Link to="/login" style={linkStyles}>Reset</Link></NavItem> 
-                    <NavItem>
-                        <ProfileImg src={user.profileImg} />
-                        <NavSelect>
-                            <Option onClick={()=>goTo("/orders")}>My Orders</Option>
-                            <Option value="logout" onClick={handleLogout}>Logout</Option>
+                    <NavItem onClick={toggleDropdown} >
+                        <ProfileImg src={user.profileImg}/>
+                        {isDropdownOpen &&
+                        <NavSelect >
+                            <OptionList >
+                                <Option onClick={()=>goTo("/orders")}>My Orders</Option>
+                                <Option onClick={()=>goTo("/wish")}>My Wishlist</Option>
+                                <Option value="logout" onClick={handleLogout}>Logout</Option>
+                            </OptionList>
                         </NavSelect>
+                        }
                     </NavItem>
                     :
-                    <NavItem><Link to="/login" style={linkStyles}>Sign In</Link></NavItem>  
+                    <NavItem onClick={()=>goTo('/login')}>Sign In</NavItem>  
                     }
                     
                     {/* <NavItem><Link to="/register" style={linkStyles}>Register</Link></NavItem> */}
-                    <NavItemShow>
-                        <Link to="/cart" style={linkStyles}>
+                    <NavItemShow onClick={()=>goTo('/cart')}>
                         <Badge badgeContent={cart && cart.quantity} color="primary">
                             <ShoppingCartOutlinedIcon />
                         </Badge>
-                        </Link>
                     </NavItemShow>
                     {/* <Menu>
                         <FontAwesomeIcon icon={ faBars } />

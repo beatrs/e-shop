@@ -96,6 +96,12 @@ const Sidebar = ({styleProp}) => {
                             <span>My Orders</span>
                         </li>
                     </Link>
+                    <Link to="/wish">
+                        <li>
+                            <OrdersIcon className="sidebar--icon" />
+                            <span>My Wishlist</span>
+                        </li>
+                    </Link>
                     <li onClick={handleLogout}>
                         <LogoutIcon className="sidebar--icon" />
                         <span>Logout</span>

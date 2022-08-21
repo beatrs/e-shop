@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import Footer from "../components/Footer/Footer"
@@ -53,7 +53,11 @@ const Option = styled.option``
 const ProductList = () => {
     const location = useLocation()
     
-    const category = location.pathname.split("/")[2]
+    // const category = location.pathname.split("/")[2]
+    const params = useParams()
+    const category = params.category
+    const search = params.term
+    console.log('params:', params)
 
     const [filters, setFilters] = useState()
     const handleFilters = (e) => {
@@ -117,6 +121,9 @@ const ProductList = () => {
         PageTitle = 'K-Style'
     else if (category === 'photo%20book')
         PageTitle = 'Photo Books'
+    else {
+        PageTitle = 'Shop'
+    }
     
         
     const [isToggled, setIsToggled] = useState(true)
@@ -164,7 +171,7 @@ const ProductList = () => {
                     </Select>
                 </Filter>
             </FilterContainer>
-            <Products category={category} filters={filters} sort={sort} />
+            <Products category={category} filters={filters} sort={sort} search={search} />
             <Newsletter />
             <Footer />
             </div>

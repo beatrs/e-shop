@@ -17,14 +17,21 @@ router.post("/", async (req, res) => {
         } else {
             console.log('else: ', newWish.products)
             const wishId = await Wish.find(newWish._id)
-            wishlist = await Wish.updateOne(
-                {_user: newWish._user}, 
-                {
-                    $addToSet: {
-                        products: newWish.products
-                    }
-                }
-            )
+            const itemExists = await Wish.find({_products: {_product: newWish.products[0]._product}})
+            if (!itemExists) {
+                wishlist = await Wish.updateOne(
+                    {_user: newWish._user}, 
+                    {
+                        $addToSet: {
+                            products: newWish.products
+                        }
+                    },
+                    {new: true}
+                )
+            } else {
+                throw new Error("Item already exists in wishlist")
+            }
+            
             console.log('wish id', wishId)
             console.log('wishlist', wishlist)
         }
@@ -45,12 +52,33 @@ router.put("/:id", verifyTokenAndAuth, async (req, res) => {
 })
 
 //* GET WISHLIST by userID
-router.get("/:id", verifyTokenAndAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
-        const wishlist = await Wishlist.find({ id: req.params.userId })
+        const wishlist = 
+            await Wish.find({ id: req.params.userId })
+            .populate('products._product', '_id title artistFormatted img imgAlt price versions')
         return res.status(200).json(wishlist)
     } catch (err) {
-        return res.send(500).json(err)
+        return res.status(500).json(err)
+    }
+})
+
+// * DELETE
+router.delete("/:userId/:pId", async (req, res) => {
+    try {
+        await Wish.updateOne(
+            {_user: req.params.userId}, 
+            {
+                $pull: {
+                    products: {_product: req.params.pId}
+                }
+            },
+            {new: true}
+        )
+        return res.status(200).json("Wishlist item successfully deleted")
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err)
     }
 })
 

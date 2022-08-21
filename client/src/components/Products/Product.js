@@ -4,6 +4,7 @@ import { faMagnifyingGlass, faHeart, faShoppingCart } from '@fortawesome/free-so
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { genRequest } from "../../reqMethods"
+import { useAlert } from "react-alert"
 
 
 const Container = styled.div`
@@ -86,6 +87,7 @@ const Product = ({item}) => {
     }
 
     const user = useSelector((state) => state.user.currentUser)
+    const alert = useAlert()
 
     const addToWishlist = (pId) => {
         console.log('adding to wishes')
@@ -100,11 +102,16 @@ const Product = ({item}) => {
                     const query = `/wish`
                     const res = await genRequest.post(query, newWish)
                     console.log(res.data)
+                    if (res.data)
+                        alert.success("Item added to wishlist")
                 } catch (err) {
+                    alert.error("Something went wrong")
                     console.log(err)
                 }
             }
             postWish()
+        } else {
+            alert.error('Please login to add to wishlist.')
         }
     }
     return (

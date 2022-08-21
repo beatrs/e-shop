@@ -12,16 +12,20 @@ const Container = styled.div`
     
 `
 
-const Products = ({category, filters, sort}) => {
+const Products = ({category, filters, sort, search}) => {
     console.log({category,filters,sort})
 
     const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
 
     useEffect(() => {
-        const apiQuery = category 
-            ? `/products?category=${category}` 
-            : `/products`
+        let apiQuery = `/products` 
+        if (category) {
+            apiQuery += `?category=${category}`
+        }
+        if (search) {
+            apiQuery += `?s=${search}`
+        }
 
         const getProducts = async () => {
             try {
@@ -33,7 +37,7 @@ const Products = ({category, filters, sort}) => {
             }
         }
         getProducts()
-    }, [category])
+    }, [category, search])
 
     useEffect(() => {
         

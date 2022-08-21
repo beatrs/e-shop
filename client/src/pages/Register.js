@@ -133,15 +133,15 @@ const Register = () => {
                 const res = await genRequest.post(url, formData)
                 if (res) {
                     console.log('signup success')
-                    alert.show('Account successfully created!')
+                    alert.success('Account successfully created!')
                     goTo("/login")
                 }
             } catch (err) {
-                alert.show('Something went wrong.')
+                console.log(err)
+                alert.error('Something went wrong.')
             }
         } else {
-            console.log('signup error')
-            alert.show('Something went wrong.')
+            alert.error('Something went wrong.')
         }
         
     }

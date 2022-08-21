@@ -235,10 +235,10 @@ const Cart = () => {
             handleClearAll()
         } else {
             if (!user){
-                alert.show('Please login to proceed.')
+                alert.error('Please login to proceed.')
             }
             if (cart.quantity < 1) {
-                alert.show('Cart is empty.')
+                alert.error('Cart is empty.')
             }
         }
     }

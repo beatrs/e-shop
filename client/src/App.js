@@ -9,8 +9,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ScrollToTop from './components/Shared/scrollToTop'
 import OrderList from './pages/OrderList'
-
-
+import WishList from './pages/WishList'
 
 export default function App() {
   const user = useSelector((state) => state.user.currentUser)
@@ -21,11 +20,13 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="login" element={!user ? <Login /> : <Navigate to="/" /> } />
             <Route path="register" element={<Register />} />
-            <Route path="shop" element={<ProductList />} />
+            <Route path="shop/find/:term" element={<ProductList />} />
             <Route path="shop/:category" element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<OrderList />} />
+            <Route path="wish" element={<WishList />} />
+            <Route path="*" element={<Home />} />
         </Routes>
     </BrowserRouter>
   )
