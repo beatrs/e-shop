@@ -24,8 +24,8 @@ export default function App() {
             <Route path="shop/:category" element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="orders" element={!user ? <OrderList /> : <Navigate to="/" /> } />
-            <Route path="wish" element={!user ? <WishList /> : <Navigate to="/" /> } />
+            <Route path="orders" element={user ? <OrderList /> : <Navigate to="/" /> } />
+            <Route path="wish" element={user ? <WishList /> : <Navigate to="/" /> } />
             <Route path="*" element={<Home />} />
         </Routes>
     </BrowserRouter>
