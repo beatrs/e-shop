@@ -55,7 +55,7 @@ const Price = styled.p`
     margin-bottom: 20px;
 `
 
-const Description = styled.p`
+const Description = styled.div`
     margin-bottom: 20px;
 `
 const Filter = styled.div`

@@ -9,6 +9,8 @@ import { VscAccount as UsersIcon, VscArchive as OrdersIcon, VscGear as SettingsI
 // {products, logout}
 import { RiShoppingCartLine as ProductsIcon, RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri";
 
+import { BsBookmarkHeart as WishlistIcon } from "react-icons/bs"
+
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -98,7 +100,7 @@ const Sidebar = ({styleProp}) => {
                     </Link>
                     <Link to="/wish">
                         <li>
-                            <OrdersIcon className="sidebar--icon" />
+                            <WishlistIcon className="sidebar--icon" />
                             <span>My Wishlist</span>
                         </li>
                     </Link>

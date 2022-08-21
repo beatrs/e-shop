@@ -1,6 +1,9 @@
 
 .sidebar {
     display: none;
+    
+    // transform: translateX(-100%);
+    // transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 
     &.toggled {
         @media only screen and (max-width: 768px) {
@@ -9,7 +12,7 @@
             position: absolute;
             z-index: 10;
             transform: translateX(0%);
-            transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: transform 3s ease-in;
             flex-direction: column;
             background-color: #fff;
             color: black;
