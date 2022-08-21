@@ -115,7 +115,11 @@ const SearchContainer = styled.form`
     background-color: rgba(217, 217, 217, 0.3);
     border-radius: 40px;
     height: 2.5em;
-    width: 15em;
+    width: 22em;
+
+    @media only screen and (max-width: 1439px) {
+        width: 15em;
+    }
 
     @media only screen and (max-width: 1079px) {
         /* width: 80%; */
@@ -319,7 +323,7 @@ const Header = (props) => {
                         {isDropdownOpen &&
                         <NavSelect >
                             <OptionList >
-                                <Option onClick={()=>goTo("/orders")}>My Orders</Option>
+                                <Option onClick={()=>window.location.assign("/orders")}>My Orders</Option>
                                 <Option onClick={()=>goTo("/wish")}>My Wishlist</Option>
                                 <Option value="logout" onClick={handleLogout}>Logout</Option>
                             </OptionList>

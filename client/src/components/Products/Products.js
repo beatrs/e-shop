@@ -13,7 +13,7 @@ const Container = styled.div`
     
 `
 
-const Products = ({category, filters, sort, search}) => {
+const Products = ({category, filters, sort, search, limit}) => {
     console.log({category,filters,sort})
 
     const [products, setProducts] = useState([])
@@ -27,8 +27,12 @@ const Products = ({category, filters, sort, search}) => {
         if (search) {
             apiQuery += `?s=${search}`
         }
+        if (limit) {
+            apiQuery += `?new=true`
+        }
 
         const getProducts = async () => {
+            console.log(apiQuery)
             try {
                 const res = await genRequest.get(apiQuery)
                 setProducts(res.data)
@@ -38,7 +42,7 @@ const Products = ({category, filters, sort, search}) => {
             }
         }
         getProducts()
-    }, [category, search])
+    }, [category, search, limit])
 
     const divStyle = {
         display: "flex",
@@ -96,7 +100,7 @@ const Products = ({category, filters, sort, search}) => {
             } */}
             <Stagger in style={divStyle}>
             {filteredProducts.map(item => (
-                <Fade in style={{minWidth: "280px"}}>
+                <Fade in key={item._id}>
                     <Product key={item._id} item={item} />
                 </Fade>
             ))}

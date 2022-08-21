@@ -17,6 +17,13 @@ const Container = styled.div`
 `
 const Wrapper = styled.div`
     padding: 30px;
+    width: 80vw;
+    min-height: 70vh;
+    margin: auto;
+
+    @media screen and (max-width: 810px) {
+        width: 90vw;
+    }
 `
 const Title = styled.h1`
     text-align: center;

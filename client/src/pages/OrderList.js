@@ -20,7 +20,6 @@ const Title = styled.h1`
 `
 
 const OrderList = () => {
-    
     const user = useSelector((state) => state.user.currentUser)
     const userId = user._id
     console.log(user)
