@@ -3,7 +3,6 @@
 ## Table of contents
 
 - [Overview](#overview)
-  - [The challenge](#the-challenge)
   - [Links](#links)
   - [Built with](#built-with)
   <!-- - [Continued development](#continued-development)
