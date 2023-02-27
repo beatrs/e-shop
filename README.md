@@ -29,7 +29,7 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 <!-- - Solution URL: [Add solution URL here](https://your-solution-url.com) -->
 - Client-side Live Site URL: [Client Site](https://e-shop-client-tau.vercel.app/)
-- Admin-side Live Site URL: [Admin Site](https://e-shop-admin.onrender.com)
+- Admin-side Live Site URL: [Admin Site](https://e-shop-admin-ten.vercel.app/)
 
 
 ### Built with
@@ -48,3 +48,9 @@ Then crop/optimize/edit your image however you like, add it to your project, and
   
 - Username: usera  
 - Password: password
+
+### Sample admin account
+  
+- Username: admin  
+- Password: admin123
+
